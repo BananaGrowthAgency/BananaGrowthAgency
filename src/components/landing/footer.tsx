@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS } from "@/lib/site";
+import { NAV_LINKS, FOOTER_TAGLINE } from "@/lib/site";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -49,7 +49,7 @@ export function Footer() {
             />
           </Link>
           <p className="mt-4 text-sm leading-relaxed text-foreground/45">
-            L&apos;agence de Growth Marketing qui vitamine votre croissance.
+            {FOOTER_TAGLINE}
           </p>
         </div>
 
@@ -67,7 +67,13 @@ export function Footer() {
             href="#"
             className="text-sm text-foreground/55 transition-colors hover:text-pink"
           >
-            Mentions légales
+            Politique de confidentialité
+          </Link>
+          <Link
+            href="#"
+            className="text-sm text-foreground/55 transition-colors hover:text-pink"
+          >
+            Mentions Légales
           </Link>
         </nav>
 

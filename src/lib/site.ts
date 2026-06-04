@@ -1,5 +1,11 @@
 export const CALENDLY_URL = "https://calendly.com/banana-growth-agency";
 
+export const HERO = {
+  title: "L'agence de Growth Marketing",
+  titleHighlight: "qui vitamine votre croissance",
+  cta: "Prendre Rendez-vous",
+} as const;
+
 export const NAV_LINKS = [
   { label: "Manifesto", href: "#manifesto" },
   { label: "Nos services", href: "#services" },
@@ -16,125 +22,169 @@ export const CLIENTS = [
   "Emily's Pillow",
 ] as const;
 
+export const PROBLEM = {
+  title: "Vous stagnez dans votre croissance ?",
+  intro:
+    "Il ne suffit pas de dépenser de l'argent sur Meta ou Google pour faire de la croissance.",
+  lines: [
+    "Aujourd'hui, les tendances évoluent vite. Et vos concurrents aussi.",
+    "Chaque semaine sans stratégie claire est une opportunité qu'ils prennent à votre place.",
+    "Créer une synergie entre vos canaux d'acquisition et leurs algorithmes est fondamental pour votre succès.",
+  ],
+  punch: "Et chez Banana Growth Agency, c'est ce que l'on fait de mieux.",
+  outro:
+    "Nous créons des stratégies marketing sur-mesure multicanaux qui garantissent le ROI de nos clients.",
+} as const;
+
+export const DIFFERENTIATION = {
+  title: "En quoi sommes-nous différents ?",
+  lines: [
+    "Depuis 10 ans, nous concevons, mettons en place et analysons chaque stratégie que nous déployons.",
+    "Nous maîtrisons les dynamiques actuelles de communication, les enjeux techniques et l'orchestration des canaux pour en tirer un maximum de performance.",
+    "En prenant pleinement en main l'ensemble des sujets d'acquisition, nous garantissons des résultats concrets.",
+  ],
+  highlights: [
+    "C'est simple : nous nous occupons de tout.",
+    "Notre seul objectif : vous faire gagner de l'argent.",
+  ],
+  closing:
+    "Prenons rendez-vous. En 30 minutes, nous identifierons ensemble les principaux leviers d'optimisation.",
+} as const;
+
+export const SERVICES_HEADING = "Un cocktail de services qui porte ses fruits";
+
 export const SERVICES = [
   {
     title: "Stratégie",
-    desc: "Une feuille de route claire, pensée pour votre marché et vos objectifs de croissance.",
+    desc: "Nous proposons une roadmap selon vos objectifs.",
     icon: "Compass",
   },
   {
     title: "Data",
-    desc: "Tracking, dashboards et décisions pilotées par la donnée, pas à l'intuition.",
+    desc: "Nous implémentons des trackers qui nourrissent les algorithmes.",
     icon: "BarChart3",
   },
   {
     title: "SEO",
-    desc: "Du trafic organique durable : technique, contenu et autorité.",
+    desc: "Nous créons stratégie et contenus que Google adore.",
     icon: "Search",
   },
   {
     title: "Visuels & Vidéos",
-    desc: "Des créas qui arrêtent le scroll et convertissent.",
+    desc: "Nous élaborons des contenus créatifs à forte performance.",
     icon: "Clapperboard",
   },
   {
     title: "Paid Marketing",
-    desc: "Meta, Google, TikTok : des campagnes rentables et scalables.",
+    desc: "Nous optimisons vos comptes publicitaires SEA & Social Ads.",
     icon: "Megaphone",
   },
   {
     title: "CRM & Emailing",
-    desc: "Automatisations et séquences qui transforment vos leads en clients.",
+    desc: "Nous optimisons l'ensemble de votre CRM & votre lead gen.",
     icon: "Mail",
   },
   {
     title: "Copywriting",
-    desc: "Les mots justes pour vendre, à chaque point de contact.",
+    desc: "Nous écrivons des textes qui génèrent du chiffre d'affaires.",
     icon: "PenLine",
   },
   {
     title: "Performance",
-    desc: "On optimise chaque euro investi pour maximiser le ROAS.",
+    desc: "Nous analysons et maximisons vos volumes de marge.",
     icon: "Gauge",
   },
   {
     title: "CRO",
-    desc: "Plus de conversions à trafic constant : A/B tests et UX.",
+    desc: "Nous optimisons votre taux de conversion et augmentons vos ventes.",
     icon: "MousePointerClick",
   },
 ] as const;
 
 export const PROCESS = [
   {
-    step: "01",
-    title: "On se rencontre",
-    desc: "Vous réservez un créneau, on échange sur votre situation.",
+    step: "1",
+    desc: "Vous réservez un rendez-vous avec notre équipe.",
   },
   {
-    step: "02",
-    title: "On cadre les objectifs",
-    desc: "On définit ensemble vos cibles et vos priorités de croissance.",
+    step: "2",
+    desc: "Nous échangeons sur vos objectifs, votre modèle d'affaire, votre stratégie d'acquisition actuelle.",
   },
   {
-    step: "03",
-    title: "On présente l'offre",
-    desc: "Une proposition sur-mesure, adaptée à vos enjeux.",
+    step: "3",
+    desc: "Nous présentons une offre d'accompagnement sur-mesure qui se déroulera sur 30 jours.",
   },
   {
-    step: "04",
-    title: "On déploie en 30 jours",
-    desc: "Mise en place rapide et résultats mesurables dès le 1er mois.",
+    step: "4",
+    desc: "Nous travaillons à fond les bananes pendant 30 jours pour structurer une stratégie d'acquisition sur-mesure et scalable.",
   },
 ] as const;
 
 export const USE_CASES = [
   {
-    tag: "Meta Ads",
-    metric: "10K€ → 150K€",
-    unit: "/mois de budget piloté",
-    desc: "Montée en charge maîtrisée sur les campagnes Meta.",
+    channel: "Meta Ads",
+    context: "E-Commerce qui souhaite scaler",
+    headline: "x15 sur le CA mensuel en 6 mois",
+    detail: "De 10 000€ à 150 000€/mois sur Meta Ads",
   },
   {
-    tag: "Google Ads",
-    metric: "7K€ → 170K€",
-    unit: "/mois de budget piloté",
-    desc: "Scaling rentable de l'acquisition Google.",
+    channel: "Google Ads",
+    context: "Business à forte intention d'achat",
+    headline: "x20 sur le CA mensuel en 12 mois",
+    detail: "De 7 000€ à 170 000€/mois de CA",
   },
   {
-    tag: "SEO",
-    metric: "100 → 900",
-    unit: "clics / jour",
-    desc: "x9 sur le trafic organique en quelques mois.",
+    channel: "SEO",
+    context: "E-Commerce à forte saisonnalité",
+    headline: "De 100 à 900 clics/jour en 12 mois",
+    detail: "Croissance du trafic organique multipliée par 9",
   },
   {
-    tag: "E-commerce",
-    metric: "+490%",
-    unit: "de CA annuel (Shopify)",
-    desc: "Croissance explosive d'une boutique Shopify.",
+    channel: "Acquisition 360°",
+    context: "E-Commerce BtoC sur Shopify",
+    headline: "+490% de CA d'une année à l'autre",
+    detail: "Stratégie d'acquisition complète déployée",
   },
   {
-    tag: "Optimisation Meta",
-    metric: "560%",
-    unit: "de ROAS",
-    desc: "Rentabilité multipliée sur les campagnes existantes.",
+    channel: "Meta Ads",
+    context: "E-Commerce qui souhaite maximiser sa marge",
+    headline: "ROAS de 560%",
+    detail:
+      "20 000€ de CA supplémentaire par mois pour 3 650€ de dépenses",
   },
   {
-    tag: "SEO",
-    metric: "60 → 500",
-    unit: "clics / jour",
-    desc: "Croissance organique régulière et durable.",
+    channel: "SEO",
+    context: "E-Commerce qui veut augmenter son trafic organique",
+    headline: "De 60 à 500 clics/jour en 6 mois",
+    detail: "Trafic organique multiplié par 8",
   },
   {
-    tag: "Lead Gen B2B",
-    metric: "~75",
-    unit: "prospects / mois à 5€/lead",
-    desc: "Génération de leads qualifiés à coût maîtrisé.",
+    channel: "Lead Gen B2B",
+    context: "Génération de leads (brochure d'informations)",
+    headline: "~75 prospects/mois à moins de 5€/lead",
+    detail:
+      "Leads qualifiés : nom, prénom, email, téléphone, entreprise, poste",
   },
 ] as const;
 
 export const TESTIMONIAL = {
+  heading: "Ils adorent notre cocktail",
   quote:
-    "Ultra professionnels et réactifs. L'équipe a compris nos enjeux dès le départ et les résultats ont suivi.",
+    "Ultra professionnels et réactifs, ils ont su analyser et corriger des erreurs liées au e-commerce. Ils ont augmenté les revenus tout en faisant attention à notre marge. Ce sont des « game changers » dans la vie d'une entreprise.",
   author: "Laure Lagarde",
-  role: "Fondatrice, Emily's Pillow",
+  role: "Fondatrice & PDG d'Emily's Pillow",
 } as const;
+
+export const FINAL_CTA = {
+  title: "Prêt à vitaminer votre croissance ?",
+  subtitle: "Réservez votre audit gratuit.",
+  cta: "Prendre Rendez-vous",
+} as const;
+
+export const CONTACT = {
+  title: "Une question ?",
+  subtitle: "Notre équipe est à votre écoute.",
+} as const;
+
+export const FOOTER_TAGLINE =
+  "L'agence de Growth Marketing qui vitamine la croissance des entreprises ambitieuses.";

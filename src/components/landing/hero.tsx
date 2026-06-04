@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { CALENDLY_URL } from "@/lib/site";
+import { CALENDLY_URL, HERO } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 
 const stats = [
@@ -52,9 +52,9 @@ export function Hero() {
           transition={{ delay: 0.18, duration: 0.6 }}
           className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
         >
-          L&apos;agence qui{" "}
-          <span className="text-spectrum">vitamine</span>
-          <br className="hidden sm:block" /> votre croissance
+          {HERO.title}
+          <br className="hidden sm:block" />{" "}
+          <span className="text-spectrum">{HERO.titleHighlight}</span>
         </motion.h1>
 
         <motion.p
@@ -63,9 +63,8 @@ export function Hero() {
           transition={{ delay: 0.26, duration: 0.6 }}
           className="mx-auto mt-6 max-w-xl text-base text-foreground/65 md:text-lg"
         >
-          Stratégie, acquisition, data et créa réunies sous un même toit.
-          On conçoit, déploie et analyse les leviers qui font décoller votre
-          business.
+          Nous créons des stratégies marketing sur-mesure multicanaux qui
+          garantissent le ROI de nos clients.
         </motion.p>
 
         <motion.div
@@ -75,7 +74,7 @@ export function Hero() {
           className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
         >
           <CtaButton href={CALENDLY_URL} className="w-full sm:w-auto">
-            Prendre rendez-vous
+            {HERO.cta}
           </CtaButton>
           <CtaButton href="#services" variant="ghost" className="w-full sm:w-auto">
             Découvrir nos services

@@ -1,4 +1,4 @@
-import { CALENDLY_URL } from "@/lib/site";
+import { CALENDLY_URL, FINAL_CTA } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 import { Reveal } from "@/components/reveal";
 
@@ -14,11 +14,10 @@ export function Cta() {
               croissance&nbsp;?
             </h2>
             <p className="relative mx-auto mt-4 max-w-md text-foreground/60">
-              30 minutes pour cadrer vos objectifs et voir comment on peut
-              accélérer votre acquisition.
+              {FINAL_CTA.subtitle}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaButton href={CALENDLY_URL}>Prendre rendez-vous</CtaButton>
+              <CtaButton href={CALENDLY_URL}>{FINAL_CTA.cta}</CtaButton>
             </div>
           </div>
         </Reveal>

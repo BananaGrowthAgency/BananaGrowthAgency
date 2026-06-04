@@ -3,7 +3,7 @@ import { Reveal } from "@/components/reveal";
 
 export function Process() {
   return (
-    <section id="manifesto" className="relative px-4 py-20 md:py-28">
+    <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-[0.2em] text-pink/80">
@@ -18,14 +18,11 @@ export function Process() {
         <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((p, i) => (
             <Reveal key={p.step} delay={i * 0.08}>
-              <div className="relative h-full rounded-2xl border border-white/10 bg-ink-soft/60 p-6">
-                <span className="font-display text-4xl font-bold text-pink/30">
+              <div className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-ink-soft/60 p-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-pink/30 bg-pink/10 font-display text-lg font-bold text-spectrum">
                   {p.step}
                 </span>
-                <h3 className="mt-3 font-display text-lg font-semibold text-foreground">
-                  {p.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/55">
+                <p className="mt-4 text-sm leading-relaxed text-foreground/65">
                   {p.desc}
                 </p>
               </div>

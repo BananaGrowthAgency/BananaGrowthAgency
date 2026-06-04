@@ -37,10 +37,6 @@ export function Services() {
             Un cocktail de services qui{" "}
             <span className="text-spectrum">porte ses fruits</span>
           </h2>
-          <p className="mt-4 text-foreground/60">
-            Tous les leviers d&apos;acquisition gérés en interne, du premier clic
-            à la conversion.
-          </p>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
