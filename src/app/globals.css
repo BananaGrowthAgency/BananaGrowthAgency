@@ -1,26 +1,188 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  /* Banana Growth — neon spectrum extracted from the BGA logo */
+  --color-cyan: #25e0ff;
+  --color-yellow: #ffd21e;
+  --color-orange: #ff7a18;
+  --color-pink: #ff2e9a;
+  --color-magenta: #e11d8f;
+  --color-ink: #050308;
+  --color-ink-soft: #0b0810;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #050308;
+  --foreground: #f6f4fb;
+  --line: rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-pink);
+    color: #050308;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Spectrum gradient text — cyan → yellow → orange → pink (the signature) */
+  .text-spectrum {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-cyan) 0%,
+      var(--color-yellow) 35%,
+      var(--color-orange) 62%,
+      var(--color-pink) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Single-hue neon glows */
+  .text-neon-pink {
+    color: var(--color-pink);
+    text-shadow:
+      0 0 5px rgba(255, 46, 154, 0.6),
+      0 0 20px rgba(255, 46, 154, 0.4),
+      0 0 44px rgba(255, 46, 154, 0.22);
+  }
+  .text-neon-cyan {
+    color: var(--color-cyan);
+    text-shadow:
+      0 0 5px rgba(37, 224, 255, 0.6),
+      0 0 20px rgba(37, 224, 255, 0.4),
+      0 0 44px rgba(37, 224, 255, 0.22);
+  }
+
+  /* Spectrum background fill (CTAs) */
+  .bg-spectrum {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-cyan) 0%,
+      var(--color-yellow) 38%,
+      var(--color-orange) 64%,
+      var(--color-pink) 100%
+    );
+  }
+
+  /* Neon ring — pink/cyan dual glow */
+  .neon-ring {
+    border: 1px solid rgba(255, 46, 154, 0.4);
+    box-shadow:
+      0 0 0 1px rgba(37, 224, 255, 0.1),
+      0 0 22px rgba(255, 46, 154, 0.18),
+      inset 0 0 18px rgba(37, 224, 255, 0.05);
+  }
+  .neon-ring-strong {
+    box-shadow:
+      0 0 20px rgba(255, 46, 154, 0.5),
+      0 0 50px rgba(255, 122, 24, 0.28),
+      0 0 80px rgba(37, 224, 255, 0.18);
+  }
+
+  /* Glass card on dark */
+  .glass {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.014)
+    );
+    backdrop-filter: blur(10px);
+  }
+
+  /* Ambient multicolor radial glow */
+  .bg-spectrum-radial {
+    background-image:
+      radial-gradient(38% 34% at 22% 8%, rgba(37, 224, 255, 0.16) 0%, transparent 70%),
+      radial-gradient(40% 36% at 52% 0%, rgba(255, 210, 30, 0.12) 0%, transparent 70%),
+      radial-gradient(44% 40% at 82% 14%, rgba(255, 46, 154, 0.18) 0%, transparent 70%);
+  }
+
+  /* Subtle grid (neutral) */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 80%);
+    mask-image: radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 80%);
+  }
+
+  /* Gradient hairline border via padding trick */
+  .border-spectrum {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--color-ink-soft), var(--color-ink-soft)) padding-box,
+      linear-gradient(100deg, var(--color-cyan), var(--color-pink)) border-box;
+  }
+
+  .animate-marquee {
+    animation: marquee-x var(--marquee-duration, 38s) linear infinite;
+  }
+  .animate-float {
+    animation: float-y var(--float-dur, 6s) ease-in-out infinite;
+  }
+  .neon-pulse {
+    animation: neon-pulse 3.4s ease-in-out infinite;
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes neon-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float,
+  .neon-pulse {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
