@@ -36,8 +36,14 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 px-4 py-12">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
+    <footer className="relative overflow-hidden border-t border-white/10 px-4 py-12">
+      {/* Fond noir dégradé */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-soft via-ink to-black" />
+      {/* Glows néon multicolores */}
+      <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-60" />
+      <div className="pointer-events-none absolute -bottom-24 left-1/2 h-64 w-[60%] -translate-x-1/2 rounded-full bg-pink/20 blur-[100px]" />
+
+      <div className="relative mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
           <Link href="#top" className="flex items-center">
             <Image
@@ -93,7 +99,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-center text-xs text-foreground/35">
+      <div className="relative mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-center text-xs text-foreground/35">
         © {new Date().getFullYear()} Banana Growth Agency. Tous droits réservés.
       </div>
     </footer>

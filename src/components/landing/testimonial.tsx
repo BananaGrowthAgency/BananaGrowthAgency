@@ -1,6 +1,9 @@
+import Image from "next/image";
 import { Quote } from "lucide-react";
 import { TESTIMONIAL } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
+
+const AVATARS = ["team-01", "team-02", "team-03", "team-04", "team-05"];
 
 export function Testimonial() {
   return (
@@ -14,6 +17,18 @@ export function Testimonial() {
             Ils adorent notre{" "}
             <span className="text-spectrum">cocktail</span>
           </h2>
+          <div className="mt-6 flex items-center justify-center -space-x-3">
+            {AVATARS.map((a) => (
+              <Image
+                key={a}
+                src={`/canva/photos/${a}.jpg`}
+                alt=""
+                width={48}
+                height={48}
+                className="h-11 w-11 rounded-full border-2 border-ink object-cover ring-1 ring-pink/30"
+              />
+            ))}
+          </div>
         </Reveal>
         <Reveal>
           <figure className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 p-8 text-center neon-ring md:p-12">

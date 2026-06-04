@@ -5,18 +5,21 @@ export function Contact() {
   return (
     <section id="contact" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-2xl">
-        <Reveal className="text-center">
-          <span className="text-xs uppercase tracking-[0.2em] text-pink/80">
-            Contact
-          </span>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            {CONTACT.title}
-          </h2>
-          <p className="mt-3 text-foreground/60">{CONTACT.subtitle}</p>
-        </Reveal>
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 p-8 neon-ring md:p-12">
+            <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
 
-        <Reveal delay={0.1}>
-          <form className="mt-10 space-y-4">
+            <div className="relative text-center">
+              <span className="text-xs uppercase tracking-[0.2em] text-pink/80">
+                Contact
+              </span>
+              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                {CONTACT.title}
+              </h2>
+              <p className="mt-3 text-foreground/60">{CONTACT.subtitle}</p>
+            </div>
+
+            <form className="relative mt-10 space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <input
                 type="text"
@@ -39,11 +42,12 @@ export function Contact() {
             />
             <button
               type="submit"
-              className="w-full rounded-full bg-spectrum px-6 py-3 text-sm font-semibold text-ink neon-ring-strong transition-all hover:brightness-110 active:scale-[0.99]"
+              className="w-full rounded-full bg-spectrum px-6 py-3 text-sm font-semibold text-white neon-ring-strong transition-all hover:brightness-110 active:scale-[0.99]"
             >
               Envoyer
             </button>
-          </form>
+            </form>
+          </div>
         </Reveal>
       </div>
     </section>

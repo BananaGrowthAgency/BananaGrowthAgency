@@ -1,29 +1,6 @@
-import {
-  Compass,
-  BarChart3,
-  Search,
-  Clapperboard,
-  Megaphone,
-  Mail,
-  PenLine,
-  Gauge,
-  MousePointerClick,
-  type LucideIcon,
-} from "lucide-react";
 import { SERVICES } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
-
-const ICONS: Record<string, LucideIcon> = {
-  Compass,
-  BarChart3,
-  Search,
-  Clapperboard,
-  Megaphone,
-  Mail,
-  PenLine,
-  Gauge,
-  MousePointerClick,
-};
+import { NeonIcon } from "@/components/neon-icon";
 
 export function Services() {
   return (
@@ -39,25 +16,23 @@ export function Services() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s, i) => {
-            const Icon = ICONS[s.icon];
-            return (
-              <Reveal key={s.title} delay={(i % 3) * 0.08}>
-                <div className="group h-full rounded-2xl border border-white/10 bg-ink-soft/60 p-6 transition-all duration-300 hover:border-pink/40 hover:neon-ring">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-pink/20 bg-pink/10 text-pink transition-colors group-hover:bg-pink/15">
-                    {Icon && <Icon className="h-5 w-5" />}
-                  </div>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-foreground">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-foreground/55">
-                    {s.desc}
-                  </p>
-                </div>
-              </Reveal>
-            );
-          })}
+        <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 md:mt-20 lg:grid-cols-3">
+          {SERVICES.map((s, i) => (
+            <Reveal key={s.title} delay={(i % 3) * 0.08}>
+              <div className="flex flex-col items-center text-center">
+                <NeonIcon
+                  src={`/canva/icons/${s.icon}.png`}
+                  className="h-24 w-24 object-contain md:h-32 md:w-32"
+                />
+                <h3 className="mt-5 font-display text-xl font-bold text-foreground md:text-2xl">
+                  {s.title}
+                </h3>
+                <p className="mx-auto mt-3 max-w-[16rem] text-sm leading-relaxed text-foreground/55">
+                  {s.desc}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

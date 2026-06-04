@@ -1,6 +1,7 @@
 import { CALENDLY_URL, FINAL_CTA } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 import { Reveal } from "@/components/reveal";
+import { NeonIcon } from "@/components/neon-icon";
 
 export function Cta() {
   return (
@@ -9,6 +10,13 @@ export function Cta() {
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-pink/30 bg-ink-soft/80 px-6 py-14 text-center neon-ring md:px-12 md:py-20">
             <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
+            <NeonIcon
+              src="/canva/steps/growth.png"
+              width={160}
+              height={160}
+              className="h-16 w-16 object-contain md:h-20 md:w-20"
+              wrapperClassName="relative mx-auto mb-6 block w-fit"
+            />
             <h2 className="relative font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
               Prêt à <span className="text-spectrum">vitaminer</span> votre
               croissance&nbsp;?

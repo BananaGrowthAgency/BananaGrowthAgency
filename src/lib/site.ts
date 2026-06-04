@@ -14,12 +14,27 @@ export const NAV_LINKS = [
 ] as const;
 
 export const CLIENTS = [
-  "Kite&Connect",
-  "The Artist Academy",
-  "Nikito",
-  "The Family",
-  "M6 Publicité",
-  "Emily's Pillow",
+  { name: "OnlyKart", file: "onlykart" },
+  { name: "Space", file: "space" },
+  { name: "Evermind", file: "evermind" },
+  { name: "Prison Island", file: "prison-island" },
+  { name: "Emily's Pillow", file: "emilys" },
+  { name: "O'Scarlett", file: "oscarlett" },
+  { name: "Fun Space", file: "funspace" },
+  { name: "Overland", file: "overland" },
+  { name: "Ludykid", file: "ludykid" },
+  { name: "Laser Karting", file: "laser-karting" },
+  { name: "Classic Racing School", file: "karting-club" },
+  { name: "Colonies", file: "colonies" },
+  { name: "Golden Moustache", file: "golden-moustache" },
+  { name: "Cercle", file: "cercle" },
+  { name: "Mister EV", file: "mister-ev" },
+  { name: "The Family", file: "the-family" },
+  { name: "The Artist Academy", file: "the-artist" },
+  { name: "Héritage", file: "heritage" },
+  { name: "Nikito", file: "nikito" },
+  { name: "Kute & Connect", file: "kute-connect" },
+  { name: "M6 Publicité", file: "m6" },
 ] as const;
 
 export const PROBLEM = {
@@ -57,47 +72,47 @@ export const SERVICES = [
   {
     title: "Stratégie",
     desc: "Nous proposons une roadmap selon vos objectifs.",
-    icon: "Compass",
+    icon: "target",
   },
   {
     title: "Data",
     desc: "Nous implémentons des trackers qui nourrissent les algorithmes.",
-    icon: "BarChart3",
+    icon: "analytics",
   },
   {
     title: "SEO",
     desc: "Nous créons stratégie et contenus que Google adore.",
-    icon: "Search",
+    icon: "web",
   },
   {
     title: "Visuels & Vidéos",
     desc: "Nous élaborons des contenus créatifs à forte performance.",
-    icon: "Clapperboard",
+    icon: "video",
   },
   {
     title: "Paid Marketing",
     desc: "Nous optimisons vos comptes publicitaires SEA & Social Ads.",
-    icon: "Megaphone",
+    icon: "rocket",
   },
   {
     title: "CRM & Emailing",
     desc: "Nous optimisons l'ensemble de votre CRM & votre lead gen.",
-    icon: "Mail",
+    icon: "email",
   },
   {
     title: "Copywriting",
     desc: "Nous écrivons des textes qui génèrent du chiffre d'affaires.",
-    icon: "PenLine",
+    icon: "content",
   },
   {
     title: "Performance",
     desc: "Nous analysons et maximisons vos volumes de marge.",
-    icon: "Gauge",
+    icon: "growth",
   },
   {
     title: "CRO",
     desc: "Nous optimisons votre taux de conversion et augmentons vos ventes.",
-    icon: "MousePointerClick",
+    icon: "roi",
   },
 ] as const;
 
@@ -126,24 +141,28 @@ export const USE_CASES = [
     context: "E-Commerce qui souhaite scaler",
     headline: "x15 sur le CA mensuel en 6 mois",
     detail: "De 10 000€ à 150 000€/mois sur Meta Ads",
+    image: "meta-scale",
   },
   {
     channel: "Google Ads",
     context: "Business à forte intention d'achat",
     headline: "x20 sur le CA mensuel en 12 mois",
     detail: "De 7 000€ à 170 000€/mois de CA",
+    image: "google-ads",
   },
   {
     channel: "SEO",
     context: "E-Commerce à forte saisonnalité",
     headline: "De 100 à 900 clics/jour en 12 mois",
     detail: "Croissance du trafic organique multipliée par 9",
+    image: "seo-clicks",
   },
   {
     channel: "Acquisition 360°",
     context: "E-Commerce BtoC sur Shopify",
     headline: "+490% de CA d'une année à l'autre",
     detail: "Stratégie d'acquisition complète déployée",
+    image: "shopify-490",
   },
   {
     channel: "Meta Ads",
@@ -151,12 +170,7 @@ export const USE_CASES = [
     headline: "ROAS de 560%",
     detail:
       "20 000€ de CA supplémentaire par mois pour 3 650€ de dépenses",
-  },
-  {
-    channel: "SEO",
-    context: "E-Commerce qui veut augmenter son trafic organique",
-    headline: "De 60 à 500 clics/jour en 6 mois",
-    detail: "Trafic organique multiplié par 8",
+    image: "meta-roas",
   },
   {
     channel: "Lead Gen B2B",
@@ -164,6 +178,14 @@ export const USE_CASES = [
     headline: "~75 prospects/mois à moins de 5€/lead",
     detail:
       "Leads qualifiés : nom, prénom, email, téléphone, entreprise, poste",
+    image: "meta-leads",
+  },
+  {
+    channel: "SEO",
+    context: "E-Commerce qui veut augmenter son trafic organique",
+    headline: "De 60 à 500 clics/jour en 6 mois",
+    detail: "Trafic organique multiplié par 8",
+    image: null,
   },
 ] as const;
 

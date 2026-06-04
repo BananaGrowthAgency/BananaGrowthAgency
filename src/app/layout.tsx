@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
+import { Inter, Oswald, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,10 +7,11 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const spaceGrotesk = Space_Grotesk({
+// Police de titres — Oswald (condensee, grasse, tres lisible).
+const displayFont = Oswald({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -40,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} antialiased`}
+      className={`${inter.variable} ${displayFont.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-screen overflow-x-hidden">{children}</body>
     </html>

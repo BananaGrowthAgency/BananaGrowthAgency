@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { CALENDLY_URL, HERO } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
+import { NeonIcon } from "@/components/neon-icon";
+import { CountUp } from "@/components/count-up";
 
 const stats = [
   { value: "10 ans", label: "d'expertise growth" },
@@ -15,8 +16,16 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-spectrum-radial px-4 pb-20 pt-32 md:pt-40"
+      className="relative overflow-hidden px-4 pb-20 pt-24 md:pt-28"
     >
+      {/* Spot de lumière blanche type projecteur, centré sur le logo + le texte */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(42% 48% at 50% 30%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 38%, transparent 72%)",
+        }}
+      />
       <div className="pointer-events-none absolute inset-0 bg-grid" />
 
       <div className="relative mx-auto max-w-4xl text-center">
@@ -26,12 +35,14 @@ export function Hero() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mb-8 flex justify-center"
         >
-          <Image
+          <NeonIcon
             src="/logo/logoCol.png"
             alt="Banana Growth Agency"
-            width={300}
-            height={310}
-            className="h-44 w-auto animate-float drop-shadow-[0_0_40px_rgba(255,46,154,0.4)] sm:h-52 md:h-60"
+            width={460}
+            height={475}
+            className="h-60 w-auto animate-float sm:h-72 md:h-80"
+            wrapperClassName="block w-fit"
+            amount={0.4}
             priority
           />
         </motion.div>
@@ -92,8 +103,11 @@ export function Hero() {
               key={s.label}
               className="glass rounded-2xl border border-white/10 px-3 py-4"
             >
-              <dt className="font-display text-xl font-bold text-spectrum md:text-2xl">
-                {s.value}
+              <dt>
+                <CountUp
+                  value={s.value}
+                  className="font-display text-xl font-bold text-spectrum md:text-2xl"
+                />
               </dt>
               <dd className="mt-1 text-[11px] leading-tight text-foreground/55 md:text-xs">
                 {s.label}
