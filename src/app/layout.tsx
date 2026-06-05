@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Geist_Mono } from "next/font/google";
+import { Inter, Bebas_Neue, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,11 +7,11 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-// Police de titres — Oswald (condensee, grasse, tres lisible).
-const displayFont = Oswald({
+// Police de titres — Bebas Neue (haute, condensee, capitales).
+const displayFont = Bebas_Neue({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["600", "700"],
+  weight: ["400"],
 });
 
 const geistMono = Geist_Mono({

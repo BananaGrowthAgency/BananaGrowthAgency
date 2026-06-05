@@ -10,10 +10,10 @@ export function Contact() {
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
 
             <div className="relative text-center">
-              <span className="text-xs uppercase tracking-[0.2em] text-pink/80">
+              <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
                 Contact
               </span>
-              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+              <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
                 {CONTACT.title}
               </h2>
               <p className="mt-3 text-foreground/60">{CONTACT.subtitle}</p>
@@ -42,9 +42,13 @@ export function Contact() {
             />
             <button
               type="submit"
-              className="w-full rounded-full bg-spectrum px-6 py-3 text-sm font-semibold text-white neon-ring-strong transition-all hover:brightness-110 active:scale-[0.99]"
+              className="group relative w-full overflow-hidden rounded-full bg-spectrum px-6 py-3 text-sm font-semibold text-white neon-ring-strong transition-all duration-300 will-change-transform hover:-translate-y-0.5 hover:scale-[1.02] hover:brightness-110 hover:shadow-[0_0_28px_rgba(255,46,154,0.7),0_0_60px_rgba(255,122,24,0.45),0_0_90px_rgba(37,224,255,0.25)] active:translate-y-0 active:scale-[0.99]"
             >
-              Envoyer
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+              />
+              <span className="relative z-10">Envoyer</span>
             </button>
             </form>
           </div>

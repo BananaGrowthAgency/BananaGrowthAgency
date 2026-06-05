@@ -7,10 +7,10 @@ export function UseCases() {
     <section id="use-cases" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs uppercase tracking-[0.2em] text-pink/80">
+          <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
             Use Case
           </span>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Ils ont obtenu des{" "}
             <span className="text-spectrum">résultats fructueux</span>
           </h2>
@@ -28,7 +28,7 @@ export function UseCases() {
                 <p className="mx-auto mt-5 max-w-md font-display text-xl font-semibold leading-snug text-foreground md:text-2xl">
                   {u.context}
                 </p>
-                <p className="mt-6 font-display text-3xl font-bold leading-tight text-spectrum md:text-4xl">
+                <p className="text-spectrum-shimmer mt-6 font-display text-3xl font-bold leading-tight md:text-4xl">
                   {u.headline}
                 </p>
                 <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-foreground/55 md:text-base">
@@ -49,15 +49,15 @@ export function UseCases() {
               <Reveal key={`${u.channel}-${i}`}>
                 <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
                   <div className={reversed ? "md:order-2" : ""}>
-                    <div className="relative mx-auto w-full max-w-xl">
-                      <div className="pointer-events-none absolute inset-0 -z-10 bg-spectrum-radial opacity-60 blur-2xl" />
+                    <div className="group relative mx-auto w-full max-w-xl">
+                      <div className="pointer-events-none absolute inset-0 -z-10 bg-spectrum-radial opacity-60 blur-2xl transition-opacity duration-500 group-hover:opacity-90" />
                       <Image
                         src={`/canva/usecases/${u.image}.png`}
                         alt={`Résultat ${u.channel} — ${u.headline}`}
                         width={1600}
                         height={1100}
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="h-auto w-full object-contain drop-shadow-[0_18px_50px_rgba(255,46,154,0.18)]"
+                        className="h-auto w-full object-contain drop-shadow-[0_18px_50px_rgba(255,46,154,0.18)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                       />
                     </div>
                   </div>

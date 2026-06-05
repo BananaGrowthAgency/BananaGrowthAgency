@@ -21,7 +21,11 @@ import {
   GrowthMock,
 } from "@/components/landing/mocks/step-mocks";
 
-const META: { title: string; icon: string; Visual: ComponentType }[] = [
+const META: {
+  title: string;
+  icon: string;
+  Visual: ComponentType<{ active?: boolean }>;
+}[] = [
   { title: "Réservez", icon: "booking", Visual: BookingMock },
   { title: "Échangeons", icon: "chat", Visual: ChatMock },
   { title: "Votre offre", icon: "offer", Visual: OfferMock },
@@ -71,10 +75,10 @@ function StepIcon({
 function Header() {
   return (
     <div className="flex flex-col items-center text-center">
-      <span className="text-xs uppercase tracking-[0.2em] text-pink/80">
+      <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
         Notre méthode
       </span>
-      <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+      <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
         Une recette simple et <span className="text-spectrum">efficace</span>
       </h2>
     </div>
@@ -211,7 +215,7 @@ function ProcessHorizontal() {
         </div>
 
         {/* Bodies : description + visuel */}
-        <div className="relative mt-10 flex items-start overflow-hidden">
+        <div className="relative mt-16 flex items-start overflow-hidden">
           <motion.div
             style={{ x, willChange: "transform" }}
             className="flex w-[200vw] items-start"
@@ -223,14 +227,14 @@ function ProcessHorizontal() {
               >
                 <div
                   className={cn(
-                    "step-dim mx-auto flex w-full max-w-md flex-col items-start gap-8",
+                    "step-dim mx-auto flex w-full max-w-md flex-col items-start gap-12",
                     i === litActive && "is-lit",
                   )}
                 >
                   <p className="max-w-md text-base leading-relaxed text-foreground/65 md:text-lg">
                     {row.desc}
                   </p>
-                  <row.Visual />
+                  <row.Visual active={i === litActive} />
                 </div>
               </div>
             ))}
@@ -298,7 +302,7 @@ function ProcessMobile() {
           <div
             key={`m-${row.step}`}
             className={cn(
-              "step-dim flex w-screen shrink-0 snap-center flex-col gap-5 px-6",
+              "step-dim flex w-screen shrink-0 snap-center flex-col gap-8 px-6",
               i === active && "is-lit",
             )}
           >
@@ -318,7 +322,7 @@ function ProcessMobile() {
             <p className="max-w-md text-base leading-relaxed text-foreground/65">
               {row.desc}
             </p>
-            <row.Visual />
+            <row.Visual active={i === active} />
           </div>
         ))}
       </div>

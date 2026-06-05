@@ -16,7 +16,7 @@ export function Differentiation() {
             <div className="relative grid md:grid-cols-2">
               {/* Texte — à gauche */}
               <div className="p-8 md:p-12">
-                <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                <h2 className="font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
                   En quoi sommes-nous{" "}
                   <span className="text-spectrum">différents&nbsp;?</span>
                 </h2>
@@ -34,20 +34,22 @@ export function Differentiation() {
 
                 <ul className="mt-8 space-y-4">
                   {DIFFERENTIATION.highlights.map((h, i) => (
-                    <li key={h} className="flex items-center gap-3">
-                      <span className="neon-step is-lit flex-none">
-                        <Image
-                          src={`/canva/steps/${HIGHLIGHT_ICONS[i] ?? "trophy"}.png`}
-                          alt=""
-                          width={96}
-                          height={96}
-                          className="h-11 w-11 object-contain"
-                        />
-                      </span>
-                      <span className="font-display text-lg font-semibold text-foreground">
-                        {h}
-                      </span>
-                    </li>
+                    <Reveal key={h} delay={0.15 + i * 0.18}>
+                      <li className="flex items-center gap-3">
+                        <span className="neon-step is-lit flex-none">
+                          <Image
+                            src={`/canva/steps/${HIGHLIGHT_ICONS[i] ?? "trophy"}.png`}
+                            alt=""
+                            width={96}
+                            height={96}
+                            className="h-11 w-11 object-contain"
+                          />
+                        </span>
+                        <span className="font-display text-lg font-semibold text-foreground">
+                          {h}
+                        </span>
+                      </li>
+                    </Reveal>
                   ))}
                 </ul>
 

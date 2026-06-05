@@ -103,6 +103,34 @@
     margin-inline: -0.12em;
   }
 
+  /* Variante animée : le dégradé balaie lentement le texte (titres clés). */
+  .text-spectrum-shimmer {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-yellow) 0%,
+      var(--color-orange) 25%,
+      var(--color-pink) 50%,
+      var(--color-orange) 75%,
+      var(--color-yellow) 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-inline: 0.12em;
+    margin-inline: -0.12em;
+    animation: spectrum-shimmer 6s linear infinite;
+  }
+
+  @keyframes spectrum-shimmer {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 220% 50%;
+    }
+  }
+
   /* Single-hue neon glows */
   .text-neon-pink {
     color: var(--color-pink);
@@ -142,6 +170,32 @@
       0 0 20px rgba(255, 46, 154, 0.5),
       0 0 50px rgba(255, 122, 24, 0.28),
       0 0 80px rgba(37, 224, 255, 0.18);
+  }
+
+  /* Bordure dégradé chaud (orange → rose) qui suit les coins arrondis —
+     technique mask : seul l'anneau de 1px est visible, le fond de l'élément
+     (et son backdrop-blur) est préservé. */
+  .border-warm {
+    position: relative;
+  }
+  .border-warm::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      100deg,
+      var(--color-orange) 0%,
+      var(--color-pink) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.55;
+    pointer-events: none;
   }
 
   /* Glass card on dark */
@@ -363,7 +417,8 @@
   .animate-float,
   .neon-pulse,
   .neon-on,
-  .neon-out {
+  .neon-out,
+  .text-spectrum-shimmer {
     animation: none;
   }
   .neon-off,

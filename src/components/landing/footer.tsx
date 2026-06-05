@@ -43,9 +43,9 @@ export function Footer() {
       <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-60" />
       <div className="pointer-events-none absolute -bottom-24 left-1/2 h-64 w-[60%] -translate-x-1/2 rounded-full bg-pink/20 blur-[100px]" />
 
-      <div className="relative mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
-        <div className="max-w-xs">
-          <Link href="#top" className="flex items-center">
+      <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 text-center md:flex-row md:items-start md:justify-between md:text-left">
+        <div className="flex max-w-xs flex-col items-center md:items-start">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logo/logoRow.png"
               alt="Banana Growth Agency"
@@ -59,7 +59,7 @@ export function Footer() {
           </p>
         </div>
 
-        <nav className="flex flex-wrap gap-x-8 gap-y-2">
+        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-start md:gap-x-8">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
@@ -70,13 +70,13 @@ export function Footer() {
             </Link>
           ))}
           <Link
-            href="#"
+            href="/politique-de-confidentialite"
             className="text-sm text-foreground/55 transition-colors hover:text-pink"
           >
             Politique de confidentialité
           </Link>
           <Link
-            href="#"
+            href="/mentions-legales"
             className="text-sm text-foreground/55 transition-colors hover:text-pink"
           >
             Mentions Légales

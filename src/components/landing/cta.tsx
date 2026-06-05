@@ -17,8 +17,8 @@ export function Cta() {
               className="h-16 w-16 object-contain md:h-20 md:w-20"
               wrapperClassName="relative mx-auto mb-6 block w-fit"
             />
-            <h2 className="relative font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Prêt à <span className="text-spectrum">vitaminer</span> votre
+            <h2 className="relative font-display text-4xl font-bold tracking-tight text-foreground md:text-6xl">
+              Prêt à <span className="text-spectrum">vitaminer</span>&nbsp;votre
               croissance&nbsp;?
             </h2>
             <p className="relative mx-auto mt-4 max-w-md text-foreground/60">

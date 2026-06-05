@@ -28,7 +28,7 @@ export function Hero() {
       />
       <div className="pointer-events-none absolute inset-0 bg-grid" />
 
-      <div className="relative mx-auto max-w-4xl text-center">
+      <div className="relative mx-auto max-w-6xl text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -43,25 +43,16 @@ export function Hero() {
             className="h-60 w-auto animate-float sm:h-72 md:h-80"
             wrapperClassName="block w-fit"
             amount={0.4}
+            once
             priority
           />
         </motion.div>
-
-        <motion.span
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full border border-pink/30 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-pink/90"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-pink neon-pulse" />
-          Growth Marketing Agency
-        </motion.span>
 
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.18, duration: 0.6 }}
-          className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+          className="mt-2 font-display text-4xl font-bold uppercase leading-[1.0] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
         >
           {HERO.title}
           <br className="hidden sm:block" />{" "}

@@ -7,10 +7,11 @@ export const HERO = {
 } as const;
 
 export const NAV_LINKS = [
-  { label: "Manifesto", href: "#manifesto" },
-  { label: "Nos services", href: "#services" },
-  { label: "Avis", href: "#avis" },
-  { label: "Use Case", href: "#use-cases" },
+  { label: "Manifesto", href: "/#manifesto" },
+  { label: "Nos services", href: "/#services" },
+  { label: "Avis", href: "/#avis" },
+  { label: "Use Case", href: "/#use-cases" },
+  { label: "Parcs de loisirs", href: "/accompagnement-marketing-digital-parc-de-loisir" },
 ] as const;
 
 export const CLIENTS = [
@@ -197,6 +198,63 @@ export const TESTIMONIAL = {
   role: "Fondatrice & PDG d'Emily's Pillow",
 } as const;
 
+export const TESTIMONIALS = [
+  {
+    quote:
+      "Sérieux, pro, force de proposition, disponible… tout ce dont on peut rêver quand on cherche un accompagnement.",
+    author: "Hugo Perpere",
+    role: "Fondateur & PDG, Nikito",
+    photo: "home-hugo-perpere",
+    logo: "nikito",
+    company: "Nikito",
+  },
+  {
+    quote:
+      "Très bonne expertise, une bonne pédagogie et un bon drive de growth. Je recommande !",
+    author: "Hugo Manoukian",
+    role: "Investisseur & Co-fondateur, Maison Serena",
+    photo: "home-hugo-manoukian",
+    logo: "maison-serena",
+    company: "Maison Serena",
+  },
+  {
+    quote:
+      "Ultra professionnels et réactifs, ils ont su analyser et corriger des erreurs liées au e-commerce. Ils ont augmenté les revenus tout en faisant attention à notre marge. Ce sont des « game changers » dans la vie d'une entreprise.",
+    author: "Laure Lagarde",
+    role: "Fondatrice & PDG, Emily's Pillow",
+    photo: "home-laure-lagarde",
+    logo: "emilys",
+    company: "Emily's Pillow",
+  },
+  {
+    quote:
+      "En seulement deux mois, nous avons observé une augmentation significative du trafic, du panier moyen et des ventes, le tout en maintenant un suivi rigoureux de la rentabilité.",
+    author: "Marie Esquellisse",
+    role: "Co-fondatrice, Cercle",
+    photo: "team-05",
+    logo: "cercle",
+    company: "Cercle",
+  },
+  {
+    quote:
+      "Ils ont été très rapides pour comprendre et analyser nos besoins. Ils ont proposé des solutions efficaces à un très bon rapport qualité-prix. C'est très rare de rencontrer de bons marketeurs avec une vision globale et digitale.",
+    author: "Laurent Houitte",
+    role: "Fondateur & PDG, Kite & Connect",
+    photo: "home-laurent-houitte",
+    logo: "kute-connect",
+    company: "Kite & Connect",
+  },
+  {
+    quote:
+      "Ce qui les distingue, c'est leur aptitude à combiner une analyse minutieuse des données avec une compréhension instinctive du marché et des tendances. Je recommande à 100% !",
+    author: "Emeline Siron",
+    role: "Fondatrice & PDG, Evermind",
+    photo: "home-emeline-siron",
+    logo: "evermind",
+    company: "Evermind",
+  },
+] as const;
+
 export const FINAL_CTA = {
   title: "Prêt à vitaminer votre croissance ?",
   subtitle: "Réservez votre audit gratuit.",
@@ -210,3 +268,160 @@ export const CONTACT = {
 
 export const FOOTER_TAGLINE =
   "L'agence de Growth Marketing qui vitamine la croissance des entreprises ambitieuses.";
+
+/* ─────────────────────────────────────────────────────────────
+   Landing dédiée : parcs de loisirs indoor & outdoor
+   ───────────────────────────────────────────────────────────── */
+export const PARC = {
+  hero: {
+    eyebrow: "Parcs de loisirs indoor & outdoor",
+    title: "L'agence de Growth Marketing dédiée aux",
+    titleHighlight: "parcs de loisirs",
+    subtitle:
+      "Nous générons de la fréquentation pour les acteurs du loisir actif — indoor comme outdoor — avec une méthode clés en main, réplicable et mesurable.",
+    cta: "Réserver mon audit",
+  },
+  problem: {
+    eyebrow: "Vous gérez un parc de loisir ?",
+    lines: [
+      "Chez Banana Growth Agency, nous avons plus de 5 ans d'expérience dans la génération de fréquentation pour les acteurs du loisir actif.",
+      "Nous savons à quel point le marketing peut être complexe et chronophage pour les équipes opérationnelles.",
+      "Sans compter que le ROI de vos actions marketing reste souvent flou.",
+    ],
+    punch:
+      "Nous avons développé une méthode unique, clés en main, réplicable et mesurable, pour maximiser le taux de remplissage de votre parc.",
+  },
+  stats: [
+    { value: "+20 parcs", label: "Accompagnés avec succès" },
+    { value: "+5 ans", label: "d'expérience avec les parcs" },
+    { value: "1 méthode", label: "Scalable et réplicable" },
+  ],
+  mission: {
+    eyebrow: "Notre mission",
+    title: "Notre mission est simple",
+    lines: [
+      "Nous simplifions votre marketing et transmettons à vos équipes les méthodes, process et stratégies nécessaires pour accélérer votre croissance.",
+      "Nous pilotons votre stratégie marketing, afin que vous puissiez vous concentrer sur l'essentiel : l'expérience client et la gestion de votre parc.",
+    ],
+    ctaTitle: "Prêt(e) à booster la fréquentation de votre parc ?",
+    ctaText:
+      "Prenons rendez-vous. En 30 minutes, nous identifierons ensemble vos principaux leviers d'optimisation.",
+    cta: "Réserver mon audit",
+  },
+  services: [
+    {
+      title: "Stratégie Digitale",
+      desc: "Des stratégies éprouvées pour booster la fréquentation.",
+      icon: "target",
+    },
+    {
+      title: "Suivi de Campagnes",
+      desc: "Des campagnes conçues et pilotées pour remplir votre parc.",
+      icon: "growth",
+    },
+    {
+      title: "SEO",
+      desc: "Stratégie et contenus que Google adore.",
+      icon: "web",
+    },
+    {
+      title: "Tracking",
+      desc: "Des trackers qui nourrissent les algorithmes et maximisent votre CA.",
+      icon: "analytics",
+    },
+    {
+      title: "Reporting",
+      desc: "Rapports détaillés pour suivre, ajuster et maximiser vos résultats.",
+      icon: "roi",
+    },
+    {
+      title: "Paid Marketing",
+      desc: "Nous optimisons vos comptes publicitaires SEA & Social Ads.",
+      icon: "rocket",
+    },
+    {
+      title: "Visuels & Vidéos",
+      desc: "Des contenus créatifs pensés pour la performance.",
+      icon: "video",
+    },
+    {
+      title: "Stratégie d'influence",
+      desc: "Connectez votre marque aux créateurs qui font cliquer.",
+      icon: "influence",
+    },
+    {
+      title: "Accompagnement",
+      desc: "Un coaching complet pour former vos équipes et booster vos résultats.",
+      icon: "partnership",
+    },
+  ],
+  testimonials: [
+    {
+      quote:
+        "Banana Growth Agency vous accompagne avec dynamisme, enthousiasme et intelligence dans votre stratégie de marketing digital. Ils permettent aussi de vulgariser cet aspect désormais clef de la communication mais pas toujours accessible et compréhensible par tous. En tant qu'entrepreneur dans le loisirs depuis plus de 20 ans, ils viennent nous donner LE coup de pouce essentiel dans un secteur en pleine croissance et de plus en plus concurrentiel.",
+      author: "Sylvain Houeix",
+      role: "Directeur Général, Overland Games",
+      photo: "parc-01",
+      logo: "overland",
+      company: "Overland Games",
+    },
+    {
+      quote:
+        "Banana Growth Agency nous apportent un accompagnement complet et constant sur nos sujets de marketing digital, toujours avec une grande réactivité. J'ai particulièrement apprécié leur approche : simples, organisés, toujours force de proposition et capables de challenger nos habitudes pour aller plus loin. Leur expertise du digital appliquée aux loisirs actifs fait vraiment la différence. Mon équipe et moi sommes ravis de cette collaboration, que je recommande sans réserve.",
+      author: "Emeric Ruget",
+      role: "Président OnlyKart, Lyon",
+      photo: "parc-02",
+      logo: "onlykart",
+      company: "OnlyKart",
+    },
+    {
+      quote:
+        "Banana Growth s'occupent de la communication de plusieurs sociétés avec lesquelles je travaille. Très modernes dans leur approche, ils vont droit au but pour maximiser l'efficacité. Moins de blabla plus d'action et des choses concrètes mises en place ! Le tout, bien sûr, en restant disponible et en expliquant les choses de manière pédagogique ! L'adaptation se fait avec chaque client, parfait pour moi !",
+      author: "Guillaume Groell",
+      role: "Indoor Entertainment Entrepreneur, SPACE",
+      photo: "parc-03",
+      logo: "space",
+      company: "SPACE",
+    },
+    {
+      quote:
+        "Sérieux, pro, force de proposition, disponible… tout ce dont on peut rêver quand on cherche un accompagnement.",
+      author: "Hugo Perpere",
+      role: "Fondateur & PDG de Nikito",
+      photo: "parc-04",
+      logo: "nikito",
+      company: "Nikito",
+    },
+  ],
+  faq: [
+    {
+      q: "Combien coûte votre prestation ?",
+      a: "Chaque parc est différent : nos accompagnements sont sur-mesure et adaptés à vos objectifs et à votre maturité digitale. Le tarif est défini après un premier audit gratuit, en toute transparence.",
+    },
+    {
+      q: "Quel doit être le budget média ?",
+      a: "Nous travaillons avec des budgets variés. L'objectif n'est pas de dépenser plus, mais mieux : nous calibrons l'investissement média en fonction de votre capacité d'accueil et de votre rentabilité cible.",
+    },
+    {
+      q: "Comment ça fonctionne ?",
+      a: "Après un audit gratuit, nous construisons une stratégie sur-mesure sur 30 jours, puis nous la déployons et la pilotons. Vous gardez une visibilité complète sur les résultats grâce à un reporting clair.",
+    },
+    {
+      q: "En combien de temps puis-je avoir un retour sur investissement ?",
+      a: "Les premiers signaux apparaissent dès les premières semaines. Un ROI mesurable s'installe généralement sous quelques mois, selon votre saisonnalité et vos leviers actuels.",
+    },
+    {
+      q: "Y a-t-il un contrat ?",
+      a: "Nous fonctionnons avec des engagements clairs et flexibles. L'objectif est de bâtir une relation de confiance fondée sur les résultats, pas de vous enfermer.",
+    },
+    {
+      q: "Pourquoi vous choisir ?",
+      a: "Parce que nous combinons une vraie expertise growth et une connaissance fine du secteur des loisirs actifs. Nous prenons en main l'ensemble de votre acquisition et nous engageons sur des résultats concrets.",
+    },
+  ],
+  finalCta: {
+    title: "Votre croissance commence ici.",
+    subtitle: "Réservez votre audit gratuit et remplissez votre parc.",
+    cta: "Réserver mon audit",
+  },
+} as const;
