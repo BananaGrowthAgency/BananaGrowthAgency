@@ -12,14 +12,6 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M14 9h2.5V6H14c-2.2 0-3.5 1.4-3.5 3.6V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.6c0-.4.2-.6.6-.6Z" />
-    </svg>
-  );
-}
-
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -29,9 +21,16 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const socials = [
-  { Icon: InstagramIcon, href: "https://instagram.com", label: "Instagram" },
-  { Icon: FacebookIcon, href: "https://facebook.com", label: "Facebook" },
-  { Icon: LinkedinIcon, href: "https://linkedin.com", label: "LinkedIn" },
+  {
+    Icon: InstagramIcon,
+    href: "https://www.instagram.com/bananagrowthagency/",
+    label: "Instagram",
+  },
+  {
+    Icon: LinkedinIcon,
+    href: "https://www.linkedin.com/in/benjaminjoneau/?locale=fr_FR",
+    label: "LinkedIn",
+  },
 ];
 
 export function Footer() {

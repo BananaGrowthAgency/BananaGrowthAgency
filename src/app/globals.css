@@ -98,9 +98,13 @@
     color: transparent;
     /* L'italique deborde de sa boite : on ajoute un peu d'air horizontal
        (compense par une marge negative) pour eviter que les lettres soient
-       rognees sur les cotes. */
-    padding-inline: 0.12em;
-    margin-inline: -0.12em;
+       rognees sur les cotes. box-decoration-break:clone applique ce padding
+       a CHAQUE ligne (et pas seulement au debut/fin du texte) — indispensable
+       quand un titre en degrade passe sur plusieurs lignes. */
+    padding-inline: 0.2em;
+    margin-inline: -0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 
   /* Variante animée : le dégradé balaie lentement le texte (titres clés). */
@@ -117,8 +121,10 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    padding-inline: 0.12em;
-    margin-inline: -0.12em;
+    padding-inline: 0.2em;
+    margin-inline: -0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
     animation: spectrum-shimmer 6s linear infinite;
   }
 

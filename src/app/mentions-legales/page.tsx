@@ -48,7 +48,8 @@ export default function MentionsLegalesPage() {
         <ul className="space-y-1">
           <li>Numéro de TVA : FR39985119981</li>
           <li>
-            Hébergement : Wix (1 Grant&apos;s Row, Dublin 2 D02HX96, Irlande)
+            Hébergement : Vercel Inc. (340 S Lemon Ave #4133, Walnut, CA 91789,
+            États-Unis)
           </li>
           <li>Directeur de la publication : Benjamin Joneau</li>
           <li>

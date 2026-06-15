@@ -7,7 +7,7 @@ export function UseCases() {
     <section id="use-cases" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
+          <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
             Use Case
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
@@ -22,7 +22,7 @@ export function UseCases() {
 
             const text = (
               <div className="text-center">
-                <span className="inline-block rounded-full border border-pink/20 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-pink/85">
+                <span className="inline-block rounded-full border border-pink/25 px-6 py-2.5 text-xl font-bold uppercase tracking-wide text-pink/90 md:text-2xl">
                   {u.channel}
                 </span>
                 <p className="mx-auto mt-5 max-w-md font-display text-xl font-semibold leading-snug text-foreground md:text-2xl">
@@ -36,14 +36,6 @@ export function UseCases() {
                 </p>
               </div>
             );
-
-            if (!u.image) {
-              return (
-                <Reveal key={`${u.channel}-${i}`} className="mx-auto max-w-2xl">
-                  {text}
-                </Reveal>
-              );
-            }
 
             return (
               <Reveal key={`${u.channel}-${i}`}>

@@ -65,7 +65,7 @@ export function Differentiation() {
               {/* Image — à droite, pleine hauteur */}
               <div className="relative min-h-[18rem] border-t border-pink/15 md:min-h-full md:border-l md:border-t-0">
                 <Image
-                  src="/canva/photos/qui-sommes-nous.jpg"
+                  src="/canva/photos/equipe-banana.jpg"
                   alt="L'équipe Banana Growth Agency"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

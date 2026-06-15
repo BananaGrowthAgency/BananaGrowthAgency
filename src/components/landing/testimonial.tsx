@@ -45,6 +45,9 @@ type TestimonialProps = {
   items?: readonly TestimonialItem[];
   eyebrow?: string;
   title?: ReactNode;
+  /** Hauteur réservée pour la citation, afin que les flèches ne bougent pas
+   * d'un avis à l'autre. À augmenter pour des témoignages plus longs. */
+  quoteMinH?: string;
 };
 
 export function Testimonial({
@@ -55,6 +58,7 @@ export function Testimonial({
       Ils adorent notre <span className="text-spectrum">cocktail</span>
     </>
   ),
+  quoteMinH = "min-h-[13rem] md:min-h-[9rem]",
 }: TestimonialProps) {
   const [[index, dir], setState] = useState<[number, number]>([0, 0]);
   const [paused, setPaused] = useState(false);
@@ -85,7 +89,7 @@ export function Testimonial({
     <section id="avis" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-5xl">
         <Reveal className="mb-10 text-center">
-          <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
+          <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
             {eyebrow}
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
@@ -120,7 +124,12 @@ export function Testimonial({
                 >
                   <Stars />
 
-                  <blockquote className="mt-6 max-w-3xl font-display text-lg font-medium italic leading-relaxed text-foreground md:text-2xl">
+                  <blockquote
+                    className={cn(
+                      "mt-6 flex max-w-3xl items-center justify-center font-display text-lg font-medium italic leading-relaxed text-foreground md:text-2xl",
+                      quoteMinH,
+                    )}
+                  >
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
 

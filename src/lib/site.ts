@@ -1,4 +1,6 @@
-export const CALENDLY_URL = "https://calendly.com/banana-growth-agency";
+export const CALENDLY_URL = "https://calendly.com/banana-growth/30min";
+export const CALENDLY_AUDIT_PARC =
+  "https://calendly.com/banana-growth/audit-offert-parc-de-loisir";
 
 export const HERO = {
   title: "L'agence de Growth Marketing",
@@ -142,7 +144,7 @@ export const USE_CASES = [
     context: "E-Commerce qui souhaite scaler",
     headline: "x15 sur le CA mensuel en 6 mois",
     detail: "De 10 000€ à 150 000€/mois sur Meta Ads",
-    image: "meta-scale",
+    image: "meta-leads",
   },
   {
     channel: "Google Ads",
@@ -179,14 +181,14 @@ export const USE_CASES = [
     headline: "~75 prospects/mois à moins de 5€/lead",
     detail:
       "Leads qualifiés : nom, prénom, email, téléphone, entreprise, poste",
-    image: "meta-leads",
+    image: "meta-scale",
   },
   {
     channel: "SEO",
     context: "E-Commerce qui veut augmenter son trafic organique",
     headline: "De 60 à 500 clics/jour en 6 mois",
     detail: "Trafic organique multiplié par 8",
-    image: null,
+    image: "seo-search-console",
   },
 ] as const;
 
@@ -231,7 +233,7 @@ export const TESTIMONIALS = [
       "En seulement deux mois, nous avons observé une augmentation significative du trafic, du panier moyen et des ventes, le tout en maintenant un suivi rigoureux de la rentabilité.",
     author: "Marie Esquellisse",
     role: "Co-fondatrice, Cercle",
-    photo: "team-05",
+    photo: "home-marie-esquellisse",
     logo: "cercle",
     company: "Cercle",
   },
@@ -396,27 +398,27 @@ export const PARC = {
   faq: [
     {
       q: "Combien coûte votre prestation ?",
-      a: "Chaque parc est différent : nos accompagnements sont sur-mesure et adaptés à vos objectifs et à votre maturité digitale. Le tarif est défini après un premier audit gratuit, en toute transparence.",
+      a: "Notre accompagnement est clair et sans surprise : 1200 €/mois. Ce tarif inclut : l'implémentation du tracking, la gestion de vos campagnes Google Ads & Meta Ads, le suivi et les recommandations SEO, la création d'un batch de visuels, vidéos et textes pour promouvoir votre parc, le reporting mensuel, la mise en place d'une stratégie influenceur, le coaching et l'accompagnement de vos équipes. Tout ce dont vous avez besoin pour attirer plus de visiteurs et développer votre chiffre d'affaires, pour le prix d'un alternant.",
     },
     {
-      q: "Quel doit être le budget média ?",
-      a: "Nous travaillons avec des budgets variés. L'objectif n'est pas de dépenser plus, mais mieux : nous calibrons l'investissement média en fonction de votre capacité d'accueil et de votre rentabilité cible.",
+      q: "Quel doit être le budget ?",
+      a: "Il n'y a pas de minimum imposé pour vos campagnes publicitaires. Le budget Ads est défini et ajusté en fonction de la taille de votre parc, de la saisonnalité et de vos objectifs de fréquentation. À noter : ce budget est distinct de nos honoraires mensuels. Notre rôle est d'optimiser chaque euro investi pour maximiser vos résultats.",
     },
     {
       q: "Comment ça fonctionne ?",
-      a: "Après un audit gratuit, nous construisons une stratégie sur-mesure sur 30 jours, puis nous la déployons et la pilotons. Vous gardez une visibilité complète sur les résultats grâce à un reporting clair.",
+      a: "Nous activons les leviers les plus performants pour votre parc : SEO, Meta Ads, Google Ads et Marketing d'influence. Nous connaissons déjà quels mots-clés et quelles audiences génèrent des réservations, nous concentrons donc vos investissements uniquement sur ce qui fonctionne. Notre méthode est simple : des techniques éprouvées, testées sur d'autres parcs, que nous adaptons à votre situation pour créer un véritable cercle vertueux de croissance.",
     },
     {
       q: "En combien de temps puis-je avoir un retour sur investissement ?",
-      a: "Les premiers signaux apparaissent dès les premières semaines. Un ROI mesurable s'installe généralement sous quelques mois, selon votre saisonnalité et vos leviers actuels.",
+      a: "Nous pouvons déployer une stratégie Google Ads et Meta Ads ultra-optimisée en moins de 15 jours. Notre objectif : générer +20 % de fréquentation – nouveaux visiteurs et clients réguliers – dès les 45 premiers jours.",
     },
     {
       q: "Y a-t-il un contrat ?",
-      a: "Nous fonctionnons avec des engagements clairs et flexibles. L'objectif est de bâtir une relation de confiance fondée sur les résultats, pas de vous enfermer.",
+      a: "Non, aucun engagement. Vous êtes libre d'arrêter la collaboration à tout moment, sans justification. Nous préférons nous concentrer sur ce qui compte vraiment : vous apporter de la valeur, obtenir des résultats concrets et vous satisfaire pleinement. Notre approche repose sur la confiance et la performance, pas sur les contraintes contractuelles.",
     },
     {
       q: "Pourquoi vous choisir ?",
-      a: "Parce que nous combinons une vraie expertise growth et une connaissance fine du secteur des loisirs actifs. Nous prenons en main l'ensemble de votre acquisition et nous engageons sur des résultats concrets.",
+      a: "Nous accompagnons déjà +20 parcs de loisirs en France et connaissons parfaitement leurs enjeux. De la publicité à la data, de la création de contenus à l'influence, nous maîtrisons tous les leviers de croissance. Notre mission : augmenter votre visibilité, attirer plus de visiteurs et booster votre chiffre d'affaires.",
     },
   ],
   finalCta: {

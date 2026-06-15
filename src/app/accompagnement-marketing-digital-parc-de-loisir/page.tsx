@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CALENDLY_URL, PARC } from "@/lib/site";
+import { CALENDLY_AUDIT_PARC, PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { Contact } from "@/components/landing/contact";
@@ -63,7 +63,7 @@ function ParcHero() {
         </Reveal>
         <Reveal delay={0.24}>
           <div className="mt-9 flex justify-center">
-            <CtaButton href={CALENDLY_URL}>{PARC.hero.cta}</CtaButton>
+            <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.hero.cta}</CtaButton>
           </div>
         </Reveal>
       </div>
@@ -76,7 +76,7 @@ function ParcProblem() {
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-3xl text-center">
         <Reveal>
-          <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
+          <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
             {PARC.problem.eyebrow}
           </span>
         </Reveal>
@@ -123,7 +123,7 @@ function ParcMission() {
           <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 px-6 py-12 text-center neon-ring md:px-12 md:py-16">
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
             <div className="relative">
-              <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
+              <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
                 {PARC.mission.eyebrow}
               </span>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
@@ -148,7 +148,7 @@ function ParcMission() {
                   {PARC.mission.ctaText}
                 </p>
                 <div className="mt-7 flex justify-center">
-                  <CtaButton href={CALENDLY_URL}>{PARC.mission.cta}</CtaButton>
+                  <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.mission.cta}</CtaButton>
                 </div>
               </div>
             </div>
@@ -164,7 +164,7 @@ function ParcServices() {
     <section id="services" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
+          <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
             Nos services
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
@@ -217,7 +217,7 @@ function ParcFinalCta() {
               {PARC.finalCta.subtitle}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaButton href={CALENDLY_URL}>{PARC.finalCta.cta}</CtaButton>
+              <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.finalCta.cta}</CtaButton>
             </div>
           </div>
         </Reveal>
@@ -237,6 +237,7 @@ export default function ParcDeLoisirPage() {
         <ParcServices />
         <Testimonial
           items={PARC.testimonials}
+          quoteMinH="min-h-[26rem] sm:min-h-[18rem] md:min-h-[15rem]"
           title={
             <>
               Ils nous font déjà <span className="text-spectrum">confiance</span>

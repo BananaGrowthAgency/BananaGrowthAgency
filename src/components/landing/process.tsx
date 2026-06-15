@@ -75,7 +75,7 @@ function StepIcon({
 function Header() {
   return (
     <div className="flex flex-col items-center text-center">
-      <span className="text-sm uppercase tracking-[0.2em] md:text-base text-pink/80">
+      <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
         Notre méthode
       </span>
       <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
