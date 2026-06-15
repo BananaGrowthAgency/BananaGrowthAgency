@@ -158,7 +158,7 @@ export const USE_CASES = [
     context: "E-Commerce à forte saisonnalité",
     headline: "De 100 à 900 clics/jour en 12 mois",
     detail: "Croissance du trafic organique multipliée par 9",
-    image: "seo-clicks",
+    image: "seo-search-console",
   },
   {
     channel: "Acquisition 360°",
@@ -188,7 +188,7 @@ export const USE_CASES = [
     context: "E-Commerce qui veut augmenter son trafic organique",
     headline: "De 60 à 500 clics/jour en 6 mois",
     detail: "Trafic organique multiplié par 8",
-    image: "seo-search-console",
+    image: "seo-clicks",
   },
 ] as const;
 
