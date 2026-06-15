@@ -84,7 +84,7 @@ export const SERVICES = [
   },
   {
     title: "SEO",
-    desc: "Nous créons stratégie et contenus que Google adore.",
+    desc: "Nous créons des sites internet et des stratégies SEO que Google adore.",
     icon: "web",
   },
   {
