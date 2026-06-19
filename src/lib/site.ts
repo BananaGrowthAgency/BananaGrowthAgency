@@ -322,8 +322,8 @@ export const PARC = {
       icon: "growth",
     },
     {
-      title: "SEO",
-      desc: "Stratégie et contenus que Google adore.",
+      title: "SEO & Site web",
+      desc: "Création de site internet et stratégies SEO que Google adore.",
       icon: "web",
     },
     {
