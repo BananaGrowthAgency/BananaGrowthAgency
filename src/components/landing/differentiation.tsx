@@ -13,7 +13,7 @@ export function Differentiation() {
           <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 neon-ring">
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
 
-            <div className="relative grid md:grid-cols-2">
+            <div className="relative grid lg:grid-cols-2">
               {/* Texte — à gauche */}
               <div className="p-8 md:p-12">
                 <h2 className="font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
@@ -63,13 +63,13 @@ export function Differentiation() {
               </div>
 
               {/* Image — à droite, pleine hauteur */}
-              <div className="relative min-h-[18rem] border-t border-pink/15 md:min-h-full md:border-l md:border-t-0">
+              <div className="relative min-h-[24rem] border-t border-pink/15 lg:min-h-full lg:border-l lg:border-t-0">
                 <Image
                   src="/canva/photos/equipe-banana.jpg"
                   alt="L'équipe Banana Growth Agency"
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-[center_22%] lg:object-center"
                 />
               </div>
             </div>
