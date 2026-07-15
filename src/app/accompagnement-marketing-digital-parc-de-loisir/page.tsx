@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { CALENDLY_AUDIT_PARC, PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
@@ -118,38 +119,55 @@ function ParcProblem() {
 function ParcMission() {
   return (
     <section className="relative px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 px-6 py-12 text-center neon-ring md:px-12 md:py-16">
+          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 neon-ring">
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
-            <div className="relative">
-              <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
-                {PARC.mission.eyebrow}
-              </span>
-              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                {PARC.mission.title}
-              </h2>
-              <div className="mx-auto mt-6 max-w-2xl space-y-4">
-                {PARC.mission.lines.map((line, i) => (
-                  <p
-                    key={i}
-                    className="text-base leading-relaxed text-foreground/65 md:text-lg"
-                  >
-                    {line}
-                  </p>
-                ))}
+
+            {/* Bloc mission — 2 colonnes : photo à gauche, texte à droite */}
+            <div className="relative grid items-stretch md:grid-cols-2">
+              {/* Photo équipe (identique à l'accueil) */}
+              <div className="relative min-h-[20rem] border-b border-pink/15 md:min-h-full md:border-b-0 md:border-r">
+                <Image
+                  src="/canva/photos/equipe-banana.jpg"
+                  alt="L'équipe Banana Growth Agency"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-[center_22%]"
+                />
               </div>
 
-              <div className="mt-10 border-t border-white/10 pt-8">
-                <p className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                  {PARC.mission.ctaTitle}
-                </p>
-                <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60 md:text-base">
-                  {PARC.mission.ctaText}
-                </p>
-                <div className="mt-7 flex justify-center">
-                  <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.mission.cta}</CtaButton>
+              {/* Texte de la mission */}
+              <div className="px-6 py-12 text-center md:px-10 md:py-16 md:text-left">
+                <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
+                  {PARC.mission.eyebrow}
+                </span>
+                <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                  {PARC.mission.title}
+                </h2>
+                <div className="mt-6 space-y-4">
+                  {PARC.mission.lines.map((line, i) => (
+                    <p
+                      key={i}
+                      className="text-base leading-relaxed text-foreground/65 md:text-lg"
+                    >
+                      {line}
+                    </p>
+                  ))}
                 </div>
+              </div>
+            </div>
+
+            {/* CTA — pleine largeur sous le bloc 2 colonnes */}
+            <div className="relative border-t border-white/10 px-6 py-8 text-center md:px-12 md:py-10">
+              <p className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                {PARC.mission.ctaTitle}
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60 md:text-base">
+                {PARC.mission.ctaText}
+              </p>
+              <div className="mt-7 flex justify-center">
+                <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.mission.cta}</CtaButton>
               </div>
             </div>
           </div>
