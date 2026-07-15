@@ -68,6 +68,13 @@ export function Footer() {
               {l.label}
             </Link>
           ))}
+          {/* Maillage SEO vers AlloCréateur (lien suivi, même onglet). */}
+          <a
+            href="https://allocreator.com"
+            className="text-sm text-foreground/55 transition-colors hover:text-pink"
+          >
+            Trouver des influenceurs
+          </a>
           <Link
             href="/politique-de-confidentialite"
             className="text-sm text-foreground/55 transition-colors hover:text-pink"
