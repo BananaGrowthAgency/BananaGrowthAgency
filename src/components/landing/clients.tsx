@@ -12,7 +12,7 @@ export function Clients() {
         <div className="flex w-max animate-marquee items-center gap-14 pr-14 hover:[animation-play-state:paused]">
           {row.map((c, i) => {
             const overlayStyle = {
-              ["--logo-mask" as string]: `url(/canva/clients/${c.file}.png)`,
+              ["--logo-mask" as string]: `url(/canva/clients/${c.file}.webp)`,
               WebkitMaskSize: "contain",
               maskSize: "contain",
               WebkitMaskRepeat: "no-repeat",
@@ -27,7 +27,7 @@ export function Clients() {
               >
                 {/* Image invisible : sert uniquement à réserver la largeur du logo. */}
                 <Image
-                  src={`/canva/clients/${c.file}.png`}
+                  src={`/canva/clients/${c.file}.webp`}
                   alt={c.name}
                   width={200}
                   height={80}

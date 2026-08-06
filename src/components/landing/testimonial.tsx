@@ -157,7 +157,7 @@ export function Testimonial({
                   {/* Logo entreprise */}
                   <div className="mt-4 flex h-10 items-center justify-center">
                     <Image
-                      src={`/canva/clients/${t.logo}.png`}
+                      src={`/canva/clients/${t.logo}.webp`}
                       alt={t.company}
                       width={200}
                       height={64}
