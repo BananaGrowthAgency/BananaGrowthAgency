@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS, FOOTER_TAGLINE } from "@/lib/site";
+import { NAV_LINKS, FOOTER_TAGLINE, FOOTER_PRODUCT } from "@/lib/site";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -98,8 +98,21 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-center text-xs text-foreground/35">
-        © {new Date().getFullYear()} Banana Growth Agency. Tous droits réservés.
+      <div className="relative mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-center">
+        <p className="mx-auto max-w-2xl text-sm leading-relaxed text-foreground/45">
+          <Link
+            href={FOOTER_PRODUCT.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-foreground/75 underline decoration-pink/40 underline-offset-4 transition-colors hover:text-pink hover:decoration-pink"
+          >
+            {FOOTER_PRODUCT.name}
+          </Link>
+          , {FOOTER_PRODUCT.text}
+        </p>
+        <p className="mt-4 text-xs text-foreground/35">
+          © {new Date().getFullYear()} Banana Growth Agency. Tous droits réservés.
+        </p>
       </div>
     </footer>
   );

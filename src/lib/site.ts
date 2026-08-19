@@ -271,6 +271,13 @@ export const CONTACT = {
 export const FOOTER_TAGLINE =
   "L'agence de Growth Marketing qui vitamine la croissance des entreprises ambitieuses.";
 
+/** Produit maison mis en avant en pied de page, sur toutes les pages. */
+export const FOOTER_PRODUCT = {
+  name: "Allocreator",
+  href: "https://www.allocreator.com/",
+  text: "la plateforme pour trouver des influenceurs et créateurs de contenus proche de votre établissement.",
+};
+
 /* ─────────────────────────────────────────────────────────────
    Landing dédiée : parcs de loisirs indoor & outdoor
    ───────────────────────────────────────────────────────────── */
