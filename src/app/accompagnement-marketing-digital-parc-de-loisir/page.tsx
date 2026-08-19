@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { CALENDLY_AUDIT_PARC, PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
@@ -118,38 +119,55 @@ function ParcProblem() {
 function ParcMission() {
   return (
     <section className="relative px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 px-6 py-12 text-center neon-ring md:px-12 md:py-16">
+          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 neon-ring">
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
-            <div className="relative">
-              <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
-                {PARC.mission.eyebrow}
-              </span>
-              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                {PARC.mission.title}
-              </h2>
-              <div className="mx-auto mt-6 max-w-2xl space-y-4">
-                {PARC.mission.lines.map((line, i) => (
-                  <p
-                    key={i}
-                    className="text-base leading-relaxed text-foreground/65 md:text-lg"
-                  >
-                    {line}
+
+            <div className="relative grid lg:grid-cols-[1.55fr_1fr]">
+              {/* Texte — à gauche */}
+              <div className="px-6 py-12 text-center md:px-10 md:py-14">
+                <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
+                  {PARC.mission.eyebrow}
+                </span>
+                <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                  {PARC.mission.title}
+                </h2>
+                <div className="mx-auto mt-6 max-w-xl space-y-4">
+                  {PARC.mission.lines.map((line, i) => (
+                    <p
+                      key={i}
+                      className="text-base leading-relaxed text-foreground/65 md:text-lg"
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="mt-10 border-t border-white/10 pt-8">
+                  <p className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                    {PARC.mission.ctaTitle}
                   </p>
-                ))}
+                  <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60 md:text-base">
+                    {PARC.mission.ctaText}
+                  </p>
+                  <div className="mt-7 flex justify-center">
+                    <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.mission.cta}</CtaButton>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-10 border-t border-white/10 pt-8">
-                <p className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                  {PARC.mission.ctaTitle}
-                </p>
-                <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60 md:text-base">
-                  {PARC.mission.ctaText}
-                </p>
-                <div className="mt-7 flex justify-center">
-                  <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.mission.cta}</CtaButton>
-                </div>
+              {/* Photo de l'équipe — à droite, pleine hauteur.
+                  Portrait cadré serré : on remonte le point d'ancrage pour
+                  garder les visages dans le champ quand la colonne rogne. */}
+              <div className="relative min-h-[22rem] border-t border-pink/15 lg:min-h-full lg:border-l lg:border-t-0">
+                <Image
+                  src="/canva/photos/equipe-banana.jpg"
+                  alt="L'équipe Banana Growth Agency"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover object-[center_25%] lg:object-center"
+                />
               </div>
             </div>
           </div>
