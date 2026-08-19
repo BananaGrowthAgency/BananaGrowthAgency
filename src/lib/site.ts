@@ -8,6 +8,9 @@ export const HERO = {
   cta: "Prendre Rendez-vous",
 } as const;
 
+/** Origine publique du site. Sert aux métadonnées, au sitemap et au robots.txt. */
+export const SITE_URL = "https://www.banana-growth.agency";
+
 export const NAV_LINKS = [
   { label: "Manifesto", href: "/#manifesto" },
   { label: "Nos services", href: "/#services" },

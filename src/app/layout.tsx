@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 import Script from "next/script";
 import { Inter, Bebas_Neue, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   title: "Banana Growth Agency — L'agence Growth qui vitamine votre croissance",
   description:
     "Agence de Growth Marketing : stratégie, data, SEO, paid, CRM, contenu et CRO. 10 ans d'expertise pour accélérer votre acquisition.",
-  metadataBase: new URL("https://www.banana-growth.agency"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "Banana Growth Agency",
     description:
