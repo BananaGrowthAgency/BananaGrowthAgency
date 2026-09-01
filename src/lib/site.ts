@@ -407,10 +407,6 @@ export const PARC = {
   ],
   faq: [
     {
-      q: "Combien coûte votre prestation ?",
-      a: "Notre accompagnement est clair et sans surprise : 1200 €/mois. Ce tarif inclut : l'implémentation du tracking, la gestion de vos campagnes Google Ads & Meta Ads, le suivi et les recommandations SEO, la création d'un batch de visuels, vidéos et textes pour promouvoir votre parc, le reporting mensuel, la mise en place d'une stratégie influenceur, le coaching et l'accompagnement de vos équipes. Tout ce dont vous avez besoin pour attirer plus de visiteurs et développer votre chiffre d'affaires, pour le prix d'un alternant.",
-    },
-    {
       q: "Quel doit être le budget ?",
       a: "Il n'y a pas de minimum imposé pour vos campagnes publicitaires. Le budget Ads est défini et ajusté en fonction de la taille de votre parc, de la saisonnalité et de vos objectifs de fréquentation. À noter : ce budget est distinct de nos honoraires mensuels. Notre rôle est d'optimiser chaque euro investi pour maximiser vos résultats.",
     },
