@@ -44,6 +44,32 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+
+      /* Réorganisation de la section ressources.
+         Les fiches outils passent sous /logiciel-gestion-parc-de-loisirs, et
+         les plans de taggage remontent d'un cran sous leur propre racine.
+         L'ordre compte : les règles les plus spécifiques d'abord, sinon la
+         redirection du hub avalerait les pages filles. */
+      {
+        source: "/outils-parc-de-loisirs/:outil/tracking/:plateforme",
+        destination: "/plan-de-taggage-parc-de-loisirs/:outil/:plateforme",
+        permanent: true,
+      },
+      {
+        source: "/outils-parc-de-loisirs/:outil/tracking",
+        destination: "/plan-de-taggage-parc-de-loisirs/:outil",
+        permanent: true,
+      },
+      {
+        source: "/outils-parc-de-loisirs/:outil",
+        destination: "/logiciel-gestion-parc-de-loisirs/:outil",
+        permanent: true,
+      },
+      {
+        source: "/outils-parc-de-loisirs",
+        destination: "/logiciel-gestion-parc-de-loisirs",
+        permanent: true,
+      },
     ];
   },
 };

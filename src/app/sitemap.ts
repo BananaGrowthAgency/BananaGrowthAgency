@@ -19,22 +19,23 @@ const PAGES: Array<{
 }> = [
   { chemin: "/", priorite: 1, frequence: "monthly" },
   { chemin: "/accompagnement-marketing-digital-parc-de-loisir", priorite: 0.9, frequence: "monthly" },
-  { chemin: "/outils-parc-de-loisirs", priorite: 0.8, frequence: "monthly" },
+  { chemin: "/logiciel-gestion-parc-de-loisirs", priorite: 0.8, frequence: "monthly" },
+  { chemin: "/plan-de-taggage-parc-de-loisirs", priorite: 0.8, frequence: "monthly" },
   // Les fiches outils évoluent au fil des réponses des éditeurs.
   ...OUTILS.map((o) => ({
-    chemin: `/outils-parc-de-loisirs/${o.slug}`,
+    chemin: `/logiciel-gestion-parc-de-loisirs/${o.slug}`,
     priorite: 0.7,
     frequence: "monthly" as const,
   })),
   // Plans de taggage : une page pilier par outil couvert.
   ...GUIDES.map((g) => ({
-    chemin: `/outils-parc-de-loisirs/${g.slug}/tracking`,
+    chemin: `/plan-de-taggage-parc-de-loisirs/${g.slug}`,
     priorite: 0.7,
     frequence: "monthly" as const,
   })),
   // Puis une page par plateforme publicitaire.
   ...toutesLesPlateformes().map(({ slug, plateforme }) => ({
-    chemin: `/outils-parc-de-loisirs/${slug}/tracking/${plateforme}`,
+    chemin: `/plan-de-taggage-parc-de-loisirs/${slug}/${plateforme}`,
     priorite: 0.6,
     frequence: "monthly" as const,
   })),

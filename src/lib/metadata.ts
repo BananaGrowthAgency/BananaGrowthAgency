@@ -20,7 +20,7 @@ export function pageMetadata({
 }: {
   title: string;
   description: string;
-  /** Chemin absolu depuis la racine, ex. « /outils-parc-de-loisirs ». */
+  /** Chemin absolu depuis la racine, ex. « /logiciel-gestion-parc-de-loisirs ». */
   path: string;
 }): Metadata {
   const url = path === "/" ? SITE_URL : `${SITE_URL}${path}`;

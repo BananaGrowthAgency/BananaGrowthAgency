@@ -22,7 +22,7 @@ export async function generateMetadata({
   return pageMetadata({
     title: `${outil.nom} : pour qui, fonctionnalités et tarifs | Banana Growth Agency`,
     description: `${outil.nom} — ${outil.baseline} À qui s'adresse l'outil, ses fonctionnalités clés et ce qu'il coûte. Fiche indépendante, par une agence qui opère ces plateformes.`,
-    path: `/outils-parc-de-loisirs/${outil.slug}`,
+    path: `/logiciel-gestion-parc-de-loisirs/${outil.slug}`,
   });
 }
 

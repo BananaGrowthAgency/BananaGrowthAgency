@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check, CircleHelp, TriangleAlert } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  CircleHelp,
+  TriangleAlert,
+} from "lucide-react";
 import type { Outil } from "@/lib/outils";
 import { aUnGuide } from "@/lib/tracking";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
@@ -43,7 +50,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
               <Link
-                href="/outils-parc-de-loisirs"
+                href="/logiciel-gestion-parc-de-loisirs"
                 className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -273,8 +280,8 @@ export function OutilArticle({ outil }: { outil: Outil }) {
             <div className="mx-auto max-w-3xl">
               <Reveal>
                 <Link
-                  href={`/outils-parc-de-loisirs/${outil.slug}/tracking`}
-                  className="group block rounded-2xl border border-pink/25 bg-ink-soft/60 px-5 py-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-pink/50 md:px-7 md:py-7"
+                  href={`/plan-de-taggage-parc-de-loisirs/${outil.slug}`}
+                  className="card-link group block rounded-2xl border bg-ink-soft/60 px-5 py-6 md:px-7 md:py-7"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -292,8 +299,12 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                         checklist de recette — d&apos;après des installations en
                         production.
                       </p>
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
+                        Ouvrir le guide
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
                     </div>
-                    <ArrowUpRight className="mt-1 h-5 w-5 flex-none text-foreground/30 transition-colors duration-300 group-hover:text-pink" />
+                    <ArrowUpRight className="card-arrow mt-1 h-5 w-5 flex-none text-pink/60 group-hover:text-pink" />
                   </div>
                 </Link>
               </Reveal>

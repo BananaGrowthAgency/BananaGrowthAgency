@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { pageMetadata } from "@/lib/metadata";
 import { OUTILS, OUTILS_HUB } from "@/lib/outils";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
@@ -10,10 +10,10 @@ import { Reveal } from "@/components/reveal";
 
 export const metadata = pageMetadata({
   title:
-    "Logiciels pour parcs de loisirs : billetterie, caisse et réservation | Banana Growth Agency",
+    "Outils et logiciels de gestion pour parc de loisirs : le comparatif | Banana Growth Agency",
   description:
-    "Qweekle, PlayPro, Apex Timing, ROLLER, BMI Leisure : à qui s'adresse chaque logiciel de gestion pour parc de loisirs, ses fonctionnalités clés et ses tarifs. Fiches indépendantes, par une agence qui opère ces outils.",
-  path: "/outils-parc-de-loisirs",
+    "Qweekle, PlayPro, Apex Timing, ROLLER, BMI Leisure : à qui s'adresse chaque outil de gestion pour parc de loisirs, ses fonctionnalités clés et ses tarifs. Fiches indépendantes, par une agence qui opère ces logiciels au quotidien.",
+  path: "/logiciel-gestion-parc-de-loisirs",
 });
 
 export default function OutilsHubPage() {
@@ -62,8 +62,8 @@ export default function OutilsHubPage() {
             {OUTILS.map((o, i) => (
               <Reveal key={o.slug} delay={Math.min(i, 5) * 0.06}>
                 <Link
-                  href={`/outils-parc-de-loisirs/${o.slug}`}
-                  className="group block rounded-2xl border border-white/10 bg-ink-soft/50 px-5 py-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-pink/40 hover:bg-ink-soft/70 md:px-8 md:py-7"
+                  href={`/logiciel-gestion-parc-de-loisirs/${o.slug}`}
+                  className="card-link group block rounded-2xl border bg-ink-soft/50 px-5 py-6 md:px-8 md:py-7"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -77,7 +77,7 @@ export default function OutilsHubPage() {
                         {o.editeur.depuis && ` · depuis ${o.editeur.depuis}`}
                       </p>
                     </div>
-                    <ArrowUpRight className="mt-1 h-5 w-5 flex-none text-foreground/30 transition-all duration-300 group-hover:text-pink" />
+                    <ArrowUpRight className="card-arrow mt-1 h-5 w-5 flex-none text-pink/60 group-hover:text-pink" />
                   </div>
 
                   <p className="mt-4 text-base leading-relaxed text-foreground/65">
@@ -90,9 +90,45 @@ export default function OutilsHubPage() {
                     </span>{" "}
                     — {o.pourQuiCourt}
                   </p>
+
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
+                    Lire la fiche
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </Link>
               </Reveal>
             ))}
+          </div>
+        </section>
+
+        {/* ── Renvoi vers les plans de taggage ── */}
+        <section className="relative px-4 py-10 md:py-14">
+          <div className="mx-auto max-w-4xl">
+            <Reveal>
+              <Link
+                href="/plan-de-taggage-parc-de-loisirs"
+                className="card-link group block rounded-2xl border bg-ink-soft/60 px-5 py-6 md:px-8 md:py-7"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-xs font-semibold uppercase tracking-[0.15em] text-pink/80">
+                      Plans de taggage
+                    </span>
+                    <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-foreground transition-colors group-hover:text-spectrum md:text-3xl">
+                      {OUTILS_HUB.taggage.titre}
+                    </h2>
+                    <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/65">
+                      {OUTILS_HUB.taggage.texte}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
+                      {OUTILS_HUB.taggage.bouton}
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                  <ArrowUpRight className="card-arrow mt-1 h-5 w-5 flex-none text-pink/60 group-hover:text-pink" />
+                </div>
+              </Link>
+            </Reveal>
           </div>
         </section>
 

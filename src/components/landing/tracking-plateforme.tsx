@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Check, TriangleAlert } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, TriangleAlert } from "lucide-react";
 import type { GuideOutil, Plateforme } from "@/lib/tracking";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
@@ -56,7 +56,7 @@ export function TrackingPlateforme({
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
               <Link
-                href={`/outils-parc-de-loisirs/${guide.slug}/tracking`}
+                href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}`}
                 className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -310,11 +310,14 @@ export function TrackingPlateforme({
               {autres.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 0.05} className="h-full">
                   <Link
-                    href={`/outils-parc-de-loisirs/${guide.slug}/tracking/${p.slug}`}
-                    className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink-soft/50 px-4 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-pink/40 md:px-5 md:py-5"
+                    href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}/${p.slug}`}
+                    className="card-link group flex h-full flex-col rounded-2xl border bg-ink-soft/50 px-4 py-4 md:px-5 md:py-5"
                   >
-                    <span className="font-display text-lg font-bold tracking-tight text-foreground">
-                      {p.nom}
+                    <span className="flex items-start justify-between gap-2">
+                      <span className="font-display text-lg font-bold tracking-tight text-foreground">
+                        {p.nom}
+                      </span>
+                      <ArrowUpRight className="card-arrow mt-0.5 h-4 w-4 flex-none text-pink/60 group-hover:text-pink" />
                     </span>
                     <span className="mt-1 text-sm leading-snug text-foreground/50">
                       {p.titre}

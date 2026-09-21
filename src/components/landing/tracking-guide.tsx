@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import type { GuideOutil } from "@/lib/tracking";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
@@ -59,13 +59,21 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
           <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
-              <Link
-                href={`/outils-parc-de-loisirs/${guide.slug}`}
-                className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Retour à la fiche {guide.nom}
-              </Link>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                <Link
+                  href="/plan-de-taggage-parc-de-loisirs"
+                  className="inline-flex items-center gap-2 text-foreground/55 transition-colors hover:text-pink"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Tous les plans de taggage
+                </Link>
+                <Link
+                  href={`/logiciel-gestion-parc-de-loisirs/${guide.slug}`}
+                  className="text-foreground/40 transition-colors hover:text-pink"
+                >
+                  Fiche {guide.nom}
+                </Link>
+              </div>
             </Reveal>
 
             <Reveal delay={0.06}>
@@ -104,17 +112,21 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
               {guide.plateformes.map((p, i) => (
                 <Reveal key={p.slug} delay={Math.min(i, 4) * 0.05} className="h-full">
                   <Link
-                    href={`/outils-parc-de-loisirs/${guide.slug}/tracking/${p.slug}`}
-                    className="group flex h-full flex-col rounded-2xl border border-white/10 bg-ink-soft/50 px-5 py-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-pink/40 md:px-6 md:py-6"
+                    href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}/${p.slug}`}
+                    className="card-link group flex h-full flex-col rounded-2xl border bg-ink-soft/50 px-5 py-5 md:px-6 md:py-6"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-display text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-spectrum md:text-2xl">
                         {p.nom}
                       </span>
-                      <ArrowUpRight className="mt-1 h-4 w-4 flex-none text-foreground/30 transition-colors group-hover:text-pink" />
+                      <ArrowUpRight className="card-arrow mt-1 h-4 w-4 flex-none text-pink/60 group-hover:text-pink" />
                     </div>
                     <span className="mt-2 text-sm leading-snug text-foreground/55">
                       {p.titre}
+                    </span>
+                    <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
+                      Lire le guide
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                   </Link>
                 </Reveal>

@@ -724,10 +724,10 @@ export function getOutil(slug: string): Outil | undefined {
 
 export const OUTILS_HUB = {
   eyebrow: "Ressources — parcs de loisirs",
-  title: "Les logiciels de gestion pour",
-  titleHighlight: "parcs de loisirs",
+  title: "Outils et logiciels de gestion pour",
+  titleHighlight: "parc de loisirs",
   intro:
-    "Billetterie, caisse, réservation en ligne, contrôle d'accès : le logiciel de gestion est la colonne vertébrale d'un parc. C'est aussi l'un des choix les plus difficiles à défaire une fois engagé.",
+    "Billetterie, caisse, réservation en ligne, contrôle d'accès : le logiciel de gestion est la colonne vertébrale d'un parc de loisirs. C'est aussi l'un des choix les plus difficiles à défaire une fois engagé.",
   intro2:
     "Nous accompagnons une vingtaine de parcs en France sur leur acquisition. Nous travaillons donc tous les jours dans ces outils, côté exploitation comme côté mesure. Ces fiches rassemblent ce que nous savons de chacun : à qui il s'adresse, ce qu'il fait, et ce qu'il coûte.",
   methodo: {
@@ -742,8 +742,14 @@ export const OUTILS_HUB = {
     titre: "La suite",
     lignes: [
       "Un comparatif transversal des cinq solutions, une fois les réponses des éditeurs reçues.",
-      "Un guide d'implémentation du suivi publicitaire, outil par outil, pour savoir enfin d'où viennent vraiment vos réservations.",
+      "Les plans de taggage sont déjà en ligne, outil par outil, pour savoir enfin d'où viennent vraiment vos réservations.",
     ],
+  },
+  taggage: {
+    titre: "Déjà équipé ?",
+    texte:
+      "Le choix de l'outil n'est que la moitié du sujet. Encore faut-il savoir ce qu'il permet de mesurer, et le brancher correctement à vos campagnes. Nous avons écrit un plan de taggage détaillé pour chacun des moteurs que nous opérons.",
+    bouton: "Découvrir nos guides de plan de taggage",
   },
   cta: {
     titre: "Vous hésitez entre deux outils ?",

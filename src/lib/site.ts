@@ -17,7 +17,8 @@ export const NAV_LINKS = [
   { label: "Avis", href: "/#avis" },
   { label: "Use Case", href: "/#use-cases" },
   { label: "Parcs de loisirs", href: "/accompagnement-marketing-digital-parc-de-loisir" },
-  { label: "Outils", href: "/outils-parc-de-loisirs" },
+  { label: "Outils", href: "/logiciel-gestion-parc-de-loisirs" },
+  { label: "Taggage", href: "/plan-de-taggage-parc-de-loisirs" },
 ] as const;
 
 export const CLIENTS = [
