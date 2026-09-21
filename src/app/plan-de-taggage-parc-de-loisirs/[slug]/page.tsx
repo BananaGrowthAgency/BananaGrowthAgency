@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   return pageMetadata({
     title: `${guide.pilier.titre} | Banana Growth Agency`,
-    description: `Couche de données, plan de taggage et ordre de déploiement pour suivre ses conversions Google Analytics, Google Ads, Meta et TikTok depuis un tunnel ${guide.nom}. D'après des installations en production.`,
+    description: guide.pilier.description,
     path: `/plan-de-taggage-parc-de-loisirs/${guide.slug}`,
   });
 }

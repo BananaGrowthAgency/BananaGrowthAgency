@@ -24,6 +24,8 @@ export type Outil = {
   nom: string;
   /** Une phrase, affichée sous le titre et dans les cartes du hub. */
   baseline: string;
+  /** Méta-description, propre à la fiche. Viser 150 à 160 caractères. */
+  description: string;
   /** Résumé d'une ligne du public cible, pour les cartes du hub. */
   pourQuiCourt: string;
   editeur: { pays: string; depuis?: string; groupe?: string };
@@ -54,6 +56,8 @@ export const OUTILS: Outil[] = [
     nom: "Qweekle",
     baseline:
       "Plateforme française de billetterie et de contrôle d'accès, pensée pour les sites à forte fréquentation et à jauges.",
+    description:
+      "Qweekle : billetterie, contrôle d'accès et jauges. À qui s'adresse l'outil, ses fonctions clés, ses tarifs, et ce que révèle une installation en production.",
     pourQuiCourt:
       "Sites à jauges et contrôle d'accès : parcs animaliers, aquatiques, musées, trampoline.",
     editeur: { pays: "France" },
@@ -181,6 +185,8 @@ export const OUTILS: Outil[] = [
     nom: "PlayPro",
     baseline:
       "Solution française tout-en-un, la seule du panel à afficher publiquement son tarif et à revendiquer un fonctionnement sans engagement.",
+    description:
+      "PlayPro : le seul du panel à afficher son tarif, dès 39 €/mois sans engagement. 65 modules, 14 secteurs — à qui il s'adresse et ce qu'il couvre vraiment.",
     pourQuiCourt:
       "Structures qui veulent un tarif lisible et tout regrouper : padel, bowling, escape, karaoké.",
     editeur: { pays: "France", depuis: "2023", groupe: "Nehos Groupe" },
@@ -305,6 +311,8 @@ export const OUTILS: Outil[] = [
     nom: "Apex Timing",
     baseline:
       "Spécialiste français du karting, né du chronométrage. La seule solution du panel à intégrer nativement le live timing.",
+    description:
+      "Apex Timing : le spécialiste français du karting, seul à intégrer le chronométrage. Pour qui, fonctions clés, tarifs, et ce que montre un tunnel en production.",
     pourQuiCourt:
       "Karting de loisir, et centres multiactivités adossés à une piste.",
     editeur: { pays: "France", depuis: "2011" },
@@ -436,6 +444,8 @@ export const OUTILS: Outil[] = [
     nom: "ROLLER",
     baseline:
       "Plateforme australienne déployée dans plus de 30 pays, la plus aboutie du panel sur l'expérience visiteur et la mesure.",
+    description:
+      "ROLLER : 3 000 clients, 30 pays, bornes libre-service et mesure native. À qui il s'adresse, ce qu'il couvre, ses paliers — d'après un groupe multi-sites équipé.",
     pourQuiCourt:
       "Structures à fort volume et groupes multi-sites, avec une exigence de parcours visiteur.",
     editeur: { pays: "Australie" },
@@ -588,6 +598,8 @@ export const OUTILS: Outil[] = [
     nom: "BMI Leisure",
     baseline:
       "Éditeur espagnol installé depuis plus de vingt-cinq ans, fort sur le karting et le bowling, très discret sur ses conditions.",
+    description:
+      "BMI Leisure : 25 ans, 300 sites, fort sur karting et bowling — et l'éditeur le plus opaque du panel. Ce qu'il fait, et ce que nous avons pu vérifier nous-mêmes.",
     pourQuiCourt:
       "Karting, bowling et centres de divertissement familial cherchant un éditeur éprouvé.",
     editeur: { pays: "Espagne" },

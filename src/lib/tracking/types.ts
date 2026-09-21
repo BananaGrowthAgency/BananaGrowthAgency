@@ -45,6 +45,8 @@ export type Plateforme = {
   nom: string;
   /** Titre de page, formulé sur la requête réellement cherchée. */
   titre: string;
+  /** Méta-description, propre à la page. Viser 150 à 160 caractères. */
+  description: string;
   chapo: string;
   prerequis: string[];
   variables: Variable[];
@@ -61,6 +63,8 @@ export type GuideOutil = {
   /** Page pilier. */
   pilier: {
     titre: string;
+    /** Méta-description, propre au pilier. Viser 150 à 160 caractères. */
+    description: string;
     chapo: string;
     architecture: { intro: string; points: string[] };
     dataLayer: {

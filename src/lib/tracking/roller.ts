@@ -5,6 +5,8 @@ export const ROLLER: GuideOutil = {
   nom: "ROLLER",
   pilier: {
     titre: "Plan de taggage ROLLER : suivre ses conversions publicitaires",
+    description:
+      "ROLLER intègre nativement GA4, Meta et TikTok ; seul Google Ads demande Tag Manager. Couche de données, plan de taggage, et ce que change votre palier.",
     chapo:
       "ROLLER est le seul moteur du panel à intégrer nativement les outils de mesure : pour Google Analytics, Meta et TikTok, il suffit de coller un identifiant dans l'administration. Le travail se déplace ailleurs — sur Google Ads, qui n'a aucune intégration native, et sur le choix du mode d'intégration du tunnel.",
     architecture: {
@@ -103,6 +105,8 @@ export const ROLLER: GuideOutil = {
       slug: "google-analytics",
       nom: "Google Analytics 4",
       titre: "Installer Google Analytics 4 sur un tunnel ROLLER",
+      description:
+        "Un identifiant à coller dans l'administration ROLLER et le parcours remonte. La vraie question : quand passer quand même par Tag Manager, et pourquoi.",
       chapo:
         "C'est l'installation la plus rapide de tout le panel : un identifiant à coller dans l'administration, et le parcours complet remonte. La question intéressante n'est donc pas comment installer, mais quand passer quand même par Tag Manager.",
       prerequis: [
@@ -205,6 +209,8 @@ export const ROLLER: GuideOutil = {
       slug: "google-ads",
       nom: "Google Ads",
       titre: "Suivi des conversions Google Ads avec ROLLER",
+      description:
+        "La seule plateforme que ROLLER n'intègre pas nativement : Google Ads passe par Tag Manager, donc par un palier qui y donne accès. Balises et variables eventModel.",
       chapo:
         "C'est la seule plateforme que ROLLER n'intègre pas nativement. Tout passe donc par Google Tag Manager — ce qui suppose un palier d'abonnement qui y donne accès, ou l'option payante. À vérifier avant de promettre quoi que ce soit.",
       prerequis: [
@@ -352,6 +358,8 @@ export const ROLLER: GuideOutil = {
       slug: "meta-ads",
       nom: "Meta Ads",
       titre: "Installer le pixel Meta sur un tunnel ROLLER",
+      description:
+        "Le pixel Meta s'active en collant un identifiant dans ROLLER. Le piège : cumuler le natif et Tag Manager double chaque achat, sans qu'aucun outil ne le signale.",
       chapo:
         "Comme pour Google Analytics, ROLLER intègre le pixel Meta nativement — à partir du palier intermédiaire. Un identifiant à coller, et le parcours remonte. Le passage par Tag Manager ne se justifie que pour des besoins précis.",
       prerequis: [
@@ -460,6 +468,8 @@ fbq('track', 'PageView');
       slug: "tiktok-ads",
       nom: "TikTok Ads",
       titre: "Installer le pixel TikTok sur un tunnel ROLLER",
+      description:
+        "ROLLER est le seul moteur du panel à proposer TikTok sans écrire une ligne de code. Ce que couvre l'intégration native, et quand basculer sur Tag Manager.",
       chapo:
         "Même logique que Meta : intégration native à partir du palier intermédiaire, un identifiant à coller. ROLLER est le seul moteur du panel à proposer TikTok sans écrire une ligne de code.",
       prerequis: [

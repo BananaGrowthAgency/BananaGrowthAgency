@@ -5,6 +5,8 @@ export const QWEEKLE: GuideOutil = {
   nom: "Qweekle",
   pilier: {
     titre: "Plan de taggage Qweekle : suivre ses conversions publicitaires",
+    description:
+      "Le tunnel Qweekle vit sur un autre domaine et pousse des noms d'événements périmés. La couche de données réelle, le plan de taggage et l'ordre de déploiement.",
     chapo:
       "Qweekle héberge le tunnel de réservation sur son propre domaine et pousse une couche e-commerce complète. Tout est donc mesurable. Restent deux difficultés : la nomenclature des événements date d'une spécification que Google a abandonnée, et le changement de domaine casse l'attribution si personne ne s'en occupe.",
     architecture: {
@@ -104,6 +106,8 @@ export const QWEEKLE: GuideOutil = {
       slug: "google-analytics",
       nom: "Google Analytics 4",
       titre: "Installer Google Analytics 4 sur un tunnel Qweekle",
+      description:
+        "Traduire checkout_progress, activer les données e-commerce, nommer les événements en minuscules : variables, déclencheurs et balises GA4 pour un tunnel Qweekle.",
       chapo:
         "Qweekle pousse déjà une couche e-commerce : le travail consiste moins à créer des événements qu'à traduire ceux qui portent un nom périmé, et à ne surtout pas en inventer de nouveaux.",
       prerequis: [
@@ -246,6 +250,8 @@ export const QWEEKLE: GuideOutil = {
       slug: "google-ads",
       nom: "Google Ads",
       titre: "Suivi des conversions Google Ads avec Qweekle",
+      description:
+        "Ajouter qweekle.com au Conversion Linker, réserver l'ID de commande à l'achat : les balises Google Ads à créer sur un tunnel Qweekle, et les pièges à éviter.",
       chapo:
         "C'est ici que se joue l'essentiel. Le tunnel Qweekle vit sur un autre domaine que le site du parc : sans suivi inter-domaines correctement posé, Google Ads perd la trace du clic et crédite les ventes au mauvais canal.",
       prerequis: [
@@ -400,6 +406,8 @@ export const QWEEKLE: GuideOutil = {
       slug: "meta-ads",
       nom: "Meta Ads",
       titre: "Installer le pixel Meta sur un tunnel Qweekle",
+      description:
+        "Le code fbq à copier, balise par balise, pour un tunnel Qweekle : socle, ViewContent, AddToCart, InitiateCheckout et Purchase avec identifiant d'événement.",
       chapo:
         "Meta n'a pas de modèle de balise natif dans Google Tag Manager : tout passe par des balises HTML personnalisées. C'est simple, mais c'est aussi là que les erreurs de valeur et de devise se glissent le plus souvent.",
       prerequis: [
@@ -546,6 +554,8 @@ fbq('track', 'PageView');
       slug: "tiktok-ads",
       nom: "TikTok Ads",
       titre: "Installer le pixel TikTok sur un tunnel Qweekle",
+      description:
+        "Le code ttq à copier pour un tunnel Qweekle. Attention au nom : TikTok attend CompletePayment, pas Purchase — une balise mal nommée ne remonte nulle part.",
       chapo:
         "TikTok fonctionne comme Meta : balises HTML personnalisées, mêmes déclencheurs, mais une nomenclature d'événements et des paramètres qui lui sont propres. Si Meta est déjà posé, comptez une demi-heure.",
       prerequis: [

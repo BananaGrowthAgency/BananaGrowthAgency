@@ -5,6 +5,8 @@ export const APEX_TIMING: GuideOutil = {
   nom: "Apex Timing",
   pilier: {
     titre: "Plan de taggage Apex Timing : suivre ses conversions publicitaires",
+    description:
+      "Apex Timing pousse des événements déjà conformes à GA4, mais son tunnel est mutualisé entre tous les centres. Couche de données, plan de taggage, ordre à suivre.",
     chapo:
       "Apex Timing pousse une couche e-commerce aux noms conformes à la spécification actuelle de Google : c'est le meilleur point de départ des solutions que nous avons auditées, et aucune traduction n'est nécessaire. La difficulté est ailleurs — le tunnel tourne sur un domaine partagé entre tous les centres clients.",
     architecture: {
@@ -87,6 +89,8 @@ export const APEX_TIMING: GuideOutil = {
       slug: "google-analytics",
       nom: "Google Analytics 4",
       titre: "Installer Google Analytics 4 sur un tunnel Apex Timing",
+      description:
+        "Les noms d'événements d'Apex Timing sont déjà conformes : le vrai travail est de ne pas les réécrire, et de fabriquer le repère d'entrée de tunnel qui manque.",
       chapo:
         "C'est l'installation la plus simple des quatre moteurs que nous documentons : les noms d'événements sont déjà ceux qu'attend GA4. Le seul travail de fond consiste à fabriquer le repère d'entrée de tunnel, qui n'existe pas nativement.",
       prerequis: [
@@ -207,6 +211,8 @@ export const APEX_TIMING: GuideOutil = {
       slug: "google-ads",
       nom: "Google Ads",
       titre: "Suivi des conversions Google Ads avec Apex Timing",
+      description:
+        "Le tunnel Apex est mutualisé entre tous les centres, donc les cookies sont partagés. Les balises Google Ads à créer, et la vigilance que cela impose.",
       chapo:
         "Le domaine mutualisé d'Apex Timing rend le suivi inter-domaines indispensable, et ajoute une vigilance que les autres moteurs ne demandent pas : les cookies sont partagés avec l'ensemble des centres clients de l'éditeur.",
       prerequis: [
@@ -370,6 +376,8 @@ export const APEX_TIMING: GuideOutil = {
       slug: "meta-ads",
       nom: "Meta Ads",
       titre: "Installer le pixel Meta sur un tunnel Apex Timing",
+      description:
+        "Le code fbq à copier pour un tunnel Apex Timing. L'entonnoir démarre au panier : pas de ViewContent natif, mais la valeur est là dès la première étape.",
       chapo:
         "Meta n'a pas de modèle natif dans Google Tag Manager : tout passe par des balises HTML personnalisées. Sur Apex Timing, l'entonnoir démarre à l'ajout au panier — il n'y a pas d'événement de consultation produit à exploiter.",
       prerequis: [
@@ -500,6 +508,8 @@ fbq('track', 'PageView');
       slug: "tiktok-ads",
       nom: "TikTok Ads",
       titre: "Installer le pixel TikTok sur un tunnel Apex Timing",
+      description:
+        "Le code ttq à copier pour un tunnel Apex Timing, sur les mêmes déclencheurs que Meta. CompletePayment et non Purchase, et ttq.page() à ne pas oublier.",
       chapo:
         "Même principe que Meta : balises HTML personnalisées et déclencheurs identiques. TikTok a sa propre nomenclature, qu'il ne faut pas confondre avec celle de Meta.",
       prerequis: [

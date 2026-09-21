@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   return pageMetadata({
     title: `${trouve.plateforme.titre} | Banana Growth Agency`,
-    description: `${trouve.plateforme.chapo.slice(0, 150)}… Variables, déclencheurs, balises nommées et code à copier.`,
+    description: trouve.plateforme.description,
     path: `/plan-de-taggage-parc-de-loisirs/${slug}/${plateforme}`,
   });
 }

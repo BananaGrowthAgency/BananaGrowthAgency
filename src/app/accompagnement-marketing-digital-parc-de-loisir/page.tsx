@@ -14,7 +14,7 @@ import { CountUp } from "@/components/count-up";
 export const metadata: Metadata = {
   title: "Banana Growth Agency — Agence marketing spécialiste des parcs de loisirs",
   description:
-    "Agence de Growth Marketing dédiée aux parcs de loisirs indoor & outdoor. Une méthode clés en main, réplicable et mesurable pour maximiser la fréquentation de votre parc.",
+    "Agence de Growth Marketing dédiée aux parcs de loisirs indoor et outdoor. Une méthode clés en main et mesurable pour remplir votre parc. Audit offert.",
 };
 
 function ParcHero() {

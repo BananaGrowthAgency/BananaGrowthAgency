@@ -5,6 +5,8 @@ export const BMI_LEISURE: GuideOutil = {
   nom: "BMI Leisure",
   pilier: {
     titre: "Plan de taggage BMI Leisure : suivre ses conversions publicitaires",
+    description:
+      "La couche de données BMI date de 2015 : rien n'arrive au format attendu. Le travail de traduction, le plan de taggage, et le piège des événements par site.",
     chapo:
       "BMI Leisure ne documente rien publiquement sur la mesure, et sa couche de données repose sur une spécification que Google a remplacée en 2023. Tout est mesurable, mais rien n'arrive au format attendu : ce guide est avant tout un travail de traduction. Nos constats proviennent d'une installation réelle, restée en place après une migration.",
     architecture: {
@@ -84,6 +86,8 @@ export const BMI_LEISURE: GuideOutil = {
       slug: "google-analytics",
       nom: "Google Analytics 4",
       titre: "Installer Google Analytics 4 sur un tunnel BMI Leisure",
+      description:
+        "Sans couche de traduction, aucun événement BMI n'arrive correctement — et rien ne le signale. Les variables à créer, puis les balises GA4 à brancher dessus.",
       chapo:
         "L'essentiel du travail n'est pas dans les balises mais dans les variables. Tant que la couche de traduction n'est pas posée, aucun événement ne remontera correctement — et rien ne signalera l'erreur.",
       prerequis: [
@@ -222,6 +226,8 @@ export const BMI_LEISURE: GuideOutil = {
       slug: "google-ads",
       nom: "Google Ads",
       titre: "Suivi des conversions Google Ads avec BMI Leisure",
+      description:
+        "Les conversions BMI se branchent sur les variables traduites, jamais sur ecommerce.value. Les balises à créer, et comment ne pas oublier un établissement.",
       chapo:
         "Une fois la couche de traduction posée pour Google Analytics, Google Ads se branche dessus sans effort supplémentaire. Reste le suivi inter-domaines, indispensable puisque le tunnel vit sur le domaine de l'éditeur.",
       prerequis: [
@@ -366,6 +372,8 @@ export const BMI_LEISURE: GuideOutil = {
       slug: "meta-ads",
       nom: "Meta Ads",
       titre: "Installer le pixel Meta sur un tunnel BMI Leisure",
+      description:
+        "Le code fbq à copier pour un tunnel BMI Leisure. L'achat est le seul événement qui porte une valeur : c'est lui qui concentre tout le signal, autant le soigner.",
       chapo:
         "Aucune intégration native : tout passe par des balises HTML personnalisées, branchées sur les variables traduites. Le parcours mesurable étant court, l'achat porte l'essentiel du signal — raison de plus pour le soigner.",
       prerequis: [
@@ -473,6 +481,8 @@ fbq('track', 'PageView');
       slug: "tiktok-ads",
       nom: "TikTok Ads",
       titre: "Installer le pixel TikTok sur un tunnel BMI Leisure",
+      description:
+        "Le code ttq à copier pour un tunnel BMI Leisure, branché sur les variables traduites. CompletePayment et non Purchase, et un test par établissement.",
       chapo:
         "Même approche que Meta : balises HTML personnalisées branchées sur les variables traduites, et les mêmes déclencheurs. Si Meta est déjà en place, comptez une demi-heure.",
       prerequis: [

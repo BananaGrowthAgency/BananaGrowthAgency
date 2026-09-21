@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
   title:
     "Plan de taggage pour parc de loisirs : le guide par moteur de réservation | Banana Growth Agency",
   description:
-    "Vos conversions Google Ads ne collent pas avec votre caisse ? Les quatre causes, et le plan de taggage détaillé pour Qweekle, Apex Timing, ROLLER et BMI Leisure. D'après des installations en production.",
+    "Vos conversions Google Ads ne collent pas avec votre caisse ? Les quatre causes, et un plan de taggage détaillé pour chaque moteur de réservation.",
   path: "/plan-de-taggage-parc-de-loisirs",
 });
 
