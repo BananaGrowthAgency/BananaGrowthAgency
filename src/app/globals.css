@@ -78,6 +78,24 @@
     );
   }
 
+  /* Voile renforcé pour les pages de lecture longue (fiches outils).
+     Les landings alignent des blocs courts et centrés, que le fond photo
+     ne gêne pas. Une fiche enchaîne des paragraphes justifiés à gauche :
+     il faut calmer les palmiers derrière sans les faire disparaître.
+     Les sections filles sont toutes en `relative`, elles passent donc
+     au-dessus de ce pseudo-élément. */
+  .reading-scrim {
+    position: relative;
+  }
+
+  .reading-scrim::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: rgba(6, 4, 15, 0.45);
+  }
+
   ::selection {
     background: var(--color-pink);
     color: #050308;
