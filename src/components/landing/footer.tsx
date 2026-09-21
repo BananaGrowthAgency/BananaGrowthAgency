@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS, FOOTER_TAGLINE, FOOTER_PRODUCT } from "@/lib/site";
+import { NAV_FOOTER, FOOTER_TAGLINE, FOOTER_PRODUCT } from "@/lib/site";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -59,7 +59,7 @@ export function Footer() {
         </div>
 
         <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-start md:gap-x-8">
-          {NAV_LINKS.map((l) => (
+          {NAV_FOOTER.map((l) => (
             <Link
               key={l.href}
               href={l.href}

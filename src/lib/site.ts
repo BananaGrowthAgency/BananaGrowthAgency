@@ -11,15 +11,68 @@ export const HERO = {
 /** Origine publique du site. Sert aux métadonnées, au sitemap et au robots.txt. */
 export const SITE_URL = "https://www.banana-growth.agency";
 
-export const NAV_LINKS = [
+/** Racine de l'univers parcs de loisirs. */
+export const PARC_HREF = "/accompagnement-marketing-digital-parc-de-loisir";
+
+/**
+ * Navigation contextuelle.
+ *
+ * Sept entrées dans une seule barre devenaient illisibles. Le site se lit
+ * désormais en deux univers : l'agence, et les parcs de loisirs. Chacun
+ * n'affiche que ses propres liens, plus une pastille mise en avant qui sert
+ * à la fois de porte d'entrée et de repère de section.
+ *
+ * `highlight` marque l'entrée qui bascule d'un univers à l'autre.
+ */
+export type NavLink = {
+  label: string;
+  href: string;
+  highlight?: boolean;
+};
+
+/** Barre affichée sur le site principal. */
+export const NAV_AGENCE: readonly NavLink[] = [
   { label: "Manifesto", href: "/#manifesto" },
   { label: "Nos services", href: "/#services" },
   { label: "Avis", href: "/#avis" },
   { label: "Use Case", href: "/#use-cases" },
-  { label: "Parcs de loisirs", href: "/accompagnement-marketing-digital-parc-de-loisir" },
+  { label: "Parcs de loisirs", href: PARC_HREF, highlight: true },
+];
+
+/** Barre affichée dans l'univers parcs de loisirs. */
+export const NAV_PARC: readonly NavLink[] = [
+  { label: "Parcs de loisirs", href: PARC_HREF, highlight: true },
   { label: "Outils", href: "/logiciel-gestion-parc-de-loisirs" },
   { label: "Taggage", href: "/plan-de-taggage-parc-de-loisirs" },
-] as const;
+  { label: "L'agence", href: "/" },
+];
+
+/**
+ * Pied de page : pas de contrainte de place, on montre les deux univers.
+ * C'est aussi ce qui garde les pages ressources maillées depuis tout le site.
+ */
+export const NAV_FOOTER: readonly NavLink[] = [
+  { label: "Manifesto", href: "/#manifesto" },
+  { label: "Nos services", href: "/#services" },
+  { label: "Avis", href: "/#avis" },
+  { label: "Use Case", href: "/#use-cases" },
+  { label: "Parcs de loisirs", href: PARC_HREF },
+  { label: "Outils de gestion", href: "/logiciel-gestion-parc-de-loisirs" },
+  { label: "Plans de taggage", href: "/plan-de-taggage-parc-de-loisirs" },
+];
+
+/** Les chemins qui appartiennent à l'univers parcs de loisirs. */
+const PREFIXES_PARC = [
+  PARC_HREF,
+  "/logiciel-gestion-parc-de-loisirs",
+  "/plan-de-taggage-parc-de-loisirs",
+];
+
+export function navPour(pathname: string): readonly NavLink[] {
+  return PREFIXES_PARC.some((p) => pathname.startsWith(p))
+    ? NAV_PARC
+    : NAV_AGENCE;
+}
 
 export const CLIENTS = [
   { name: "OnlyKart", file: "onlykart" },

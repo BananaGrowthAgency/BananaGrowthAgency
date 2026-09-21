@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { NAV_LINKS, CALENDLY_URL } from "@/lib/site";
+import { usePathname } from "next/navigation";
+import { navPour, CALENDLY_URL } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const liens = navPour(usePathname());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -55,12 +57,17 @@ export function Navbar() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
-          {NAV_LINKS.map((l) => (
+        <nav className="hidden items-center gap-6 md:flex">
+          {liens.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm text-foreground/70 transition-colors hover:text-pink"
+              className={cn(
+                "text-sm transition-colors",
+                l.highlight
+                  ? "rounded-full border border-pink/45 bg-pink/10 px-3.5 py-1.5 font-semibold text-pink hover:border-pink/70 hover:bg-pink/15"
+                  : "text-foreground/70 hover:text-pink",
+              )}
             >
               {l.label}
             </Link>
@@ -84,12 +91,17 @@ export function Navbar() {
       {open && (
         <div className="mx-auto mt-2 max-w-6xl rounded-2xl border border-white/10 bg-ink/95 p-4 backdrop-blur-xl md:hidden">
           <nav className="flex flex-col gap-1">
-            {NAV_LINKS.map((l) => (
+            {liens.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-base text-foreground/80 transition-colors hover:bg-white/5 hover:text-pink"
+                className={cn(
+                  "rounded-lg px-3 py-3 text-base transition-colors",
+                  l.highlight
+                    ? "border border-pink/45 bg-pink/10 font-semibold text-pink"
+                    : "text-foreground/80 hover:bg-white/5 hover:text-pink",
+                )}
               >
                 {l.label}
               </Link>
