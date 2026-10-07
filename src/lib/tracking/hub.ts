@@ -57,32 +57,45 @@ export const TAGGAGE_HUB = {
   comparatif: {
     titre: "Ce que chaque moteur permet vraiment",
     intro:
-      "Tous les moteurs ne se valent pas sur la mesure, et l'écart est plus large qu'on ne le croit. Voici ce que nous avons constaté sur des installations réelles.",
-    colonnes: ["Qweekle", "Apex Timing", "ROLLER", "BMI Leisure"],
+      "Tous les moteurs ne se valent pas sur la mesure, et l'écart est plus large qu'on ne le croit. Voici ce que montrent les documentations officielles et les installations que nous opérons. Qweekle est comparé ici dans sa version 3 : sa version 2, encore largement déployée, se situe nettement en retrait.",
+    colonnes: ["Qweekle V3", "Apex Timing", "ROLLER", "BMI Leisure"],
     lignes: [
       {
         critere: "Nomenclature des événements",
-        valeurs: ["Partiellement obsolète", "Conforme", "Conforme", "Périmée"],
+        valeurs: ["Conforme", "Conforme", "Conforme", "Périmée"],
       },
       {
-        critere: "Intégrations sans code",
-        valeurs: ["Non", "Non", "Oui", "Non"],
+        critere: "Documentation publique du taggage",
+        valeurs: ["Oui, détaillée", "Oui", "Oui", "Aucune"],
+      },
+      {
+        critere: "Prêt à l'emploi",
+        valeurs: [
+          "4 modules GTM à importer",
+          "Champs d'identifiants",
+          "Intégrations natives",
+          "Rien",
+        ],
+      },
+      {
+        critere: "Consent Mode fourni",
+        valeurs: ["Oui", "Fonction dédiée", "À confirmer", "Indicateur brut"],
+      },
+      {
+        critere: "Donnée utilisateur hachée fournie",
+        valeurs: ["Oui", "Non", "Non", "Non"],
       },
       {
         critere: "Tunnel sur le domaine du parc",
         valeurs: ["Non", "Non", "En option", "Non"],
       },
       {
-        critere: "Événement de remboursement",
-        valeurs: ["Non", "Non", "Oui", "Non"],
-      },
-      {
         critere: "Multi-sites sans configuration en double",
-        valeurs: ["Non", "Non", "Oui", "Non"],
+        valeurs: ["Oui", "Non", "Oui", "Non"],
       },
       {
         critere: "Effort d'implémentation",
-        valeurs: ["Moyen", "Faible", "Faible", "Élevé"],
+        valeurs: ["Faible", "Faible", "Faible", "Élevé"],
       },
     ],
   },

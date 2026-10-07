@@ -144,17 +144,20 @@ export const OUTILS: Outil[] = [
     },
     constate: {
       intro:
-        "Nous opérons plusieurs parcs équipés de Qweekle. Voici ce que montre une installation en production, vérifié en septembre 2026 sur le tunnel de Prison Island Le Mans.",
+        "Deux générations de Qweekle coexistent en production, et l'écart entre les deux est considérable sur la mesure. Nous opérons des parcs sur l'une comme sur l'autre. Vérifié en octobre 2026.",
       points: [
-        "Le tunnel de réservation tourne sur un sous-domaine dédié par client, au format prisonisland-lemans.qweekle.com, et non sur le domaine du parc.",
-        "Chaque exploitant peut déposer son propre conteneur Google Tag Manager sur la boutique, ce qui permet d'y installer ses propres outils de mesure.",
-        "Le tunnel pousse des événements de commerce : ajout au panier, progression dans le tunnel et achat.",
-        "Les pages de la boutique sont en noindex : elles ne remontent pas dans Google, tout le référencement doit donc vivre sur le site du parc.",
+        "La version 3 héberge la boutique sur une adresse en .qweekle.shop, le paiement sur un domaine dédié qui ne charge aucune balise, et le site vitrine du parc reste le point de départ. Trois domaines, un seul mesurable.",
+        "La version 2, encore largement déployée, place la boutique sur une adresse en .qweekle.com. C'est le moyen le plus rapide de savoir laquelle on a sous les yeux.",
+        "La version 3 fournit quatre modules Google Tag Manager prêts à importer — un module socle obligatoire, puis Google Analytics, Meta et Google Ads. Aucun autre éditeur du panel ne va aussi loin.",
+        "Sa couche de données compte treize événements aux noms conformes à la spécification actuelle, contre sept en version 2, dont deux portent encore une nomenclature abandonnée par Google en 2023.",
+        "La version 3 livre aussi l'adresse email du client déjà hachée, ce qui alimente sans effort les conversions améliorées et l'appariement avancé. Personne d'autre ne le fait dans ce panel.",
+        "Les pages de la boutique sont en noindex dans les deux versions : tout le référencement doit vivre sur le site du parc.",
       ],
     },
     vigilance: [
       "La boutique étant hébergée sur qweekle.com, le visiteur change de domaine entre le site du parc et le paiement. Sans configuration spécifique, les statistiques attribuent une partie des ventes à « qweekle.com » plutôt qu'à la source réelle — publicité, Google ou réseaux sociaux.",
-      "La nomenclature des événements de suivi repose sur une spécification que Google a remplacée depuis. Cela reste exploitable, mais demande un travail de correspondance pour alimenter correctement les outils publicitaires.",
+      "La règle monétaire de la version 3 mérite d'être comprise avant toute mise en place : la valeur d'une commande correspond au chiffre d'affaires, pas au montant encaissé en ligne. Un bon cadeau et un acompte ne la diminuent pas, un code de réduction si. L'interface ne propose pourtant qu'un seul champ pour saisir un coupon ou un bon cadeau. Un parc qui pratique l'acompte et mesure le montant encaissé sous-déclare massivement ses ventes, et le solde réglé sur place n'est jamais rattrapé.",
+      "En version 2, deux événements portent une nomenclature que Google a abandonnée en 2023. Cela reste exploitable, mais demande un travail de traduction que la version 3 supprime entièrement.",
       "Aucun tarif public : il faut passer par un devis pour comparer, ce qui allonge la phase de choix.",
     ],
     lacunes: [
@@ -162,7 +165,7 @@ export const OUTILS: Outil[] = [
       "Existence d'une commission sur les réservations en ligne",
       "Délai entre signature et mise en service",
       "Conditions d'export de la base clients en cas de départ",
-      "Documentation officielle du suivi des conversions",
+      "Les conditions et le coût d'une migration de la version 2 vers la version 3",
     ],
     site: "https://www.qweekle.com/",
     sources: [
@@ -310,124 +313,167 @@ export const OUTILS: Outil[] = [
     slug: "apex-timing",
     nom: "Apex Timing",
     baseline:
-      "Spécialiste français du karting, né du chronométrage. La seule solution du panel à intégrer nativement le live timing.",
+      "Spécialiste français du karting, né du chronométrage. Plus de 900 clients dans 67 pays, et la seule solution du panel à intégrer nativement le live timing.",
     description:
-      "Apex Timing : le spécialiste français du karting, seul à intégrer le chronométrage. Pour qui, fonctions clés, tarifs, et ce que montre un tunnel en production.",
+      "Apex Timing : 900 clients, 67 pays, le spécialiste du karting né du chronométrage. Pour qui, fonctions clés, packs tarifaires et commission — documentation à l'appui.",
     pourQuiCourt:
       "Karting de loisir, et centres multiactivités adossés à une piste.",
     editeur: { pays: "France", depuis: "2011" },
     chiffres: [
-      { valeur: "2011", label: "année de création" },
-      { valeur: "ms", label: "précision du chronométrage" },
-      { valeur: "1", label: "logiciel pour piste et centre" },
+      { valeur: "900+", label: "clients" },
+      { valeur: "67", label: "pays" },
+      { valeur: "0 %", label: "commission sur les ventes en ligne" },
     ],
     pourQui: {
       intro:
-        "Apex Timing vient du chronométrage avant de venir de la gestion. C'est ce qui en fait le choix par défaut des kartings de loisir : le même logiciel pilote la course et la caisse, sans passerelle à maintenir entre deux éditeurs.",
+        "Apex Timing vient du chronométrage avant de venir de la gestion : fondée en 2011 à Annecy, l'entreprise chronométrait les championnats du monde et d'Europe de karting dès ses débuts. C'est ce qui en fait le choix par défaut des kartings de loisir — le même logiciel pilote la course et la caisse, sans passerelle à maintenir entre deux éditeurs.",
       profils: [
         "Kartings de loisir, en intérieur comme en extérieur",
-        "Centres multiactivités construits autour d'une piste",
-        "Exploitants qui organisent des courses, des manches et des championnats",
-        "Structures qui ont besoin d'affichages de résultats et de live timing",
+        "Centres multiactivités construits autour d'une piste — jusqu'à une douzaine d'activités sur un même logiciel",
+        "Exploitants qui organisent des courses, des manches, des endurances et des championnats",
+        "Groupes multi-centres : les bons cadeaux et les données clients se partagent entre établissements",
+        "Structures équipées en bowling ou en arcade, grâce aux liaisons Brunswick, QubicaAMF, Intercard et Playzwell",
       ],
       moinsAdapte: [
         "Les parcs sans activité chronométrée : une large part de la valeur du produit devient inutile.",
-        "Les exploitants qui veulent une plateforme marketing complète — c'est le reproche que lui adressent ses concurrents, et le module marketing n'est pas son axe fort.",
+        "Les exploitants qui veulent vendre en ligne dès l'offre d'entrée : l'e-commerce n'apparaît qu'à partir du pack intermédiaire.",
+        "Ceux qui comptent brancher un outil externe par API : la liaison n'existe que sur le pack le plus élevé.",
       ],
     },
     fonctionnalites: [
       {
         titre: "Chronométrage et live timing",
-        desc: "Mesure du temps de chaque pilote à la milliseconde et position en course en temps réel. C'est le socle historique du produit et sa vraie différence.",
+        desc: "Mesure à la milliseconde, gestion multi-boucles avec arrêts au stand, découpage en trois secteurs de piste, pénalités automatiques ou appliquées en direct. Compatible Mylaps, RaceResult, Chronolec, Tag Heuer, Kart-Timer et MyWER. C'est le socle historique du produit et sa vraie différence.",
       },
       {
-        titre: "Affichages et gestion de course",
-        desc: "Écrans de résultats et outils d'organisation des sessions pour les commissaires de piste.",
+        titre: "Gestion de piste et de course",
+        desc: "Affectation des karts, Arrive & Drive, sprints et endurances avec création d'équipes et identification RFID. Gestion des karts électriques avec contrôle de vitesse et boost, et changement rapide de configuration de piste — normale, XL ou inversée.",
       },
       {
-        titre: "Réservation en ligne",
-        desc: "Choix du produit, sélection de la date, réservation de sessions, paiement et e-ticket.",
+        titre: "Affichages et briefing",
+        desc: "Écrans de résultats, affichage dynamique, et briefing vidéo de sécurité aux couleurs du centre, sous-titré dans sa langue. Option RDisplay : un écran embarqué sur le volant qui remonte les drapeaux au pilote.",
       },
       {
-        titre: "Billetterie",
-        desc: "Vente de billets, bons cadeaux, tickets comités d'entreprise, bar et restauration.",
+        titre: "Vente en ligne sans commission",
+        desc: "Module web intégré au site du centre et synchronisé avec le calendrier : réservation d'activités, billetterie, événements, abonnements, bons cadeaux. Plus de trente moyens de paiement intégrés, et un mode invité qui permet de commander sans créer de compte.",
       },
       {
         titre: "Caisse NF525",
-        desc: "Encaissement multipaiement et multidevise, facturation et gestion des stocks, conforme à la norme NF525.",
+        desc: "Encaissement multipaiement et multidevise, facturation, stocks. Certifiée NF525 en France, avec les équivalents TSE en Allemagne et Verifactu en Espagne.",
       },
       {
-        titre: "Planning multiactivité",
-        desc: "Calendrier couvrant plusieurs activités sur un même site.",
+        titre: "Kiosque et décharges",
+        desc: "Inscription autonome depuis une borne ou l'appareil du client, avec récupération automatique des décharges de responsabilité signées et gestion du cas des mineurs. Borne de check-in rapide par QR code.",
+      },
+      {
+        titre: "Bar et restauration",
+        desc: "Prise de commande en mode autonome sur tablette, par QR code depuis le téléphone du client, ou en mode serveur. Système centralisé, sans commission, avec un nombre illimité de postes et un plan de salle paramétrable.",
       },
       {
         titre: "Application mobile personnalisée",
-        desc: "Application aux couleurs et au logo du centre : inscription, réservation de sessions et d'événements, paiement sécurisé, facturation et accès facilité.",
+        desc: "Aux couleurs du centre : carte de membre virtuelle, réservation et paiement, suivi des performances, organisation de championnats entre amis et messagerie interne.",
       },
       {
-        titre: "Fidélité et gestion commerciale",
-        desc: "Programme de fidélité, emailing et suivi commercial.",
+        titre: "Fidélisation",
+        desc: "Bons de réduction, points de fidélité, porte-monnaie virtuel, cagnottage, tarifs membres et abonnements. Synchronisation des données clients entre plusieurs centres.",
       },
       {
-        titre: "Analyse et maintenance",
-        desc: "Rapports d'activité, export comptable et suivi de la maintenance du parc de karts.",
+        titre: "Communication",
+        desc: "Campagnes d'e-mailing avec éditeur par glisser-déposer et statistiques d'ouverture, e-mails automatiques déclenchés par événement, SMS de confirmation ou de rappel, et notifications push.",
+      },
+      {
+        titre: "GoManager et API",
+        desc: "Application de pilotage avec tableaux de bord personnalisables et comparaison entre plusieurs centres. Une API permet de récupérer ventes, membres et sessions pour les brancher sur un outil externe comme Power BI.",
+      },
+      {
+        titre: "Gestion commerciale et comptable",
+        desc: "Devis, factures, acomptes et notes de crédit générés depuis le logiciel, envoi par lien de paiement sans commission, export comptable au format CSV paramétrable par code produit et taux de TVA.",
       },
     ],
     tarifs: {
       publie: false,
       intro:
-        "Apex Timing ne publie pas de grille. Le seul montant en circulation provient d'un comparatif publié par un concurrent direct : il doit être traité comme une estimation non confirmée, pas comme un tarif.",
+        "Apex Timing ne publie pas de montants, mais sa documentation commerciale détaille la structure de l'offre — et celle-ci réserve quelques surprises. Deux modes d'acquisition coexistent, achat ou location, assortis d'un abonnement aux solutions web réparti en trois packs.",
       lignes: [
         {
-          label: "Abonnement mensuel",
-          valeur: "Environ 300 €/mois",
-          source:
-            "chiffre avancé par PlayPro, concurrent direct — non confirmé par Apex Timing",
+          label: "Modèle",
+          valeur: "Achat ou location, plus un abonnement web",
+          source: "documentation commerciale de l'éditeur, octobre 2026",
         },
-        { label: "Module chronométrage", valeur: "Inclusion non précisée" },
         {
-          label: "Matériel de piste et affichages",
-          valeur: "Non communiqué",
+          label: "Les trois packs",
+          valeur: "Support (Web Basic), Web Pro, Web Premium",
         },
         {
           label: "Commission sur les réservations en ligne",
-          valeur: "Non communiquée",
+          valeur: "0 %",
+          source: "annoncé explicitement par l'éditeur",
         },
+        {
+          label: "Vente en ligne",
+          valeur: "À partir du pack Web Pro",
+        },
+        {
+          label: "Réservation d'activités et paiement",
+          valeur: "Pack Web Premium uniquement",
+        },
+        {
+          label: "Liaison par API vers un outil externe",
+          valeur: "Pack Web Premium uniquement",
+        },
+        {
+          label: "Volume d'e-mailing inclus",
+          valeur: "25 000/mois en Pro, 90 000/mois en Premium",
+        },
+        {
+          label: "Frais annexes",
+          valeur:
+            "Mise en service, intégration bancaire et pack SMS facturés à part",
+        },
+        { label: "Montant des abonnements", valeur: "Non communiqué" },
       ],
       manquant: [
-        "Une grille tarifaire émanant de l'éditeur lui-même",
-        "Ce que couvre l'abonnement, et ce qui relève du matériel de chronométrage",
-        "Le coût des boucles, transpondeurs et écrans d'affichage",
-        "L'existence d'une commission sur les ventes en ligne",
+        "Le montant de chaque pack, et l'écart entre achat et location",
+        "Le coût de la mise en service, de l'intégration bancaire et du pack SMS",
+        "Le prix du matériel : boucles, transpondeurs, écrans, bornes, RDisplay",
+        "La durée d'engagement et les conditions de sortie",
       ],
     },
     constate: {
       intro:
-        "Nous opérons des centres équipés d'Apex Timing. Voici ce que montre une installation en production, vérifié en septembre 2026 sur le tunnel de Fun Space.",
+        "Nous opérons des centres équipés d'Apex Timing, et l'éditeur publie par ailleurs une documentation technique de son plan de taggage. Voici ce que montrent les deux, croisés, en octobre 2026.",
       points: [
-        "Le tunnel de réservation tourne sur le domaine d'Apex Timing lui-même, chaque centre étant identifié par un paramètre dans l'adresse. Ce domaine est donc partagé entre tous les centres clients.",
-        "Chaque centre dispose de son propre conteneur de mesure, avec ses identifiants Google Analytics, Google Ads et son pixel publicitaire.",
-        "Le tunnel pousse des événements de commerce conformes à la spécification actuelle de Google, complétés par des événements métier nommés : réservation en ligne, commande de chèques cadeaux.",
-        "Sur la qualité du suivi, c'est l'implémentation la plus propre des cinq outils examinés — un constat qui va à l'encontre de ce qu'affirment les comparatifs publiés par ses concurrents.",
+        "Le tunnel de réservation s'affiche en cadres intégrés dans les pages du site du centre, servis depuis le domaine d'Apex Timing. Chaque centre est identifié par un paramètre dans l'adresse : le domaine est donc partagé entre tous les clients de l'éditeur.",
+        "Les identifiants de mesure se renseignent directement dans l'espace client — Google Analytics, Google Tag Manager et pixel Meta disposent chacun de leur champ. Aucun développement n'est nécessaire pour les poser.",
+        "La couche de données couvre tout le parcours, de la vue de la liste de produits jusqu'à l'achat, en passant par le panier, sa modification et son abandon. Les noms respectent la spécification actuelle de Google.",
+        "L'éditeur expose une fonction dédiée au consentement, qui permet de transmettre le choix du visiteur aux balises chargées dans le cadre intégré. Peu de moteurs du panel offrent ce pont.",
+        "Apex Timing indique en revanche ne pas assurer de support sur la configuration de Tag Manager, et recommande de passer par un spécialiste.",
       ],
     },
     vigilance: [
-      "Le tunnel étant hébergé sur un domaine mutualisé entre tous les centres Apex, les cookies de mesure sont posés sur ce domaine partagé. Un visiteur qui réserve dans deux centres différents peut être vu comme un même individu par les outils d'analyse. C'est à prendre en compte dans le paramétrage.",
-      "Le visiteur quitte le site du centre pour réserver. Sans configuration adaptée, une partie du chiffre d'affaires est attribuée au domaine d'Apex plutôt qu'à la vraie source du client.",
-      "Les concurrents lui reprochent l'absence de fonctions marketing avancées. Le reproche est cohérent avec la documentation publique, mais il émane de parties intéressées.",
+      "L'e-commerce n'est pas inclus dans le pack d'entrée, et la réservation d'activités avec paiement — le cœur de métier d'un karting — n'apparaît que sur le pack le plus élevé. Un exploitant qui compte vendre en ligne doit vérifier son pack avant de signer, pas après.",
+      "Le tunnel étant servi depuis un domaine mutualisé entre tous les centres Apex, les cookies de mesure sont posés sur ce domaine partagé. Un visiteur qui réserve dans deux centres différents peut être vu comme un même individu par les outils d'analyse.",
+      "Le contenu de réservation s'affichant dans un cadre intégré, la mesure demande un paramétrage spécifique que n'exige pas un tunnel classique. C'est faisable et documenté, mais ce n'est pas automatique.",
+      "Plusieurs fonctions utiles sont facturées en supplément : mise en service, intégration bancaire, pack SMS. À faire chiffrer dès le devis pour éviter la mauvaise surprise.",
+      "Un montant d'environ 300 €/mois a circulé dans un comparatif publié par un concurrent. La documentation de l'éditeur montre que l'offre se structure en trois packs, en achat ou en location, avec des frais annexes : ramener cela à un chiffre unique n'a pas de sens.",
     ],
     lacunes: [
-      "Grille tarifaire officielle de l'éditeur",
-      "Périmètre inclus dans l'abonnement contre matériel facturé à part",
-      "Existence d'une commission sur les réservations en ligne",
-      "Option de sous-domaine ou de domaine dédié pour le tunnel",
-      "Délai de mise en service et contenu de la formation",
+      "Le montant de chacun des trois packs",
+      "L'écart de coût entre achat et location",
+      "Le prix du matériel de piste et des bornes",
+      "Le coût de la mise en service et de l'intégration bancaire",
+      "La durée d'engagement et les conditions de sortie",
+      "Le délai entre signature et mise en service",
     ],
     site: "https://www.apex-timing.com/",
     sources: [
       {
         label: "Apex Timing — gestion de centre de karting",
         url: "https://www.apex-timing.com/en/karting-center-management-software/",
+      },
+      {
+        label: "Apex Timing — documentation Google Tag Manager",
+        url: "https://wiki.apex-timing.com/doc/gokarts/google-tag-manager",
       },
       {
         label: "Apex Timing — solution centres de loisirs",

@@ -4,7 +4,16 @@ import { APEX_TIMING } from "./apex-timing";
 import { ROLLER } from "./roller";
 import { BMI_LEISURE } from "./bmi-leisure";
 
-export type { GuideOutil, Plateforme, Balise, Variable, Declencheur } from "./types";
+export type {
+  GuideOutil,
+  Pilier,
+  Contenu,
+  Version,
+  Plateforme,
+  Balise,
+  Variable,
+  Declencheur,
+} from "./types";
 
 export const GUIDES: GuideOutil[] = [QWEEKLE, APEX_TIMING, ROLLER, BMI_LEISURE];
 

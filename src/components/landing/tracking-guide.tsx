@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from "lucide-react";
-import type { GuideOutil } from "@/lib/tracking";
+import type { GuideOutil, Pilier } from "@/lib/tracking";
+import { VersionTabs } from "@/components/landing/version-tabs";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
@@ -47,94 +48,19 @@ function Destination({ label, valeur }: { label: string; valeur: string }) {
   );
 }
 
-export function TrackingGuide({ guide }: { guide: GuideOutil }) {
-  const { pilier } = guide;
-
+/** Le corps qui change d'une version à l'autre. */
+function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
   return (
     <>
-      <Navbar />
-      <main className="reading-scrim relative">
-        {/* ── En-tête ── */}
-        <section className="relative overflow-hidden px-4 pb-10 pt-28 md:pt-32">
-          <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-          <div className="relative mx-auto max-w-3xl">
-            <Reveal>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-                <Link
-                  href="/plan-de-taggage-parc-de-loisirs"
-                  className="inline-flex items-center gap-2 text-foreground/55 transition-colors hover:text-pink"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Tous les plans de taggage
-                </Link>
-                <Link
-                  href={`/logiciel-gestion-parc-de-loisirs/${guide.slug}`}
-                  className="text-foreground/40 transition-colors hover:text-pink"
-                >
-                  Fiche {guide.nom}
-                </Link>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.06}>
-              <span className="mt-6 inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink">
-                Plan de taggage
-              </span>
-            </Reveal>
-
-            <Reveal delay={0.12}>
-              <h1 className="mt-5 font-display text-3xl font-bold uppercase leading-[1.08] tracking-tight text-foreground sm:text-4xl md:text-5xl">
-                {pilier.titre}
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.18}>
-              <p className="mt-6 text-base leading-relaxed text-foreground/70 md:text-lg">
-                {pilier.chapo}
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ── Les quatre guides ── */}
-        <section className="relative px-4 py-10 md:py-14">
-          <div className="mx-auto max-w-3xl">
-            <Reveal>
-              <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                Les guides par <span className="text-spectrum">plateforme</span>
-              </h2>
-              <p className="mt-3 text-base leading-relaxed text-foreground/60">
-                Chaque plateforme a ses balises, ses noms d&apos;événements et
-                ses pièges. Un guide par destination, avec le code à copier.
-              </p>
-            </Reveal>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {guide.plateformes.map((p, i) => (
-                <Reveal key={p.slug} delay={Math.min(i, 4) * 0.05} className="h-full">
-                  <Link
-                    href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}/${p.slug}`}
-                    className="card-link group flex h-full flex-col rounded-2xl border bg-ink-soft/50 px-5 py-5 md:px-6 md:py-6"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="font-display text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-spectrum md:text-2xl">
-                        {p.nom}
-                      </span>
-                      <ArrowUpRight className="card-arrow mt-1 h-4 w-4 flex-none text-pink/60 group-hover:text-pink" />
-                    </div>
-                    <span className="mt-2 text-sm leading-snug text-foreground/55">
-                      {p.titre}
-                    </span>
-                    <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
-                      Lire le guide
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
+      <section className="relative px-4 pb-4 pt-6">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <p className="text-base leading-relaxed text-foreground/70 md:text-lg">
+              {pilier.chapo}
+            </p>
+          </Reveal>
+        </div>
+      </section>
         {/* ── Architecture ── */}
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
@@ -166,7 +92,7 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionTitle eyebrow="Couche de données">
-                Ce que {guide.nom}{" "}
+                Ce que {nom}{" "}
                 <span className="text-spectrum">pousse réellement</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
@@ -288,6 +214,115 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
             </Reveal>
           </div>
         </section>
+
+    </>
+  );
+}
+
+export function TrackingGuide({ guide }: { guide: GuideOutil }) {
+  const { pilier, versions, variantes } = guide;
+
+  const corps =
+    versions && variantes ? (
+      <VersionTabs
+        versions={versions}
+        contenus={Object.fromEntries(
+          versions.map((v) => [
+            v.id,
+            <PilierBody key={v.id} pilier={variantes[v.id].pilier} nom={guide.nom} />,
+          ]),
+        )}
+      />
+    ) : (
+      <PilierBody pilier={pilier} nom={guide.nom} />
+    );
+
+  return (
+    <>
+      <Navbar />
+      <main className="reading-scrim relative">
+        {/* ── En-tête ── */}
+        <section className="relative overflow-hidden px-4 pb-10 pt-28 md:pt-32">
+          <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
+          <div className="relative mx-auto max-w-3xl">
+            <Reveal>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                <Link
+                  href="/plan-de-taggage-parc-de-loisirs"
+                  className="inline-flex items-center gap-2 text-foreground/55 transition-colors hover:text-pink"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Tous les plans de taggage
+                </Link>
+                <Link
+                  href={`/logiciel-gestion-parc-de-loisirs/${guide.slug}`}
+                  className="text-foreground/40 transition-colors hover:text-pink"
+                >
+                  Fiche {guide.nom}
+                </Link>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <span className="mt-6 inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink">
+                Plan de taggage
+              </span>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <h1 className="mt-5 font-display text-3xl font-bold uppercase leading-[1.08] tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                {pilier.titre}
+              </h1>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <p className="mt-6 text-base leading-relaxed text-foreground/70 md:text-lg">
+                {pilier.chapo}
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ── Les quatre guides ── */}
+        <section className="relative px-4 py-10 md:py-14">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                Les guides par <span className="text-spectrum">plateforme</span>
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-foreground/60">
+                Chaque plateforme a ses balises, ses noms d&apos;événements et
+                ses pièges. Un guide par destination, avec le code à copier.
+              </p>
+            </Reveal>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {guide.plateformes.map((p, i) => (
+                <Reveal key={p.slug} delay={Math.min(i, 4) * 0.05} className="h-full">
+                  <Link
+                    href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}/${p.slug}`}
+                    className="card-link group flex h-full flex-col rounded-2xl border bg-ink-soft/50 px-5 py-5 md:px-6 md:py-6"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="font-display text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-spectrum md:text-2xl">
+                        {p.nom}
+                      </span>
+                      <ArrowUpRight className="card-arrow mt-1 h-4 w-4 flex-none text-pink/60 group-hover:text-pink" />
+                    </div>
+                    <span className="mt-2 text-sm leading-snug text-foreground/55">
+                      {p.titre}
+                    </span>
+                    <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
+                      Lire le guide
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {corps}
 
         {/* ── CTA ── */}
         <section className="relative px-4 pb-24 pt-6">

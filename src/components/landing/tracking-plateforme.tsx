@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Check, TriangleAlert } from "lucide-react";
 import type { GuideOutil, Plateforme } from "@/lib/tracking";
+import { VersionTabs } from "@/components/landing/version-tabs";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
@@ -37,53 +38,19 @@ function Code({ children }: { children: string }) {
   );
 }
 
-export function TrackingPlateforme({
-  guide,
-  plateforme,
-}: {
-  guide: GuideOutil;
-  plateforme: Plateforme;
-}) {
-  const autres = guide.plateformes.filter((p) => p.slug !== plateforme.slug);
-
+/** Le corps qui change d'une version à l'autre. */
+function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
   return (
     <>
-      <Navbar />
-      <main className="reading-scrim relative">
-        {/* ── En-tête ── */}
-        <section className="relative overflow-hidden px-4 pb-10 pt-28 md:pt-32">
-          <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-          <div className="relative mx-auto max-w-3xl">
-            <Reveal>
-              <Link
-                href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}`}
-                className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Plan de taggage {guide.nom}
-              </Link>
-            </Reveal>
-
-            <Reveal delay={0.06}>
-              <span className="mt-6 inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink">
-                {plateforme.nom}
-              </span>
-            </Reveal>
-
-            <Reveal delay={0.12}>
-              <h1 className="mt-5 font-display text-3xl font-bold uppercase leading-[1.08] tracking-tight text-foreground sm:text-4xl md:text-5xl">
-                {plateforme.titre}
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.18}>
-              <p className="mt-6 text-base leading-relaxed text-foreground/70 md:text-lg">
-                {plateforme.chapo}
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
+      <section className="relative px-4 pb-2 pt-6">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <p className="text-base leading-relaxed text-foreground/70 md:text-lg">
+              {plateforme.chapo}
+            </p>
+          </Reveal>
+        </div>
+      </section>
         {/* ── Prérequis ── */}
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
@@ -297,6 +264,79 @@ export function TrackingPlateforme({
             </Reveal>
           </div>
         </section>
+
+    </>
+  );
+}
+
+export function TrackingPlateforme({
+  guide,
+  plateforme,
+}: {
+  guide: GuideOutil;
+  plateforme: Plateforme;
+}) {
+  const autres = guide.plateformes.filter((p) => p.slug !== plateforme.slug);
+  const { versions, variantes } = guide;
+
+  // La même page plateforme existe dans chaque version : on la retrouve par slug.
+  const corps =
+    versions && variantes ? (
+      <VersionTabs
+        versions={versions}
+        contenus={Object.fromEntries(
+          versions.map((v) => {
+            const variante =
+              variantes[v.id].plateformes.find(
+                (x) => x.slug === plateforme.slug,
+              ) ?? plateforme;
+            return [v.id, <PlateformeBody key={v.id} plateforme={variante} />];
+          }),
+        )}
+      />
+    ) : (
+      <PlateformeBody plateforme={plateforme} />
+    );
+
+  return (
+    <>
+      <Navbar />
+      <main className="reading-scrim relative">
+        {/* ── En-tête ── */}
+        <section className="relative overflow-hidden px-4 pb-10 pt-28 md:pt-32">
+          <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
+          <div className="relative mx-auto max-w-3xl">
+            <Reveal>
+              <Link
+                href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}`}
+                className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Plan de taggage {guide.nom}
+              </Link>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <span className="mt-6 inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink">
+                {plateforme.nom}
+              </span>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <h1 className="mt-5 font-display text-3xl font-bold uppercase leading-[1.08] tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                {plateforme.titre}
+              </h1>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <p className="mt-6 text-base leading-relaxed text-foreground/70 md:text-lg">
+                {plateforme.chapo}
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {corps}
 
         {/* ── Les autres plateformes ── */}
         <section className="relative px-4 py-12 md:py-16">

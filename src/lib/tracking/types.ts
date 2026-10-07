@@ -56,36 +56,66 @@ export type Plateforme = {
   verification: string[];
 };
 
+/**
+ * Une version majeure d'un moteur, quand deux générations coexistent en
+ * production. Le lecteur doit pouvoir identifier la sienne en trois secondes :
+ * c'est le rôle de `reconnaitre`.
+ */
+export type Version = {
+  id: string;
+  label: string;
+  /** Statut en une formule : « la version actuelle », « encore déployée ». */
+  statut: string;
+  /** Le signe qui permet de trancher sans ouvrir l'administration. */
+  reconnaitre: string;
+};
+
+export type Pilier = {
+  titre: string;
+  /** Méta-description, propre au pilier. Viser 150 à 160 caractères. */
+  description: string;
+  chapo: string;
+  architecture: { intro: string; points: string[] };
+  dataLayer: {
+    intro: string;
+    events: { nom: string; note?: string }[];
+    variables: string[];
+    remarque: string;
+  };
+  /** Vue d'ensemble : une étape du parcours par ligne. */
+  parcours: {
+    intro: string;
+    etapes: {
+      etape: string;
+      source: string;
+      ga4: string;
+      ads: string;
+      meta: string;
+      tiktok: string;
+    }[];
+  };
+  ordre: string[];
+};
+
+/** Le contenu complet d'une version : son pilier et ses pages plateforme. */
+export type Contenu = {
+  pilier: Pilier;
+  plateformes: Plateforme[];
+};
+
 export type GuideOutil = {
   /** Correspond au slug de l'outil dans OUTILS. */
   slug: string;
   nom: string;
-  /** Page pilier. */
-  pilier: {
-    titre: string;
-    /** Méta-description, propre au pilier. Viser 150 à 160 caractères. */
-    description: string;
-    chapo: string;
-    architecture: { intro: string; points: string[] };
-    dataLayer: {
-      intro: string;
-      events: { nom: string; note?: string }[];
-      variables: string[];
-      remarque: string;
-    };
-    /** Vue d'ensemble : une étape du parcours par ligne. */
-    parcours: {
-      intro: string;
-      etapes: {
-        etape: string;
-        source: string;
-        ga4: string;
-        ads: string;
-        meta: string;
-        tiktok: string;
-      }[];
-    };
-    ordre: string[];
-  };
+  /**
+   * Contenu de la version par défaut. Quand `versions` est renseigné, il
+   * reprend celui de la première entrée — les composants s'en servent pour
+   * les métadonnées et pour les lecteurs sans JavaScript.
+   */
+  pilier: Pilier;
   plateformes: Plateforme[];
+  /** Renseigné seulement si deux générations coexistent. Première = défaut. */
+  versions?: Version[];
+  /** Contenu par version, indexé par `Version.id`. */
+  variantes?: Record<string, Contenu>;
 };
