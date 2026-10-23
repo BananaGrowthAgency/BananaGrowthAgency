@@ -7,7 +7,10 @@ import { PARC } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
-export function ParcFaq() {
+type FaqItem = { q: string; a: string };
+
+/** Sans `items`, affiche la FAQ de la landing parcs de loisirs. */
+export function ParcFaq({ items = PARC.faq }: { items?: readonly FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -23,7 +26,7 @@ export function ParcFaq() {
         </Reveal>
 
         <div className="space-y-3">
-          {PARC.faq.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={item.q} delay={i * 0.04}>

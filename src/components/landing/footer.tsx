@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_FOOTER, FOOTER_TAGLINE, FOOTER_PRODUCT } from "@/lib/site";
+import { NAV_FOOTER, FOOTER_TAGLINE, FOOTER_PRODUCT, PARC_HREF } from "@/lib/site";
+import { cheminSecteur, secteursParFamille } from "@/lib/secteurs";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -94,6 +95,44 @@ export function Footer() {
             >
               <Icon className="h-4 w-4" />
             </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Pages secteurs : le maillage depuis tout le site passe par ici. */}
+      <div className="relative mx-auto mt-10 max-w-6xl border-t border-white/10 pt-8">
+        <p className="text-center text-sm font-semibold uppercase tracking-[0.15em] text-foreground/60 md:text-left">
+          Nos secteurs
+        </p>
+        <div className="mt-5 grid gap-6 text-center sm:grid-cols-3 sm:text-left">
+          {secteursParFamille().map((f) => (
+            <div key={f.famille}>
+              <p className="text-xs uppercase tracking-[0.15em] text-pink/70">
+                {f.label}
+              </p>
+              <ul className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1.5 sm:block sm:space-y-1.5">
+                {f.famille === "indoor" && (
+                  <li>
+                    <Link
+                      href={PARC_HREF}
+                      className="text-sm text-foreground/50 transition-colors hover:text-pink"
+                    >
+                      Parcs de loisirs
+                    </Link>
+                  </li>
+                )}
+                {f.secteurs.map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={cheminSecteur(s.slug)}
+                      className="text-sm text-foreground/50 transition-colors hover:text-pink"
+                    >
+                      {s.nom}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { OUTILS } from "@/lib/outils";
+import { SECTEURS, cheminSecteur } from "@/lib/secteurs";
 import { GUIDES, toutesLesPlateformes } from "@/lib/tracking";
 
 /**
@@ -19,6 +20,12 @@ const PAGES: Array<{
 }> = [
   { chemin: "/", priorite: 1, frequence: "monthly" },
   { chemin: "/accompagnement-marketing-digital-parc-de-loisir", priorite: 0.9, frequence: "monthly" },
+  // Une page par secteur du loisir expérientiel.
+  ...SECTEURS.map((s) => ({
+    chemin: cheminSecteur(s.slug),
+    priorite: 0.8,
+    frequence: "monthly" as const,
+  })),
   { chemin: "/logiciel-gestion-parc-de-loisirs", priorite: 0.8, frequence: "monthly" },
   { chemin: "/plan-de-taggage-parc-de-loisirs", priorite: 0.8, frequence: "monthly" },
   // Les fiches outils évoluent au fil des réponses des éditeurs.

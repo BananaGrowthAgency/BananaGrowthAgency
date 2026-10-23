@@ -63,7 +63,8 @@ export const NAV_FOOTER: readonly NavLink[] = [
 
 /** Les chemins qui appartiennent à l'univers parcs de loisirs. */
 const PREFIXES_PARC = [
-  PARC_HREF,
+  // Couvre la landing parc de loisir et toutes les pages secteurs.
+  "/accompagnement-marketing-digital-",
   "/logiciel-gestion-parc-de-loisirs",
   "/plan-de-taggage-parc-de-loisirs",
 ];
