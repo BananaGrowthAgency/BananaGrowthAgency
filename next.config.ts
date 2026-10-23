@@ -45,6 +45,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // Pages secteurs retirées : activités trop intentionnelles pour notre méthode.
+      {
+        source: "/accompagnement-marketing-digital-padel",
+        destination: "/accompagnement-marketing-digital-parc-de-loisir",
+        permanent: true,
+      },
+      {
+        source: "/accompagnement-marketing-digital-parachute-parapente",
+        destination: "/accompagnement-marketing-digital-parc-de-loisir",
+        permanent: true,
+      },
+
       /* Réorganisation de la section ressources.
          Les fiches outils passent sous /logiciel-gestion-parc-de-loisirs, et
          les plans de taggage remontent d'un cran sous leur propre racine.

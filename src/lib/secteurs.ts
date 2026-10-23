@@ -842,68 +842,6 @@ export const SECTEURS: readonly Secteur[] = [
 
   /* ── Loisirs outdoor & sites de visite ─────────────────── */
   {
-    slug: "padel",
-    famille: "outdoor",
-    nom: "Padel",
-    pour: "les clubs de padel",
-    un: "un club de padel",
-    votre: "votre club",
-    metaDescription:
-      "Agence marketing digital pour clubs et complexes de padel : campagnes Google et Meta, SEO local et tracking pour remplir vos terrains en heures creuses.",
-    subtitle:
-      "Réservations de terrains, cours, tournois, abonnements : nous remplissons vos heures creuses et développons votre communauté de joueurs.",
-    probleme: [
-      "Le padel est le sport qui grandit le plus vite en France, et les ouvertures de clubs se multiplient.",
-      "Les heures de pointe se remplissent seules, mais les créneaux de journée restent vides.",
-      "Et la concurrence pour attirer les nouveaux joueurs devient rude dans chaque agglomération.",
-    ],
-    demande: {
-      intro:
-        "201 000 recherches mensuelles pour « padel » : une demande massive, dont une bonne part de débutants qui cherchent un terrain ou un cours près de chez eux.",
-      requetes: [
-        { mot: "padel", volume: 201000 },
-        { mot: "terrain de padel", volume: 9900 },
-        { mot: "cours de padel", volume: 1300 },
-        { mot: "club de padel", volume: 760 },
-        { mot: "padel indoor", volume: 290 },
-        { mot: "réserver padel", volume: 140 },
-      ],
-    },
-    publics: [
-      {
-        titre: "Les débutants",
-        texte:
-          "La plus grosse source de croissance : cours d'initiation et offres découverte poussés sur Google et Meta.",
-      },
-      {
-        titre: "Les joueurs réguliers",
-        texte:
-          "Abonnements, tournois et ligues : emailing, communauté et remplissage des créneaux libérés.",
-      },
-      {
-        titre: "Les entreprises",
-        texte:
-          "Tournois d'entreprise et créneaux de midi : le levier des heures creuses en semaine.",
-      },
-    ],
-    saison:
-      "Le padel indoor tourne toute l'année, l'outdoor ralentit l'hiver. Nous concentrons l'effort publicitaire sur les heures creuses et les périodes de recrutement (rentrée, janvier, printemps).",
-    faq: [
-      {
-        q: "Comment remplir les terrains en journée ?",
-        a: "Avec des offres ciblées (retraités, étudiants, entreprises le midi) poussées uniquement sur ces créneaux. Le budget suit vos disponibilités.",
-      },
-      {
-        q: "Le padel relève-t-il vraiment du loisir ?",
-        a: "Pour la majorité de vos clients, oui : ils viennent jouer entre amis, sans licence. C'est ce public loisir que nous savons recruter.",
-      },
-      {
-        q: "Vous suivez les réservations des plateformes de padel ?",
-        a: "Nous mettons en place le suivi des réservations faites sur votre site et votre logiciel de réservation dès qu'il le permet, pour relier chaque terrain réservé à sa source.",
-      },
-    ],
-  },
-  {
     slug: "zoo-parc-animalier",
     famille: "outdoor",
     nom: "Zoo & parc animalier",
@@ -1146,66 +1084,6 @@ export const SECTEURS: readonly Secteur[] = [
       {
         q: "Faut-il un site si l'on est sur des plateformes ?",
         a: "Oui : chaque réservation directe vous évite une commission. Votre site doit permettre de réserver aussi vite que sur une plateforme.",
-      },
-    ],
-  },
-  {
-    slug: "parachute-parapente",
-    famille: "outdoor",
-    nom: "Parachutisme & parapente",
-    pour: "les écoles de parachutisme et de parapente",
-    un: "une école de parachutisme ou de parapente",
-    votre: "votre école",
-    metaDescription:
-      "Agence marketing digital pour parachutisme, parapente et sensations aériennes : campagnes Google et Meta, SEO et suivi des réservations et bons cadeaux.",
-    subtitle:
-      "Sauts en tandem, baptêmes, stages, bons cadeaux : nous faisons décoller vos réservations avec des campagnes qui vendent l'émotion.",
-    probleme: [
-      "Un saut en parachute ou un baptême de parapente est souvent offert : le payeur n'est pas le pratiquant.",
-      "Le bon cadeau représente une part énorme du chiffre, avec des pics à Noël et pour la fête des pères.",
-      "Encore faut-il être le premier choix quand on cherche « cadeau original ».",
-    ],
-    demande: {
-      intro:
-        "40 500 recherches par mois pour « saut en parachute » et 22 400 pour « parapente ». Une demande forte, où le cadeau pèse lourd dans la décision.",
-      requetes: [
-        { mot: "saut en parachute", volume: 40500 },
-        { mot: "parapente", volume: 22400 },
-        { mot: "saut à l'élastique", volume: 2900 },
-        { mot: "chute libre indoor", volume: 40 },
-      ],
-    },
-    publics: [
-      {
-        titre: "Les offreurs de cadeaux",
-        texte:
-          "Noël, anniversaires, fête des pères : campagnes bons cadeaux et parcours d'achat en ligne rapide.",
-      },
-      {
-        titre: "Les amateurs de sensations",
-        texte:
-          "Ils veulent cocher une expérience : vidéos immersives et preuves de sécurité.",
-      },
-      {
-        titre: "Touristes et groupes",
-        texte:
-          "En zone touristique, réservation mobile et annonces géolocalisées en saison.",
-      },
-    ],
-    saison:
-      "Vols d'avril à octobre, mais ventes de bons cadeaux toute l'année avec un pic énorme en novembre-décembre. Nous préparons la saison des cadeaux dès octobre.",
-    faq: [
-      {
-        q: "Comment vendre plus de bons cadeaux ?",
-        a: "Avec une boutique cadeau simple, des visuels adaptés et des campagnes calées sur les fêtes. Nous suivons chaque bon vendu comme une conversion.",
-      },
-      {
-        q: "La sécurité doit-elle apparaître dans les publicités ?",
-        a: "Elle doit apparaître sur vos pages : moniteurs diplômés, nombre de sauts, conditions. Les publicités, elles, vendent l'émotion.",
-      },
-      {
-        q: "Les vidéos de clients sont-elles utilisables en publicité ?",
-        a: "Oui, avec leur accord : ce sont souvent vos meilleures créations. Nous mettons en place un process simple pour les collecter.",
       },
     ],
   },
