@@ -83,35 +83,75 @@ function Hero({ s }: { s: Secteur }) {
   );
 }
 
-function Probleme({ s }: { s: Secteur }) {
+/* Problème et mission dans une même carte, la photo de l'équipe à côté :
+   on casse le tout-centré dès le premier écran après le hero. */
+function ProblemeMission({ s }: { s: Secteur }) {
   return (
-    <section className="relative px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-3xl text-center">
+    <section className="relative px-4 py-16 md:py-24">
+      <div className="mx-auto max-w-6xl">
         <Reveal>
-          <span className={eyebrowClass}>Vous gérez {s.un} ?</span>
-        </Reveal>
-        <div className="mt-6 space-y-4">
-          {s.probleme.map((line, i) => (
-            <Reveal key={i} delay={i * 0.08}>
-              <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
-                {line}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={0.1}>
-          <p className="mx-auto mt-8 max-w-2xl font-display text-2xl font-bold leading-tight tracking-tight md:text-3xl">
-            <span className="text-spectrum">
-              Notre méthode, éprouvée sur plus de 20 acteurs du loisir, est
-              pensée pour remplir {s.votre}.
-            </span>
-          </p>
+          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 neon-ring">
+            <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
+
+            <div className="relative grid lg:grid-cols-[1.4fr_1fr]">
+              <div className="px-6 py-12 md:px-12 md:py-14">
+                <span className={eyebrowClass}>Vous gérez {s.un} ?</span>
+                <div className="mt-6 space-y-4">
+                  {s.probleme.map((line, i) => (
+                    <p
+                      key={i}
+                      className="text-base leading-relaxed text-foreground/65 md:text-lg"
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="mt-10 border-t border-white/10 pt-8">
+                  <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                    {PARC.mission.title}
+                  </h2>
+                  <div className="mt-5 space-y-4">
+                    <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
+                      {PARC.mission.lines[0]}
+                    </p>
+                    <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
+                      Nous pilotons votre stratégie marketing, afin que vous
+                      puissiez vous concentrer sur l&apos;essentiel :
+                      l&apos;expérience de vos clients et la gestion de{" "}
+                      {s.votre}.
+                    </p>
+                  </div>
+                  <p className="mt-8 font-display text-xl font-bold leading-tight tracking-tight md:text-2xl">
+                    <span className="text-spectrum">
+                      Prêt(e) à booster la fréquentation de {s.votre} ?
+                    </span>
+                  </p>
+                  <div className="mt-6">
+                    <CtaButton href={CALENDLY_AUDIT_PARC}>
+                      {PARC.mission.cta}
+                    </CtaButton>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative min-h-[24rem] border-t border-pink/15 lg:min-h-full lg:border-l lg:border-t-0">
+                <Image
+                  src="/canva/photos/equipe-banana.jpg"
+                  alt="L'équipe Banana Growth Agency"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover object-[center_25%] lg:object-center"
+                />
+              </div>
+            </div>
+          </div>
         </Reveal>
 
-        <div className="mx-auto mt-14 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
           {PARC.stats.map((st, i) => (
             <Reveal key={st.label} delay={i * 0.08} className="h-full">
-              <div className="glass flex h-full flex-col items-center justify-center rounded-2xl border border-white/10 px-4 py-6">
+              <div className="glass flex h-full flex-col items-center justify-center rounded-2xl border border-white/10 px-4 py-6 text-center">
                 <CountUp
                   value={st.value}
                   className="font-display text-2xl font-bold text-spectrum md:text-3xl"
@@ -202,108 +242,52 @@ function Publics({ s }: { s: Secteur }) {
   );
 }
 
-function Equipe({ s }: { s: Secteur }) {
-  return (
-    <section className="relative px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-5xl">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 neon-ring">
-            <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
-
-            <div className="relative grid lg:grid-cols-[1.55fr_1fr]">
-              <div className="px-6 py-12 text-center md:px-10 md:py-14">
-                <span className={eyebrowClass}>{PARC.mission.eyebrow}</span>
-                <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                  {PARC.mission.title}
-                </h2>
-                <div className="mx-auto mt-6 max-w-xl space-y-4">
-                  <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
-                    {PARC.mission.lines[0]}
-                  </p>
-                  <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
-                    Nous pilotons votre stratégie marketing, afin que vous
-                    puissiez vous concentrer sur l&apos;essentiel :
-                    l&apos;expérience de vos clients et la gestion de{" "}
-                    {s.votre}.
-                  </p>
-                </div>
-
-                <div className="mt-10 border-t border-white/10 pt-8">
-                  <p className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                    Prêt(e) à booster la fréquentation de {s.votre} ?
-                  </p>
-                  <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60 md:text-base">
-                    {PARC.mission.ctaText}
-                  </p>
-                  <div className="mt-7 flex justify-center">
-                    <CtaButton href={CALENDLY_AUDIT_PARC}>
-                      {PARC.mission.cta}
-                    </CtaButton>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative min-h-[22rem] border-t border-pink/15 lg:min-h-full lg:border-l lg:border-t-0">
-                <Image
-                  src="/canva/photos/equipe-banana.jpg"
-                  alt="L'équipe Banana Growth Agency"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover object-[center_25%] lg:object-center"
-                />
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-const IA = [
+/* Six engagements au même format : trois côté IA, trois côté humain. */
+const ENGAGEMENTS = [
+  {
+    titre: "Un interlocuteur dédié",
+    texte:
+      "Quelqu'un qui connaît votre activité, vos créneaux creux et vos équipes, et que vous pouvez appeler.",
+  },
+  {
+    titre: "Des méthodes testées sur le terrain",
+    texte:
+      "Ce que nous mettons en place a déjà fonctionné chez d'autres acteurs du loisir. Pas de théorie.",
+  },
+  {
+    titre: "De la pédagogie",
+    texte:
+      "Nous formons vos équipes pour qu'elles comprennent ce qui se passe et gagnent en autonomie.",
+  },
   {
     titre: "Visible dans les réponses des IA",
     texte:
-      "Vos clients demandent déjà à ChatGPT ou à Google quoi faire ce week-end. Nous travaillons votre présence dans ces réponses, en plus du référencement classique.",
+      "Vos clients demandent déjà à ChatGPT ou à Google quoi faire ce week-end. Nous travaillons votre présence dans ces réponses.",
   },
   {
     titre: "Des créations testées à grande échelle",
     texte:
-      "L'IA nous aide à décliner et tester des dizaines de variantes d'annonces. Nous gardons celles qui remplissent vos créneaux, et coupons les autres.",
+      "L'IA nous aide à décliner et tester des dizaines de variantes d'annonces. Nous gardons celles qui remplissent vos créneaux.",
   },
   {
     titre: "Un reporting qui tourne tout seul",
     texte:
-      "Vos données publicitaires et vos réservations remontent automatiquement dans un tableau de bord. Vous voyez chaque matin ce que rapporte chaque euro.",
+      "Vos données publicitaires et vos réservations remontent chaque matin dans un tableau de bord.",
   },
-];
-
-const HUMAIN = [
-  "Un interlocuteur dédié qui connaît votre activité, vos créneaux creux et vos équipes.",
-  "Des méthodes déjà testées chez d'autres acteurs du loisir, pas des théories.",
-  "De la pédagogie : nous formons vos équipes pour qu'elles gagnent en autonomie.",
 ];
 
 function HumainIa({ s }: { s: Secteur }) {
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <span className={eyebrowClass}>Qui sommes-nous</span>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Une équipe humaine,{" "}
-            <span className="text-spectrum">augmentée par l&apos;IA</span>
-          </h2>
-        </Reveal>
-
-        <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.3fr]">
           <Reveal>
             <div className="relative aspect-square overflow-hidden rounded-3xl border border-pink/20 neon-ring">
               <Image
                 src="/canva/photos/qui-sommes-nous.jpg"
                 alt="L'équipe Banana Growth Agency devant des enseignes de loisirs"
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
               />
             </div>
@@ -311,7 +295,12 @@ function HumainIa({ s }: { s: Secteur }) {
 
           <div>
             <Reveal>
-              <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
+              <span className={eyebrowClass}>Qui sommes-nous</span>
+              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                Une équipe humaine,{" "}
+                <span className="text-spectrum">augmentée par l&apos;IA</span>
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
                 Nous ne sommes pas une plateforme qui génère des campagnes à la
                 chaîne. Nous sommes une petite équipe passionnée par le loisir,
                 qui utilise l&apos;IA pour aller plus vite, et garde
@@ -320,10 +309,10 @@ function HumainIa({ s }: { s: Secteur }) {
               </p>
             </Reveal>
 
-            <div className="mt-8 space-y-4">
-              {IA.map((item, i) => (
-                <Reveal key={item.titre} delay={i * 0.06}>
-                  <div className="rounded-2xl border border-white/10 bg-ink-soft/60 p-5">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {ENGAGEMENTS.map((item, i) => (
+                <Reveal key={item.titre} delay={(i % 2) * 0.06} className="h-full">
+                  <div className="h-full rounded-2xl border border-white/10 bg-ink-soft/60 p-5">
                     <h3 className="font-display text-lg font-bold text-foreground">
                       {item.titre}
                     </h3>
@@ -334,20 +323,6 @@ function HumainIa({ s }: { s: Secteur }) {
                 </Reveal>
               ))}
             </div>
-
-            <Reveal delay={0.1}>
-              <ul className="mt-8 space-y-3">
-                {HUMAIN.map((line) => (
-                  <li
-                    key={line}
-                    className="flex gap-3 text-sm leading-relaxed text-foreground/70 md:text-base"
-                  >
-                    <span className="mt-2 h-2 w-2 flex-none rounded-full bg-pink" />
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
           </div>
         </div>
       </div>
@@ -477,11 +452,9 @@ export function SecteurPage({ secteur: s }: { secteur: Secteur }) {
       <Navbar />
       <main>
         <Hero s={s} />
-        <Probleme s={s} />
+        <ProblemeMission s={s} />
         <Demande s={s} />
         <Publics s={s} />
-        <Equipe s={s} />
-        <HumainIa s={s} />
         <Services />
         <Testimonial
           items={PARC.testimonials}
@@ -493,6 +466,7 @@ export function SecteurPage({ secteur: s }: { secteur: Secteur }) {
           }
         />
         <SaisonCta s={s} />
+        <HumainIa s={s} />
         <ParcFaq items={faq} />
         <AutresSecteurs s={s} />
         <Contact />
