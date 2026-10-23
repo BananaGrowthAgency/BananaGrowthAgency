@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CALENDLY_AUDIT_PARC, PARC, PARC_HREF } from "@/lib/site";
 import {
   cheminSecteur,
+  faqAgence,
   secteursParFamille,
   type Secteur,
 } from "@/lib/secteurs";
@@ -440,12 +441,8 @@ function AutresSecteurs({ s }: { s: Secteur }) {
 }
 
 export function SecteurPage({ secteur: s }: { secteur: Secteur }) {
-  // FAQ propre au secteur, complétée des deux réponses communes (budget, contrat).
-  const faq = [
-    ...s.faq,
-    PARC.faq[0],
-    PARC.faq.find((f) => f.q === "Y a-t-il un contrat ?")!,
-  ];
+  // FAQ agence d'abord, puis FAQ métier du secteur.
+  const faq = [...faqAgence(s), ...s.faq];
 
   return (
     <>

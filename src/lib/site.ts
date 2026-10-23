@@ -471,6 +471,10 @@ export const PARC = {
       a: "Nous activons les leviers les plus performants pour votre parc : SEO, Meta Ads, Google Ads et Marketing d'influence. Nous connaissons déjà quels mots-clés et quelles audiences génèrent des réservations, nous concentrons donc vos investissements uniquement sur ce qui fonctionne. Notre méthode est simple : des techniques éprouvées, testées sur d'autres parcs, que nous adaptons à votre situation pour créer un véritable cercle vertueux de croissance.",
     },
     {
+      q: "Quels leviers marketing activez-vous pour un parc de loisirs ?",
+      a: "Selon vos objectifs : la stratégie digitale, les campagnes Google Ads et Meta Ads, le SEO et le site internet, le tracking des réservations, le reporting, les visuels et vidéos, l'influence avec des créateurs proches de votre parc, et la formation de vos équipes. Nous ne vendons pas un catalogue : nous commençons par les deux ou trois leviers qui auront le plus d'impact sur votre fréquentation.",
+    },
+    {
       q: "En combien de temps puis-je avoir un retour sur investissement ?",
       a: "Nous pouvons déployer une stratégie Google Ads et Meta Ads ultra-optimisée en moins de 15 jours. Notre objectif : générer +20 % de fréquentation – nouveaux visiteurs et clients réguliers – dès les 45 premiers jours.",
     },
@@ -481,6 +485,10 @@ export const PARC = {
     {
       q: "Pourquoi vous choisir ?",
       a: "Nous accompagnons déjà +20 parcs de loisirs en France et connaissons parfaitement leurs enjeux. De la publicité à la data, de la création de contenus à l'influence, nous maîtrisons tous les leviers de croissance. Notre mission : augmenter votre visibilité, attirer plus de visiteurs et booster votre chiffre d'affaires.",
+    },
+    {
+      q: "Que se passe-t-il pendant l'audit offert ?",
+      a: "En 30 minutes, nous passons en revue votre présence en ligne (site, fiche Google, campagnes, suivi des réservations) et identifions ensemble les principaux leviers d'optimisation pour votre parc. Vous repartez avec des pistes concrètes, que vous travailliez avec nous ou non.",
     },
   ],
   finalCta: {

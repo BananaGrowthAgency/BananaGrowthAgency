@@ -1651,3 +1651,45 @@ export function secteursParFamille(): Array<{
     secteurs: SECTEURS.filter((s) => s.famille === famille),
   }));
 }
+
+/**
+ * FAQ « agence », placée avant la FAQ métier de chaque secteur.
+ *
+ * Reprend les réponses de la landing parc de loisir (fonctionnement, budget,
+ * retour sur investissement, contrat, pourquoi nous) en les adaptant au
+ * secteur, et les développe : chaque question reprend « marketing digital »
+ * et le nom du secteur, ce que Google et les IA lisent comme une réponse
+ * directe à « agence marketing digital + secteur ».
+ */
+export function faqAgence(s: Secteur): Array<{ q: string; a: string }> {
+  return [
+    {
+      q: `Comment fonctionne votre accompagnement marketing digital pour ${s.pour} ?`,
+      a: `Nous activons les leviers les plus performants pour ${s.votre} : SEO local, Google Ads, Meta Ads et marketing d'influence, appuyés par un tracking fiable des réservations. Nous savons déjà quels mots-clés et quelles audiences génèrent des réservations dans le loisir, nous concentrons donc vos investissements uniquement sur ce qui fonctionne. Notre méthode est simple : des techniques éprouvées chez d'autres acteurs du loisir, que nous adaptons à votre situation pour créer un véritable cercle vertueux de croissance.`,
+    },
+    {
+      q: `Quels leviers marketing activez-vous pour ${s.votre} ?`,
+      a: `Selon vos objectifs : la stratégie digitale, les campagnes Google Ads et Meta Ads, le SEO et le site internet, le tracking des réservations, le reporting, les visuels et vidéos, l'influence avec des créateurs proches de votre établissement, et la formation de vos équipes. Nous ne vendons pas un catalogue : nous commençons par les deux ou trois leviers qui auront le plus d'impact sur la fréquentation de ${s.votre}.`,
+    },
+    {
+      q: `Quel budget prévoir pour le marketing digital de ${s.votre} ?`,
+      a: `Il n'y a pas de minimum imposé pour vos campagnes publicitaires. Le budget Ads est défini et ajusté en fonction de la taille de ${s.votre}, de la saisonnalité et de vos objectifs de fréquentation. À noter : ce budget est distinct de nos honoraires mensuels. Notre rôle est d'optimiser chaque euro investi pour maximiser vos résultats.`,
+    },
+    {
+      q: "En combien de temps puis-je avoir un retour sur investissement ?",
+      a: `Nous pouvons déployer une stratégie Google Ads et Meta Ads optimisée en moins de 15 jours. Notre objectif : générer +20 % de fréquentation pour ${s.votre}, nouveaux clients comme clients réguliers, dès les 45 premiers jours. Le SEO prend plus de temps, mais ses effets durent bien au-delà de la fin des campagnes.`,
+    },
+    {
+      q: "Y a-t-il un contrat ?",
+      a: "Non, aucun engagement. Vous êtes libre d'arrêter la collaboration à tout moment, sans justification. Nous préférons nous concentrer sur ce qui compte vraiment : vous apporter de la valeur, obtenir des résultats concrets et vous satisfaire pleinement. Notre approche repose sur la confiance et la performance, pas sur les contraintes contractuelles.",
+    },
+    {
+      q: `Pourquoi choisir Banana Growth Agency pour ${s.votre} ?`,
+      a: `Nous accompagnons déjà plus de 20 acteurs du loisir en France et connaissons parfaitement leurs enjeux : saisonnalité, créneaux creux, anniversaires, groupes, logiciels de réservation. De la publicité à la data, de la création de contenus à l'influence, nous maîtrisons tous les leviers de croissance. Notre mission : augmenter la visibilité de ${s.votre}, attirer plus de clients et faire progresser votre chiffre d'affaires.`,
+    },
+    {
+      q: "Que se passe-t-il pendant l'audit offert ?",
+      a: `En 30 minutes, nous passons en revue votre présence en ligne (site, fiche Google, campagnes, suivi des réservations) et identifions ensemble les principaux leviers d'optimisation pour ${s.votre}. Vous repartez avec des pistes concrètes, que vous travailliez avec nous ou non.`,
+    },
+  ];
+}
