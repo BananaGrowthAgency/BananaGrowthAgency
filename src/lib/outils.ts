@@ -712,7 +712,7 @@ export const OUTILS: Outil[] = [
     tarifs: {
       publie: false,
       intro:
-        "Aucune information tarifaire publique, sur aucun canal. C'est l'éditeur le moins transparent des cinq examinés.",
+        "Aucune information tarifaire publique, sur aucun canal. C'est l'éditeur le moins transparent des six examinés.",
       lignes: [
         { label: "Abonnement mensuel", valeur: "Non communiqué" },
         { label: "Frais de mise en service", valeur: "Non communiqué" },
@@ -747,7 +747,7 @@ export const OUTILS: Outil[] = [
       "La couche de données repose sur une spécification que Google a remplacée en 2023. Elle reste exploitable, mais aucun événement n'arrive au format attendu par les outils d'analyse actuels : tout doit être retraduit. C'est un surcoût d'implémentation permanent, et une source d'erreurs à chaque évolution.",
       "L'événement d'achat étant suffixé par établissement, la configuration se multiplie avec le nombre de sites. Un groupe de quatre parcs demande quatre fois le même paramétrage, à maintenir quatre fois.",
       "Rien de tout cela n'est documenté publiquement. Un exploitant ne peut pas savoir avant achat ce qu'il pourra mesurer, ni ce que coûtera l'implémentation.",
-      "Aucune information tarifaire, sur aucun canal. C'est l'éditeur le moins transparent des cinq.",
+      "Aucune information tarifaire, sur aucun canal. C'est l'éditeur le moins transparent des six.",
       "Éditeur espagnol : la disponibilité d'un support en français reste à confirmer.",
     ],
     lacunes: [
@@ -769,6 +769,139 @@ export const OUTILS: Outil[] = [
       {
         label: "BMI Leisure — karting",
         url: "https://bmileisure.com/industries/karting/",
+      },
+    ],
+  },
+  /* ────────────────────────────────────────────────────────────── */
+
+  {
+    slug: "yurplan",
+    nom: "Yurplan",
+    baseline:
+      "Billetterie française pour organisateurs d'événements : festivals, salons, soirées, compétitions sportives. Gratuite à l'entrée, rémunérée à la commission.",
+    description:
+      "Yurplan : billetterie d'événements gratuite à l'entrée, 0,39 € + 1 % HT par billet payant. Pour qui, fonctions, licences, et ce que montre une installation.",
+    pourQuiCourt:
+      "Parcs et lieux qui vendent des événements datés : soirées, compétitions, festivals, stages.",
+    editeur: { pays: "France" },
+    chiffres: [
+      { valeur: "46 000+", label: "organisateurs" },
+      { valeur: "0,39 € + 1 %", label: "HT par billet payant" },
+      { valeur: "0 €", label: "sur les billets gratuits" },
+    ],
+    pourQui: {
+      intro:
+        "Yurplan n'est pas un logiciel de gestion de parc : c'est une billetterie d'événements. Elle a sa place chez un exploitant de loisirs dès qu'il vend des dates plutôt que des créneaux — une soirée, une compétition, un stage, un festival — à côté ou à la place de son moteur de réservation habituel.",
+      profils: [
+        "Organisateurs de festivals, concerts, spectacles et soirées",
+        "Salons grand public et professionnels, conférences",
+        "Événements sportifs et compétitions",
+        "Lieux culturels et parcs qui organisent des événements ponctuels",
+        "Clubs et associations qui veulent démarrer sans abonnement",
+      ],
+      moinsAdapte: [
+        "La billetterie quotidienne d'un parc à créneaux et à jauges : Yurplan raisonne en événements, pas en planning d'activités.",
+        "Les exploitants qui cherchent une caisse et une gestion de site complètes : restauration, abonnements récurrents, bornes.",
+        "Les organisateurs qui créent beaucoup d'événements : le suivi publicitaire s'active événement par événement.",
+      ],
+    },
+    fonctionnalites: [
+      {
+        titre: "Billetterie en ligne personnalisée",
+        desc: "Tarifs avec prix, quotas, formulaires et dates de vente propres ; page de billetterie aux couleurs de l'organisateur ; éditeur de billets.",
+      },
+      {
+        titre: "Site dédié et widget",
+        desc: "Chaque événement dispose de son site sur une adresse Yurplan. La billetterie peut aussi s'intégrer dans le site de l'organisateur sous forme de widget.",
+      },
+      {
+        titre: "Diffusion et liens trackés",
+        desc: "Liens de suivi par canal, codes promo et invitations, avec les visites, billets vendus et chiffre d'affaires de chaque lien directement dans Yurplan.",
+      },
+      {
+        titre: "Contrôle d'accès et guichet",
+        desc: "Application de scan des billets et logiciel de vente sur place, inclus dès l'offre gratuite. Matériel en location : imprimantes, douchettes.",
+      },
+      {
+        titre: "CRM et campagnes",
+        desc: "À partir de la licence Boost : centralisation des contacts, groupes filtrés, campagnes d'e-mails automatisées, questionnaires de satisfaction.",
+      },
+      {
+        titre: "Partenaires et exposants",
+        desc: "Licence Advanced : invitations et badges partenaires, programme d'événement, codes d'inscription, modération, application de scan pour exposants.",
+      },
+      {
+        titre: "Placement numéroté",
+        desc: "Plan de salle au moment de la réservation, en option payante par billet.",
+      },
+      {
+        titre: "Suivi publicitaire",
+        desc: "Applications Google Tag Manager, Google Analytics et pixel Meta à activer par événement. La couche de données est documentée — un événement checkout par étape, un purchase au format GA4 — mais le conteneur Tag Manager y bloque le HTML et le JavaScript personnalisés.",
+      },
+    ],
+    tarifs: {
+      publie: true,
+      intro:
+        "Yurplan publie sa grille. Le modèle repose sur une commission par billet payant, frais bancaires inclus, et sur des licences annuelles optionnelles pour les modules marketing.",
+      lignes: [
+        { label: "Commission par billet payant", valeur: "0,39 € + 1 % HT" },
+        { label: "Billet gratuit", valeur: "Sans commission" },
+        { label: "Licence Standard", valeur: "Gratuite, sans engagement" },
+        {
+          label: "Licence Boost",
+          valeur:
+            "À partir de 10 € HT par mois facturé à l'année (12 € en mensuel), pour 100 billets par an ; paliers jusqu'à 50 000 billets",
+        },
+        { label: "Licence Advanced", valeur: "À partir de 72 € HT par mois" },
+        { label: "Engagement des licences", valeur: "12 mois, renouvellement tacite" },
+        { label: "Placement numéroté", valeur: "+ 0,42 € HT par billet" },
+        {
+          label: "Application de scan exposants",
+          valeur: "+ 50 € HT par exposant, licence Advanced",
+        },
+      ],
+      manquant: [
+        "Qui supporte la commission : la page tarifs annonce à la fois « aucun frais supplémentaire pour vos acheteurs » et une rémunération sur les commissions payées par les participants",
+        "Les conditions pour les gros volumes, renvoyées vers l'équipe commerciale",
+        "Le prix de la location de matériel et de l'accompagnement sur site",
+      ],
+    },
+    constate: {
+      intro:
+        "Nous avons branché le suivi publicitaire d'une billetterie Yurplan en octobre 2026, pour un organisateur qui diffuse ses événements en Meta Ads. Ce que montre l'installation :",
+      points: [
+        "Yurplan charge le conteneur Tag Manager de l'organisateur dans sa billetterie et y pousse checkout à chaque étape, puis purchase avec la référence de commande et un identifiant unique — de quoi relier navigateur et envoi serveur.",
+        "Le conteneur refuse les balises HTML et les variables JavaScript personnalisées. Le pixel Meta et les identifiants d'événement passent par les modèles de la galerie Tag Manager, qui, eux, se déclenchent.",
+        "Le visiteur accepte les cookies sur le site de l'organisateur, puis une seconde fois sur la billetterie. Une partie des acheteurs n'y répond pas, ce qui pèse sur l'attribution navigateur.",
+      ],
+    },
+    vigilance: [
+      "Les outils de suivi s'activent événement par événement. Une nouvelle édition créée sans réactiver Tag Manager ne remonte rien, alors que les campagnes tournent.",
+      "La billetterie est sur une adresse Yurplan : le suivi inter-domaines est indispensable pour attribuer les ventes aux campagnes.",
+      "L'événement purchase part aussi pour une commande en paiement différé, avant tout règlement.",
+      "Chaque billet généré compte dans le quota annuel des licences, y compris les billets gratuits et annulés.",
+    ],
+    lacunes: [
+      "Qui paie la commission par défaut, et si l'organisateur peut la reporter sur l'acheteur",
+      "Date de création de l'éditeur et volumes de billets vendus",
+      "Existence d'une intégration avec les logiciels de gestion de parc",
+      "Le domaine exact sur lequel tournent la billetterie et le widget",
+    ],
+    site: "https://yurplan.com/",
+    sources: [
+      { label: "Site officiel Yurplan", url: "https://yurplan.com/" },
+      { label: "Yurplan — tarifs", url: "https://yurplan.com/tarifs" },
+      {
+        label: "Yurplan — licences, engagement et facturation",
+        url: "https://aide-organisateur.yurplan.com/article/540-licence-yurplan-offres-engagement-facturation",
+      },
+      {
+        label: "Yurplan — événements de suivi envoyés par la billetterie",
+        url: "https://aide-organisateur.yurplan.com/article/578-evenements-de-suivi-envoyes-par-votre-billetterie",
+      },
+      {
+        label: "Yurplan — suivre ses ventes avec Google Tag Manager",
+        url: "https://aide-organisateur.yurplan.com/article/448-site-evenement-google-tag-manager",
       },
     ],
   },
@@ -799,7 +932,7 @@ export const OUTILS_HUB = {
   suite: {
     titre: "La suite",
     lignes: [
-      "Un comparatif transversal des cinq solutions, une fois les réponses des éditeurs reçues.",
+      "Un comparatif transversal des six solutions, une fois les réponses des éditeurs reçues.",
       "Les plans de taggage sont déjà en ligne, outil par outil, pour savoir enfin d'où viennent vraiment vos réservations.",
     ],
   },

@@ -141,7 +141,7 @@ export const APEX_TIMING: GuideOutil = {
       description:
         "Sept des huit événements Apex sont déjà au format GA4 : le travail consiste à ne pas les réécrire, et à traiter le cas d'edit_in_cart qui n'a pas d'équivalent.",
       chapo:
-        "C'est l'installation la plus simple des quatre moteurs que nous documentons : les noms d'événements sont déjà ceux qu'attend GA4. Le vrai piège est de vouloir les renommer pour les rendre lisibles dans l'interface.",
+        "C'est l'installation la plus simple des moteurs que nous documentons : les noms d'événements sont déjà ceux qu'attend GA4. Le vrai piège est de vouloir les renommer pour les rendre lisibles dans l'interface.",
       prerequis: [
         "L'identifiant de mesure est renseigné dans l'espace client Apex : GoKarts, puis Paramètres, champ « Google Analytics ».",
         "Le conteneur Google Tag Manager du centre est renseigné dans le champ voisin, et installé sur le site du parc.",

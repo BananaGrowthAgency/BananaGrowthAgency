@@ -1,7 +1,7 @@
 /**
  * Contenu de la page chapeau des plans de taggage.
  *
- * Elle se place au-dessus des quatre guides par outil et adresse le lecteur
+ * Elle se place au-dessus des guides par outil et adresse le lecteur
  * avant qu'il ne sache quel est son problème : il constate un écart entre ses
  * conversions et sa caisse, il ne sait pas encore que la cause est le tunnel
  * de réservation.

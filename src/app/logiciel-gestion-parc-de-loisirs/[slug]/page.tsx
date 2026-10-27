@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { OUTILS, getOutil } from "@/lib/outils";
 import { OutilArticle } from "@/components/landing/outil-article";
 
-/** Les cinq fiches sont générées au build : pas de rendu à la volée. */
+/** Les fiches sont générées au build : pas de rendu à la volée. */
 export function generateStaticParams() {
   return OUTILS.map((o) => ({ slug: o.slug }));
 }

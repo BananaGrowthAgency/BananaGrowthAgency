@@ -3,6 +3,7 @@ import { QWEEKLE } from "./qweekle";
 import { APEX_TIMING } from "./apex-timing";
 import { ROLLER } from "./roller";
 import { BMI_LEISURE } from "./bmi-leisure";
+import { YURPLAN } from "./yurplan";
 
 export type {
   GuideOutil,
@@ -15,7 +16,13 @@ export type {
   Declencheur,
 } from "./types";
 
-export const GUIDES: GuideOutil[] = [QWEEKLE, APEX_TIMING, ROLLER, BMI_LEISURE];
+export const GUIDES: GuideOutil[] = [
+  QWEEKLE,
+  APEX_TIMING,
+  ROLLER,
+  BMI_LEISURE,
+  YURPLAN,
+];
 
 export function getGuide(slug: string): GuideOutil | undefined {
   return GUIDES.find((g) => g.slug === slug);

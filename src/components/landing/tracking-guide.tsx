@@ -283,7 +283,7 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
           </div>
         </section>
 
-        {/* ── Les quatre guides ── */}
+        {/* ── Les guides par plateforme ── */}
         <section className="relative px-4 py-10 md:py-14">
           <div className="mx-auto max-w-3xl">
             <Reveal>
