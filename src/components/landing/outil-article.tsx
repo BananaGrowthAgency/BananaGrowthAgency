@@ -108,7 +108,8 @@ export function OutilArticle({ outil }: { outil: Outil }) {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionTitle eyebrow="Pour qui">
-                À qui s&apos;adresse <span className="text-spectrum">{outil.nom}</span>
+                À qui s&apos;adresse{" "}
+                <span className="text-spectrum">{outil.nom}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
                 {outil.pourQui.intro}
@@ -213,30 +214,32 @@ export function OutilArticle({ outil }: { outil: Outil }) {
               </dl>
             </Reveal>
 
-            <Reveal delay={0.12}>
-              <div className="mt-8 rounded-2xl border border-white/10 bg-ink-soft/40 px-5 py-6 md:px-7">
-                <div className="flex items-center gap-2.5">
-                  <CircleHelp className="h-5 w-5 flex-none text-pink" />
-                  <h3 className="font-display text-lg font-bold tracking-tight text-foreground md:text-xl">
-                    Ce qui manque encore
-                  </h3>
+            {outil.tarifs.manquant.length > 0 && (
+              <Reveal delay={0.12}>
+                <div className="mt-8 rounded-2xl border border-white/10 bg-ink-soft/40 px-5 py-6 md:px-7">
+                  <div className="flex items-center gap-2.5">
+                    <CircleHelp className="h-5 w-5 flex-none text-pink" />
+                    <h3 className="font-display text-lg font-bold tracking-tight text-foreground md:text-xl">
+                      Ce qui manque encore
+                    </h3>
+                  </div>
+                  <ul className="mt-4 space-y-2.5">
+                    {outil.tarifs.manquant.map((m) => (
+                      <li key={m} className="flex gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-pink/60" />
+                        <span className="text-sm leading-relaxed text-foreground/60 md:text-base">
+                          {m}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-5 text-sm leading-relaxed text-foreground/45">
+                    Nous sollicitons l&apos;éditeur pour obtenir ces éléments.
+                    Cette fiche sera mise à jour dès réception.
+                  </p>
                 </div>
-                <ul className="mt-4 space-y-2.5">
-                  {outil.tarifs.manquant.map((m) => (
-                    <li key={m} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-pink/60" />
-                      <span className="text-sm leading-relaxed text-foreground/60 md:text-base">
-                        {m}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-5 text-sm leading-relaxed text-foreground/45">
-                  Nous sollicitons l&apos;éditeur pour obtenir ces éléments.
-                  Cette fiche sera mise à jour dès réception.
-                </p>
-              </div>
-            </Reveal>
+              </Reveal>
+            )}
           </div>
         </section>
 
@@ -341,26 +344,37 @@ export function OutilArticle({ outil }: { outil: Outil }) {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <div className="rounded-2xl border border-white/10 bg-ink-soft/40 px-5 py-6 md:px-7 md:py-8">
-                <h2 className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                  Ce que nous n&apos;avons pas pu vérifier
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/55 md:text-base">
-                  Par souci d&apos;honnêteté, voici les points sur lesquels nous
-                  manquons d&apos;information à ce jour. Nous préférons les
-                  signaler plutôt que de les combler par des suppositions.
-                </p>
-                <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
-                  {outil.lacunes.map((l) => (
-                    <li key={l} className="flex gap-2.5">
-                      <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-foreground/30" />
-                      <span className="text-sm leading-relaxed text-foreground/55">
-                        {l}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {outil.lacunes.length > 0 && (
+                  <>
+                    <h2 className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                      Ce que nous n&apos;avons pas pu vérifier
+                    </h2>
+                    <p className="mt-3 text-sm leading-relaxed text-foreground/55 md:text-base">
+                      Par souci d&apos;honnêteté, voici les points sur lesquels
+                      nous manquons d&apos;information à ce jour. Nous préférons
+                      les signaler plutôt que de les combler par des
+                      suppositions.
+                    </p>
+                    <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+                      {outil.lacunes.map((l) => (
+                        <li key={l} className="flex gap-2.5">
+                          <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-foreground/30" />
+                          <span className="text-sm leading-relaxed text-foreground/55">
+                            {l}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
 
-                <div className="mt-7 border-t border-white/10 pt-5">
+                <div
+                  className={
+                    outil.lacunes.length > 0
+                      ? "mt-7 border-t border-white/10 pt-5"
+                      : ""
+                  }
+                >
                   <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-foreground/45">
                     Sources
                   </h3>
@@ -394,8 +408,8 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                   {outil.nom} est-il fait pour votre parc ?
                 </h2>
                 <p className="relative mx-auto mt-4 max-w-lg text-foreground/60">
-                  Nous opérons ces plateformes au quotidien pour une vingtaine de
-                  parcs en France. Trente minutes suffisent à cadrer le choix
+                  Nous opérons ces plateformes au quotidien pour une vingtaine
+                  de parcs en France. Trente minutes suffisent à cadrer le choix
                   selon votre activité et vos objectifs de fréquentation.
                 </p>
                 <div className="relative mt-8 flex justify-center">

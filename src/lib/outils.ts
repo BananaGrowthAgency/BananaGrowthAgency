@@ -802,7 +802,6 @@ export const OUTILS: Outil[] = [
       moinsAdapte: [
         "La billetterie quotidienne d'un parc à créneaux et à jauges : Yurplan raisonne en événements, pas en planning d'activités.",
         "Les exploitants qui cherchent une caisse et une gestion de site complètes : restauration, abonnements récurrents, bornes.",
-        "Les organisateurs qui créent beaucoup d'événements : le suivi publicitaire s'active événement par événement.",
       ],
     },
     fonctionnalites: [
@@ -842,7 +841,7 @@ export const OUTILS: Outil[] = [
     tarifs: {
       publie: true,
       intro:
-        "Yurplan publie sa grille. Le modèle repose sur une commission par billet payant, frais bancaires inclus, et sur des licences annuelles optionnelles pour les modules marketing.",
+        "Grille officielle publiée par Yurplan. Le modèle repose sur une commission par billet payant, frais bancaires inclus, prélevée sur les recettes de l'organisateur, et sur des licences annuelles optionnelles pour les modules marketing. D'après le simulateur de l'éditeur, un billet vendu 50 € TTC rapporte 48,93 € à l'organisateur.",
       lignes: [
         { label: "Commission par billet payant", valeur: "0,39 € + 1 % HT" },
         { label: "Billet gratuit", valeur: "Sans commission" },
@@ -850,7 +849,7 @@ export const OUTILS: Outil[] = [
         {
           label: "Licence Boost",
           valeur:
-            "À partir de 10 € HT par mois facturé à l'année (12 € en mensuel), pour 100 billets par an ; paliers jusqu'à 50 000 billets",
+            "À partir de 10 € HT par mois, facturé à l'année, pour 100 billets émis par an",
         },
         { label: "Licence Advanced", valeur: "À partir de 72 € HT par mois" },
         { label: "Engagement des licences", valeur: "12 mois, renouvellement tacite" },
@@ -860,11 +859,7 @@ export const OUTILS: Outil[] = [
           valeur: "+ 50 € HT par exposant, licence Advanced",
         },
       ],
-      manquant: [
-        "Qui supporte la commission : la page tarifs annonce à la fois « aucun frais supplémentaire pour vos acheteurs » et une rémunération sur les commissions payées par les participants",
-        "Les conditions pour les gros volumes, renvoyées vers l'équipe commerciale",
-        "Le prix de la location de matériel et de l'accompagnement sur site",
-      ],
+      manquant: [],
     },
     constate: {
       intro:
@@ -881,12 +876,7 @@ export const OUTILS: Outil[] = [
       "L'événement purchase part aussi pour une commande en paiement différé, avant tout règlement.",
       "Chaque billet généré compte dans le quota annuel des licences, y compris les billets gratuits et annulés.",
     ],
-    lacunes: [
-      "Qui paie la commission par défaut, et si l'organisateur peut la reporter sur l'acheteur",
-      "Date de création de l'éditeur et volumes de billets vendus",
-      "Existence d'une intégration avec les logiciels de gestion de parc",
-      "Le domaine exact sur lequel tournent la billetterie et le widget",
-    ],
+    lacunes: [],
     site: "https://yurplan.com/",
     sources: [
       { label: "Site officiel Yurplan", url: "https://yurplan.com/" },
