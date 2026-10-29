@@ -11,10 +11,24 @@ import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
 
+/* Métier en tête, marque en suffixe : seule l'accueil commence par
+   « Banana Growth Agency », pour que les recherches de marque y mènent
+   et non ici. Open Graph redéfini aussi, sinon il hérite du titre racine. */
+const TITLE =
+  "Agence marketing digital pour parcs de loisirs | Banana Growth Agency";
+const DESCRIPTION =
+  "Agence de Growth Marketing dédiée aux parcs de loisirs indoor et outdoor. Une méthode clés en main et mesurable pour remplir votre parc. Audit offert.";
+
 export const metadata: Metadata = {
-  title: "Banana Growth Agency — Agence marketing spécialiste des parcs de loisirs",
-  description:
-    "Agence de Growth Marketing dédiée aux parcs de loisirs indoor et outdoor. Une méthode clés en main et mesurable pour remplir votre parc. Audit offert.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Banana Growth Agency",
+  },
 };
 
 function ParcHero() {
