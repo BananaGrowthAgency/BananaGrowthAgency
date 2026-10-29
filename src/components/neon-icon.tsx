@@ -28,6 +28,7 @@ export function NeonIcon({
   amount = 0.55,
   priority = false,
   once = false,
+  sizes,
 }: {
   src: string;
   alt?: string;
@@ -38,6 +39,8 @@ export function NeonIcon({
   amount?: number;
   priority?: boolean;
   once?: boolean;
+  /** Largeur réellement affichée, pour que next/image serve la bonne taille. */
+  sizes?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { amount, once });
@@ -75,6 +78,7 @@ export function NeonIcon({
           height={height}
           className={className}
           priority={priority}
+          sizes={sizes}
         />
       </span>
     </span>

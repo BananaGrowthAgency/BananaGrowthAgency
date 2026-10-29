@@ -37,6 +37,7 @@ export function Hero() {
         >
           <NeonIcon
             src="/logo/logoCol.png"
+            sizes="(max-width: 640px) 240px, 320px"
             alt="Banana Growth Agency"
             width={460}
             height={475}
