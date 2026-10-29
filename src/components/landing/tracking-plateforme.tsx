@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check, TriangleAlert } from "lucide-react";
+import { FilAriane } from "@/components/fil-ariane";
+import { ArrowUpRight, Check, TriangleAlert } from "lucide-react";
 import type { GuideOutil, Plateforme } from "@/lib/tracking";
 import { VersionTabs } from "@/components/landing/version-tabs";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
@@ -307,13 +308,14 @@ export function TrackingPlateforme({
           <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
-              <Link
-                href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}`}
-                className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Plan de taggage {guide.nom}
-              </Link>
+              <FilAriane
+                etapes={[
+                  { nom: "Accueil", href: "/" },
+                  { nom: "Plans de taggage", href: "/plan-de-taggage-parc-de-loisirs" },
+                  { nom: guide.nom, href: `/plan-de-taggage-parc-de-loisirs/${guide.slug}` },
+                  { nom: plateforme.nom },
+                ]}
+              />
             </Reveal>
 
             <Reveal delay={0.06}>

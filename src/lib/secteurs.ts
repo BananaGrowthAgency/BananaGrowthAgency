@@ -32,6 +32,10 @@ export type Secteur = {
   nom: string;
   /** Titre Google, quand « Marketing digital pour {pour} » est trop long. */
   titre?: string;
+  /** Témoignage affiché en premier (champ `logo` de PARC.testimonials). */
+  avis?: "onlykart" | "space" | "nikito" | "overland";
+  /** Logiciels de réservation du secteur, par slug de fiche outil (src/lib/outils.ts). */
+  outils?: readonly string[];
   /** Complément du H1 : « Accompagnement marketing digital pour {pour} ». */
   pour: string;
   /** Sujet de « Vous gérez {un} ? ». */
@@ -54,6 +58,8 @@ export const SECTEURS: readonly Secteur[] = [
   /* ── Loisirs indoor ─────────────────────────────────────── */
   {
     slug: "karting",
+    avis: "onlykart",
+    outils: ["apex-timing", "bmi-leisure"],
     famille: "indoor",
     nom: "Karting",
     pour: "les kartings",
@@ -121,6 +127,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "bowling",
+    avis: "space",
+    outils: ["bmi-leisure", "roller"],
     famille: "indoor",
     nom: "Bowling",
     pour: "les bowlings",
@@ -182,6 +190,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "escape-game",
+    avis: "space",
+    outils: ["qweekle", "playpro"],
     famille: "indoor",
     nom: "Escape game",
     pour: "les escape games",
@@ -243,6 +253,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "trampoline-park",
+    avis: "nikito",
+    outils: ["roller", "qweekle"],
     famille: "indoor",
     nom: "Trampoline park",
     pour: "les trampoline parks",
@@ -308,6 +320,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "laser-game",
+    avis: "space",
+    outils: ["bmi-leisure", "qweekle"],
     famille: "indoor",
     nom: "Laser game",
     pour: "les laser games",
@@ -368,6 +382,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "jeux-aventure-indoor",
+    avis: "space",
+    outils: ["qweekle", "roller"],
     titre: "Marketing digital pour jeux d'aventure indoor",
     famille: "indoor",
     nom: "Jeux d'aventure indoor",
@@ -429,6 +445,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "paintball",
+    outils: ["playpro", "qweekle"],
     titre: "Marketing digital pour le paintball",
     famille: "indoor",
     nom: "Paintball",
@@ -490,6 +507,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "karaoke",
+    avis: "space",
+    outils: ["playpro"],
     famille: "indoor",
     nom: "Karaoké",
     pour: "les karaokés",
@@ -549,6 +568,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "mini-golf",
+    avis: "space",
+    outils: ["roller", "playpro"],
     famille: "indoor",
     nom: "Mini-golf",
     pour: "les mini-golfs",
@@ -608,6 +629,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "salle-arcade",
+    avis: "space",
+    outils: ["roller", "bmi-leisure"],
     famille: "indoor",
     nom: "Salle d'arcade",
     pour: "les salles d'arcade",
@@ -666,6 +689,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "lancer-de-hache",
+    avis: "space",
+    outils: ["playpro", "roller"],
     titre: "Marketing digital pour le lancer de hache",
     famille: "indoor",
     nom: "Lancer de hache",
@@ -726,6 +751,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "parc-indoor-enfants",
+    avis: "nikito",
+    outils: ["roller", "qweekle"],
     titre: "Marketing digital parcs de jeux indoor enfants",
     famille: "indoor",
     nom: "Parc de jeux indoor enfants",
@@ -788,6 +815,8 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "realite-virtuelle",
+    avis: "space",
+    outils: ["playpro", "roller"],
     titre: "Marketing digital salles de réalité virtuelle",
     famille: "indoor",
     nom: "Réalité virtuelle",
@@ -850,6 +879,7 @@ export const SECTEURS: readonly Secteur[] = [
   /* ── Loisirs outdoor & sites de visite ─────────────────── */
   {
     slug: "zoo-parc-animalier",
+    outils: ["qweekle", "roller"],
     titre: "Marketing digital zoos et parcs animaliers",
     famille: "outdoor",
     nom: "Zoo & parc animalier",
@@ -912,6 +942,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "parc-attractions",
+    outils: ["qweekle", "roller"],
     famille: "outdoor",
     nom: "Parc d'attractions",
     pour: "les parcs d'attractions",
@@ -973,6 +1004,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "quad-buggy",
+    outils: ["playpro"],
     titre: "Marketing digital quad, buggy et segway",
     famille: "outdoor",
     nom: "Quad, buggy & segway",
@@ -1036,6 +1068,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "activites-nautiques",
+    outils: ["playpro"],
     famille: "outdoor",
     nom: "Activités nautiques",
     pour: "les activités nautiques",
@@ -1098,6 +1131,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "parc-aquatique",
+    outils: ["qweekle", "roller"],
     famille: "outdoor",
     nom: "Parc aquatique",
     pour: "les parcs aquatiques",
@@ -1158,6 +1192,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "sports-aventure",
+    outils: ["playpro"],
     titre: "Marketing digital canyoning, rafting, via ferrata",
     famille: "outdoor",
     nom: "Sports d'aventure",
@@ -1219,6 +1254,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "patinoire",
+    outils: ["qweekle", "roller"],
     famille: "outdoor",
     nom: "Patinoire",
     pour: "les patinoires",
@@ -1274,6 +1310,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "base-de-loisirs",
+    outils: ["qweekle", "playpro"],
     famille: "outdoor",
     nom: "Base de loisirs",
     pour: "les bases de loisirs",
@@ -1334,6 +1371,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "salle-escalade",
+    outils: ["roller", "playpro"],
     famille: "outdoor",
     nom: "Salle d'escalade",
     pour: "les salles d'escalade",
@@ -1519,6 +1557,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "tourisme",
+    outils: ["qweekle", "yurplan"],
     famille: "sejour",
     nom: "Tourisme",
     pour: "les acteurs du tourisme",
@@ -1676,31 +1715,31 @@ export function faqAgence(s: Secteur): Array<{ q: string; a: string }> {
   return [
     {
       q: `Comment fonctionne votre accompagnement marketing digital pour ${s.pour} ?`,
-      a: `Nous activons les leviers les plus performants pour ${s.votre} : SEO local, Google Ads, Meta Ads et marketing d'influence, appuyés par un tracking fiable des réservations. Nous savons déjà quels mots-clés et quelles audiences génèrent des réservations dans le loisir, nous concentrons donc vos investissements uniquement sur ce qui fonctionne. Notre méthode est simple : des techniques éprouvées chez d'autres acteurs du loisir, que nous adaptons à votre situation pour créer un véritable cercle vertueux de croissance.`,
+      a: `Nous activons les leviers qui génèrent des réservations pour ${s.votre} : SEO local, Google Ads, Meta Ads et influence, avec un suivi fiable des ventes. Des méthodes déjà éprouvées dans le loisir, adaptées à votre situation.`,
     },
     {
       q: `Quels leviers marketing activez-vous pour ${s.votre} ?`,
-      a: `Selon vos objectifs : la stratégie digitale, les campagnes Google Ads et Meta Ads, le SEO et le site internet, le tracking des réservations, le reporting, les visuels et vidéos, l'influence avec des créateurs proches de votre établissement, et la formation de vos équipes. Nous ne vendons pas un catalogue : nous commençons par les deux ou trois leviers qui auront le plus d'impact sur la fréquentation de ${s.votre}.`,
+      a: "Stratégie, campagnes Google et Meta, SEO et site, tracking, reporting, contenus, influence et formation. Nous commençons par les deux ou trois leviers qui auront le plus d'impact.",
     },
     {
       q: `Quel budget prévoir pour le marketing digital de ${s.votre} ?`,
-      a: `Il n'y a pas de minimum imposé pour vos campagnes publicitaires. Le budget Ads est défini et ajusté en fonction de la taille de ${s.votre}, de la saisonnalité et de vos objectifs de fréquentation. À noter : ce budget est distinct de nos honoraires mensuels. Notre rôle est d'optimiser chaque euro investi pour maximiser vos résultats.`,
+      a: "Pas de minimum imposé : le budget publicitaire dépend de votre taille, de votre saisonnalité et de vos objectifs. Il est distinct de nos honoraires.",
     },
     {
       q: "En combien de temps puis-je avoir un retour sur investissement ?",
-      a: `Nous pouvons déployer une stratégie Google Ads et Meta Ads optimisée en moins de 15 jours. Notre objectif : générer +20 % de fréquentation pour ${s.votre}, nouveaux clients comme clients réguliers, dès les 45 premiers jours. Le SEO prend plus de temps, mais ses effets durent bien au-delà de la fin des campagnes.`,
+      a: "Les campagnes Google et Meta sont en place en moins de 15 jours, avec un objectif de +20 % de fréquentation dès les 45 premiers jours. Le SEO est plus long, mais ses effets durent.",
     },
     {
       q: "Y a-t-il un contrat ?",
-      a: "Non, aucun engagement. Vous êtes libre d'arrêter la collaboration à tout moment, sans justification. Nous préférons nous concentrer sur ce qui compte vraiment : vous apporter de la valeur, obtenir des résultats concrets et vous satisfaire pleinement. Notre approche repose sur la confiance et la performance, pas sur les contraintes contractuelles.",
+      a: "Non, aucun engagement : vous pouvez arrêter à tout moment, sans justification.",
     },
     {
       q: `Pourquoi choisir Banana Growth Agency pour ${s.votre} ?`,
-      a: `Nous accompagnons déjà plus de 20 acteurs du loisir en France et connaissons parfaitement leurs enjeux : saisonnalité, créneaux creux, anniversaires, groupes, logiciels de réservation. De la publicité à la data, de la création de contenus à l'influence, nous maîtrisons tous les leviers de croissance. Notre mission : augmenter la visibilité de ${s.votre}, attirer plus de clients et faire progresser votre chiffre d'affaires.`,
+      a: "Nous accompagnons plus de 20 acteurs du loisir en France et connaissons leurs enjeux : saisonnalité, créneaux creux, anniversaires, groupes, logiciels de réservation.",
     },
     {
       q: "Que se passe-t-il pendant l'audit offert ?",
-      a: `En 30 minutes, nous passons en revue votre présence en ligne (site, fiche Google, campagnes, suivi des réservations) et identifions ensemble les principaux leviers d'optimisation pour ${s.votre}. Vous repartez avec des pistes concrètes, que vous travailliez avec nous ou non.`,
+      a: "En 30 minutes, nous passons en revue votre site, votre fiche Google, vos campagnes et votre suivi des réservations, et repartons avec des pistes concrètes.",
     },
   ];
 }

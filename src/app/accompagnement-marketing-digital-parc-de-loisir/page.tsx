@@ -47,7 +47,7 @@ function ParcHero() {
       <div className="pointer-events-none absolute inset-0 bg-grid" />
 
       <div className="relative mx-auto max-w-4xl text-center">
-        <Reveal className="mb-8 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <NeonIcon
             src="/logo/logoCol.png"
             alt="Banana Growth Agency"
@@ -59,28 +59,28 @@ function ParcHero() {
             once
             priority
           />
-        </Reveal>
-        <Reveal>
+        </div>
+        <div>
           <span className="inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] md:text-base text-pink">
             {PARC.hero.eyebrow}
           </span>
-        </Reveal>
-        <Reveal delay={0.08}>
+        </div>
+        <div>
           <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             {PARC.hero.title}{" "}
             <span className="text-spectrum">{PARC.hero.titleHighlight}</span>
           </h1>
-        </Reveal>
-        <Reveal delay={0.16}>
+        </div>
+        <div>
           <p className="mx-auto mt-6 max-w-2xl text-base text-foreground/65 md:text-lg">
             {PARC.hero.subtitle}
           </p>
-        </Reveal>
-        <Reveal delay={0.24}>
+        </div>
+        <div>
           <div className="mt-9 flex justify-center">
             <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.hero.cta}</CtaButton>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

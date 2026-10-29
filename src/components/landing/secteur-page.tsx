@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CALENDLY_AUDIT_PARC, PARC, PARC_HREF } from "@/lib/site";
+import { getOutil } from "@/lib/outils";
+import { aUnGuide } from "@/lib/tracking";
 import {
   cheminSecteur,
   faqAgence,
@@ -13,6 +15,7 @@ import { Contact } from "@/components/landing/contact";
 import { Testimonial } from "@/components/landing/testimonial";
 import { ParcFaq } from "@/components/landing/parc-faq";
 import { CtaButton } from "@/components/cta-button";
+import { FilAriane } from "@/components/fil-ariane";
 import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
@@ -45,7 +48,7 @@ function Hero({ s }: { s: Secteur }) {
       <div className="pointer-events-none absolute inset-0 bg-grid" />
 
       <div className="relative mx-auto max-w-4xl text-center">
-        <Reveal className="mb-8 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <NeonIcon
             src="/logo/logoCol.png"
             alt="Banana Growth Agency"
@@ -57,28 +60,36 @@ function Hero({ s }: { s: Secteur }) {
             once
             priority
           />
-        </Reveal>
-        <Reveal>
+        </div>
+        <div>
+          <FilAriane
+            className="mb-6 flex justify-center"
+            etapes={[
+              { nom: "Accueil", href: "/" },
+              { nom: "Parcs de loisirs", href: PARC_HREF },
+              { nom: s.nom },
+            ]}
+          />
           <span className="inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink md:text-base">
             Marketing digital · {s.nom}
           </span>
-        </Reveal>
-        <Reveal delay={0.08}>
+        </div>
+        <div>
           <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
             Accompagnement marketing digital pour{" "}
             <span className="text-spectrum">{s.pour}</span>
           </h1>
-        </Reveal>
-        <Reveal delay={0.16}>
+        </div>
+        <div>
           <p className="mx-auto mt-6 max-w-2xl text-base text-foreground/65 md:text-lg">
             {s.subtitle}
           </p>
-        </Reveal>
-        <Reveal delay={0.24}>
+        </div>
+        <div>
           <div className="mt-9 flex justify-center">
             <CtaButton href={CALENDLY_AUDIT_PARC}>Réserver mon audit</CtaButton>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -243,6 +254,62 @@ function Publics({ s }: { s: Secteur }) {
   );
 }
 
+/* Liens vers les fiches logiciels et plans de taggage : du contenu existant,
+   mieux relié, et un bloc propre à chaque secteur. */
+function Outils({ s }: { s: Secteur }) {
+  const outils = (s.outils ?? []).map(getOutil).filter((o) => o !== undefined);
+  if (outils.length === 0) return null;
+
+  return (
+    <section className="relative px-4 py-16 md:py-20">
+      <div className="mx-auto max-w-5xl">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className={eyebrowClass}>Votre logiciel de réservation</span>
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            Des campagnes <span className="text-spectrum">reliées à vos ventes</span>
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
+            Une publicité ne s&apos;optimise que si elle voit les réservations
+            qu&apos;elle génère. Nos fiches sur les logiciels du secteur expliquent
+            ce que chacun permet de mesurer, et comment le brancher.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          {outils.map((o) => (
+            <Reveal key={o.slug} className="h-full">
+              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink-soft/60 p-6">
+                <h3 className="font-display text-xl font-bold text-foreground">
+                  {o.nom}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/60">
+                  {o.pourQuiCourt}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                  <Link
+                    href={`/logiciel-gestion-parc-de-loisirs/${o.slug}`}
+                    className="text-pink underline decoration-pink/40 underline-offset-4 transition-colors hover:decoration-pink"
+                  >
+                    Fiche {o.nom}
+                  </Link>
+                  {aUnGuide(o.slug) && (
+                    <Link
+                      href={`/plan-de-taggage-parc-de-loisirs/${o.slug}`}
+                      className="text-pink underline decoration-pink/40 underline-offset-4 transition-colors hover:decoration-pink"
+                    >
+                      Plan de taggage {o.nom}
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* Six engagements au même format : trois côté IA, trois côté humain. */
 const ENGAGEMENTS = [
   {
@@ -331,32 +398,33 @@ function HumainIa({ s }: { s: Secteur }) {
   );
 }
 
+/* Version compacte des services : les descriptions sont sur la page parcs,
+   inutile de les répéter sur chaque page secteur. */
 function Services() {
   return (
-    <section id="services" className="relative px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
+    <section id="services" className="relative px-4 py-16 md:py-20">
+      <div className="mx-auto max-w-5xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className={eyebrowClass}>Nos services</span>
-          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Un cocktail de services qui{" "}
             <span className="text-spectrum">porte ses fruits</span>
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 md:mt-20 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
           {PARC.services.map((sv, i) => (
-            <Reveal key={sv.title} delay={(i % 3) * 0.08}>
-              <div className="flex flex-col items-center text-center">
+            <Reveal key={sv.title} delay={(i % 3) * 0.05}>
+              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-soft/60 p-3 md:p-4">
                 <NeonIcon
                   src={`/canva/icons/${sv.icon}.png`}
-                  className="h-24 w-24 object-contain md:h-32 md:w-32"
+                  width={96}
+                  height={96}
+                  className="h-10 w-10 flex-none object-contain md:h-12 md:w-12"
                 />
-                <h3 className="mt-5 font-display text-2xl font-bold text-foreground md:text-3xl">
+                <span className="font-display text-base font-bold text-foreground md:text-lg">
                   {sv.title}
-                </h3>
-                <p className="mx-auto mt-3 max-w-[16rem] text-sm leading-relaxed text-foreground/55">
-                  {sv.desc}
-                </p>
+                </span>
               </div>
             </Reveal>
           ))}
@@ -440,6 +508,16 @@ function AutresSecteurs({ s }: { s: Secteur }) {
   );
 }
 
+/** Le carrousel ne rend qu'un avis dans le HTML : on met le plus proche du
+    secteur en premier, pour que chaque page ne serve pas le même texte. */
+function avisEnPremier(s: Secteur) {
+  const cle = s.avis ?? "overland";
+  return [
+    ...PARC.testimonials.filter((t) => t.logo === cle),
+    ...PARC.testimonials.filter((t) => t.logo !== cle),
+  ];
+}
+
 export function SecteurPage({ secteur: s }: { secteur: Secteur }) {
   // FAQ agence d'abord, puis FAQ métier du secteur.
   const faq = [...faqAgence(s), ...s.faq];
@@ -452,9 +530,10 @@ export function SecteurPage({ secteur: s }: { secteur: Secteur }) {
         <ProblemeMission s={s} />
         <Demande s={s} />
         <Publics s={s} />
+        <Outils s={s} />
         <Services />
         <Testimonial
-          items={PARC.testimonials}
+          items={avisEnPremier(s)}
           quoteMinH="min-h-[26rem] sm:min-h-[18rem] md:min-h-[15rem]"
           title={
             <>

@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { FilAriane } from "@/components/fil-ariane";
 import {
-  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -49,13 +49,13 @@ export function OutilArticle({ outil }: { outil: Outil }) {
           <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
-              <Link
-                href="/logiciel-gestion-parc-de-loisirs"
-                className="inline-flex items-center gap-2 text-sm text-foreground/55 transition-colors hover:text-pink"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Tous les outils pour parcs de loisirs
-              </Link>
+              <FilAriane
+                etapes={[
+                  { nom: "Accueil", href: "/" },
+                  { nom: "Logiciels de gestion", href: "/logiciel-gestion-parc-de-loisirs" },
+                  { nom: outil.nom },
+                ]}
+              />
             </Reveal>
 
             <Reveal delay={0.06}>

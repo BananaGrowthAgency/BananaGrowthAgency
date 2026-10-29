@@ -30,8 +30,8 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-6xl text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+          initial={{ scale: 0.9, y: 10 }}
+          animate={{ scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="mb-8 flex justify-center"
         >
@@ -49,8 +49,8 @@ export function Hero() {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 18 }}
+          animate={{ y: 0 }}
           transition={{ delay: 0.18, duration: 0.6 }}
           className="mt-2 font-display text-4xl font-bold uppercase leading-[1.0] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
         >
@@ -60,8 +60,8 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 18 }}
+          animate={{ y: 0 }}
           transition={{ delay: 0.26, duration: 0.6 }}
           className="mx-auto mt-6 max-w-xl text-base text-foreground/65 md:text-lg"
         >
@@ -70,8 +70,8 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 18 }}
+          animate={{ y: 0 }}
           transition={{ delay: 0.34, duration: 0.6 }}
           className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
         >
@@ -84,8 +84,8 @@ export function Hero() {
         </motion.div>
 
         <motion.dl
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 18 }}
+          animate={{ y: 0 }}
           transition={{ delay: 0.44, duration: 0.6 }}
           className="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-4"
         >

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import { FilAriane } from "@/components/fil-ariane";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import type { GuideOutil, Pilier } from "@/lib/tracking";
 import { VersionTabs } from "@/components/landing/version-tabs";
 import { CALENDLY_AUDIT_PARC } from "@/lib/site";
@@ -247,13 +248,13 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-                <Link
-                  href="/plan-de-taggage-parc-de-loisirs"
-                  className="inline-flex items-center gap-2 text-foreground/55 transition-colors hover:text-pink"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Tous les plans de taggage
-                </Link>
+                <FilAriane
+                  etapes={[
+                    { nom: "Accueil", href: "/" },
+                    { nom: "Plans de taggage", href: "/plan-de-taggage-parc-de-loisirs" },
+                    { nom: guide.nom },
+                  ]}
+                />
                 <Link
                   href={`/logiciel-gestion-parc-de-loisirs/${guide.slug}`}
                   className="text-foreground/40 transition-colors hover:text-pink"

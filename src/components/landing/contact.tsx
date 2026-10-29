@@ -138,9 +138,11 @@ export function Contact() {
 
             {/* Formulaire Elfsight (stylé via injection dans son shadow DOM) */}
             <div className="relative">
+              {/* Chargé une fois la page affichée (lazyOnload) : le formulaire
+                  est en bas de page, il ne doit pas retarder le premier rendu. */}
               <Script
                 src="https://elfsightcdn.com/platform.js"
-                strategy="afterInteractive"
+                strategy="lazyOnload"
               />
               <div
                 className={ELFSIGHT_APP_CLASS}
