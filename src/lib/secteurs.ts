@@ -30,6 +30,8 @@ export type Secteur = {
   famille: Famille;
   /** Libellé court, pour le pied de page et les liens croisés. */
   nom: string;
+  /** Titre Google, quand « Marketing digital pour {pour} » est trop long. */
+  titre?: string;
   /** Complément du H1 : « Accompagnement marketing digital pour {pour} ». */
   pour: string;
   /** Sujet de « Vous gérez {un} ? ». */
@@ -58,7 +60,7 @@ export const SECTEURS: readonly Secteur[] = [
     un: "un karting",
     votre: "votre karting",
     metaDescription:
-      "Agence marketing digital pour kartings indoor et outdoor : Google Ads, Meta Ads, SEO local et tracking pour remplir vos sessions, vos anniversaires et vos events d'entreprise.",
+      "Agence marketing digital pour kartings : Google Ads, Meta Ads, SEO local et tracking pour remplir vos sessions, anniversaires et événements d'entreprise.",
     subtitle:
       "Sessions grand public, anniversaires, enterrements de vie de garçon, séminaires : nous remplissons vos pistes avec une méthode testée sur d'autres kartings.",
     probleme: [
@@ -125,7 +127,7 @@ export const SECTEURS: readonly Secteur[] = [
     un: "un bowling",
     votre: "votre bowling",
     metaDescription:
-      "Agence marketing digital pour bowlings : campagnes Google et Meta, SEO local et tracking des réservations pour remplir vos pistes, votre bar et vos soirées d'entreprise.",
+      "Agence marketing digital pour bowlings : Google, Meta, SEO local et suivi des réservations pour remplir vos pistes, votre bar et vos soirées d'entreprise.",
     subtitle:
       "Pistes, bar, restauration, soirées d'entreprise : nous faisons venir du monde en semaine comme le week-end, et nous mesurons ce que chaque euro de pub rapporte.",
     probleme: [
@@ -247,7 +249,7 @@ export const SECTEURS: readonly Secteur[] = [
     un: "un trampoline park",
     votre: "votre trampoline park",
     metaDescription:
-      "Agence marketing digital pour trampoline parks : campagnes Meta et Google, anniversaires, SEO local et tracking des réservations pour remplir vos sessions toute l'année.",
+      "Agence marketing digital pour trampoline parks : Meta, Google, SEO local et suivi des réservations pour remplir sessions et anniversaires toute l'année.",
     subtitle:
       "Sessions libres, anniversaires, écoles et centres de loisirs : nous transformons la demande des familles de votre zone en réservations mesurées.",
     probleme: [
@@ -366,13 +368,14 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "jeux-aventure-indoor",
+    titre: "Marketing digital pour jeux d'aventure indoor",
     famille: "indoor",
     nom: "Jeux d'aventure indoor",
     pour: "les jeux d'aventure indoor",
     un: "un centre de jeux d'aventure",
     votre: "votre centre",
     metaDescription:
-      "Agence marketing digital pour concepts de jeux d'aventure indoor (défis en équipe, quiz, action games) : Google Ads, Meta Ads, SEO local et tracking des réservations.",
+      "Agence marketing digital pour jeux d'aventure indoor (défis en équipe, quiz, action games) : Google Ads, Meta Ads, SEO local et suivi des réservations.",
     subtitle:
       "Défis en équipe, quiz géants, salles d'action : nous faisons connaître votre concept et remplissons vos créneaux, entre amis comme en entreprise.",
     probleme: [
@@ -426,6 +429,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "paintball",
+    titre: "Marketing digital pour le paintball",
     famille: "indoor",
     nom: "Paintball",
     pour: "les terrains de paintball",
@@ -662,13 +666,14 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "lancer-de-hache",
+    titre: "Marketing digital pour le lancer de hache",
     famille: "indoor",
     nom: "Lancer de hache",
     pour: "les salles de lancer de hache",
     un: "une salle de lancer de hache",
     votre: "votre salle",
     metaDescription:
-      "Agence marketing digital pour salles et bars de lancer de hache : campagnes Meta et Google, SEO local et tracking pour remplir vos pistes avec des groupes et des entreprises.",
+      "Agence marketing digital pour salles de lancer de hache : Meta, Google, SEO local et tracking pour remplir vos pistes avec groupes et entreprises.",
     subtitle:
       "EVJF, EVG, anniversaires, afterworks : nous faisons du lancer de hache l'activité dont votre ville parle, et remplissons vos pistes.",
     probleme: [
@@ -721,6 +726,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "parc-indoor-enfants",
+    titre: "Marketing digital parcs de jeux indoor enfants",
     famille: "indoor",
     nom: "Parc de jeux indoor enfants",
     pour: "les parcs de jeux indoor pour enfants",
@@ -782,6 +788,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "realite-virtuelle",
+    titre: "Marketing digital salles de réalité virtuelle",
     famille: "indoor",
     nom: "Réalité virtuelle",
     pour: "les salles de réalité virtuelle",
@@ -843,13 +850,14 @@ export const SECTEURS: readonly Secteur[] = [
   /* ── Loisirs outdoor & sites de visite ─────────────────── */
   {
     slug: "zoo-parc-animalier",
+    titre: "Marketing digital zoos et parcs animaliers",
     famille: "outdoor",
     nom: "Zoo & parc animalier",
     pour: "les zoos et parcs animaliers",
     un: "un zoo ou un parc animalier",
     votre: "votre parc",
     metaDescription:
-      "Agence marketing digital pour zoos, parcs animaliers et aquariums : campagnes Google et Meta, SEO, billetterie en ligne et tracking pour augmenter la fréquentation.",
+      "Agence marketing digital pour zoos, parcs animaliers et aquariums : Google, Meta, SEO et billetterie en ligne pour augmenter la fréquentation.",
     subtitle:
       "Familles, scolaires, touristes, abonnés : nous augmentons la fréquentation et la billetterie en ligne de votre parc, saison après saison.",
     probleme: [
@@ -965,6 +973,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "quad-buggy",
+    titre: "Marketing digital quad, buggy et segway",
     famille: "outdoor",
     nom: "Quad, buggy & segway",
     pour: "les randonnées quad, buggy et segway",
@@ -1095,7 +1104,7 @@ export const SECTEURS: readonly Secteur[] = [
     un: "un parc aquatique",
     votre: "votre parc",
     metaDescription:
-      "Agence marketing digital pour parcs et centres aquatiques de loisirs : campagnes Google et Meta, SEO, billetterie en ligne et tracking pour remplir votre saison.",
+      "Agence marketing digital pour parcs aquatiques : campagnes Google et Meta, SEO, billetterie en ligne et tracking pour remplir votre saison.",
     subtitle:
       "Familles, touristes, groupes, abonnés : nous remplissons votre parc aquatique et faisons grimper la billetterie en ligne.",
     probleme: [
@@ -1149,6 +1158,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "sports-aventure",
+    titre: "Marketing digital canyoning, rafting, via ferrata",
     famille: "outdoor",
     nom: "Sports d'aventure",
     pour: "les activités d'eaux vives et de montagne",
@@ -1448,6 +1458,7 @@ export const SECTEURS: readonly Secteur[] = [
   },
   {
     slug: "hebergement-insolite",
+    titre: "Marketing digital pour hébergements insolites",
     famille: "sejour",
     nom: "Hébergement insolite",
     pour: "les hébergements insolites",

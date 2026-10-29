@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!trouve) return {};
 
   return pageMetadata({
-    title: `${trouve.plateforme.titre} | Banana Growth Agency`,
+    title: trouve.plateforme.titre,
     description: trouve.plateforme.description,
     path: `/plan-de-taggage-parc-de-loisirs/${slug}/${plateforme}`,
   });

@@ -4,7 +4,7 @@ export const ROLLER: GuideOutil = {
   slug: "roller",
   nom: "ROLLER",
   pilier: {
-    titre: "Plan de taggage ROLLER : suivre ses conversions publicitaires",
+    titre: "Plan de taggage ROLLER : suivre ses conversions",
     description:
       "ROLLER intègre nativement GA4, Meta et TikTok ; seul Google Ads demande Tag Manager. Couche de données, plan de taggage, et ce que change votre palier.",
     chapo:
@@ -210,7 +210,7 @@ export const ROLLER: GuideOutil = {
       nom: "Google Ads",
       titre: "Suivi des conversions Google Ads avec ROLLER",
       description:
-        "La seule plateforme que ROLLER n'intègre pas nativement : Google Ads passe par Tag Manager, donc par un palier qui y donne accès. Balises et variables eventModel.",
+        "La seule plateforme que ROLLER n'intègre pas nativement : Google Ads passe par Tag Manager, donc par un palier qui y donne accès. Balises et variables.",
       chapo:
         "C'est la seule plateforme que ROLLER n'intègre pas nativement. Tout passe donc par Google Tag Manager — ce qui suppose un palier d'abonnement qui y donne accès, ou l'option payante. À vérifier avant de promettre quoi que ce soit.",
       prerequis: [

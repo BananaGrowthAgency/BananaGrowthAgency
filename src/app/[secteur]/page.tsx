@@ -32,7 +32,7 @@ export async function generateMetadata({
   if (!s) return {};
 
   return pageMetadata({
-    title: `Marketing digital pour ${s.pour} | Banana Growth Agency`,
+    title: s.titre ?? `Marketing digital pour ${s.pour}`,
     description: s.metaDescription,
     path: `/${secteur}`,
   });

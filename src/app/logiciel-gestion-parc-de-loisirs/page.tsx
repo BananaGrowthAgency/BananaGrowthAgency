@@ -10,7 +10,7 @@ import { Reveal } from "@/components/reveal";
 
 export const metadata = pageMetadata({
   title:
-    "Outils et logiciels de gestion pour parc de loisirs : le comparatif | Banana Growth Agency",
+    "Logiciels de gestion pour parc de loisirs : le comparatif",
   description:
     "Qweekle, PlayPro, Apex Timing, ROLLER, BMI Leisure : pour qui, fonctions clés et tarifs. Cinq fiches indépendantes, par une agence qui les opère.",
   path: "/logiciel-gestion-parc-de-loisirs",

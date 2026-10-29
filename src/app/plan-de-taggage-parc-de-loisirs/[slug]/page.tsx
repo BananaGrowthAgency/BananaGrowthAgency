@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!guide) return {};
 
   return pageMetadata({
-    title: `${guide.pilier.titre} | Banana Growth Agency`,
+    title: guide.pilier.titre,
     description: guide.pilier.description,
     path: `/plan-de-taggage-parc-de-loisirs/${guide.slug}`,
   });

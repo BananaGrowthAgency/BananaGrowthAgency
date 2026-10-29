@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { titrePage } from "@/lib/metadata";
 import Image from "next/image";
 import { CALENDLY_AUDIT_PARC, PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
@@ -14,8 +15,7 @@ import { CountUp } from "@/components/count-up";
 /* Métier en tête, marque en suffixe : seule l'accueil commence par
    « Banana Growth Agency », pour que les recherches de marque y mènent
    et non ici. Open Graph redéfini aussi, sinon il hérite du titre racine. */
-const TITLE =
-  "Agence marketing digital pour parcs de loisirs | Banana Growth Agency";
+const TITLE = titrePage("Agence marketing digital pour parcs de loisirs");
 const DESCRIPTION =
   "Agence de Growth Marketing dédiée aux parcs de loisirs indoor et outdoor. Une méthode clés en main et mesurable pour remplir votre parc. Audit offert.";
 

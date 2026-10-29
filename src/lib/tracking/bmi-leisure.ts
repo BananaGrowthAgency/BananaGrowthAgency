@@ -4,7 +4,7 @@ export const BMI_LEISURE: GuideOutil = {
   slug: "bmi-leisure",
   nom: "BMI Leisure",
   pilier: {
-    titre: "Plan de taggage BMI Leisure : suivre ses conversions publicitaires",
+    titre: "Plan de taggage BMI Leisure : suivre ses conversions",
     description:
       "La couche de données BMI date de 2015 : rien n'arrive au format attendu. Le travail de traduction, le plan de taggage, et le piège des événements par site.",
     chapo:

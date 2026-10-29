@@ -16,7 +16,7 @@ import type { Contenu, GuideOutil } from "./types";
 
 const V3: Contenu = {
   pilier: {
-    titre: "Plan de taggage Qweekle V3 : suivre ses conversions publicitaires",
+    titre: "Plan de taggage Qweekle V3 : suivre ses conversions",
     description:
       "Qweekle V3 livre quatre modules GTM prêts à importer et une couche de données conforme GA4. Architecture, événements, règles monétaires et plan de taggage.",
     chapo:
@@ -685,7 +685,7 @@ const V3: Contenu = {
 
 const V2: Contenu = {
   pilier: {
-    titre: "Plan de taggage Qweekle V2 : suivre ses conversions publicitaires",
+    titre: "Plan de taggage Qweekle V2 : suivre ses conversions",
     description:
       "La V2 de Qweekle reste déployée dans de nombreux parcs. Sa couche de données mêle noms conformes et nomenclature périmée : voici comment la traiter.",
     chapo:

@@ -11,7 +11,7 @@ import { Reveal } from "@/components/reveal";
 
 export const metadata = pageMetadata({
   title:
-    "Plan de taggage pour parc de loisirs : le guide par moteur de réservation | Banana Growth Agency",
+    "Plan de taggage parc de loisirs : guide par logiciel",
   description:
     "Vos conversions Google Ads ne collent pas avec votre caisse ? Les quatre causes, et un plan de taggage détaillé pour chaque moteur de réservation.",
   path: "/plan-de-taggage-parc-de-loisirs",

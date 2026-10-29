@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 
+/** Suffixe de marque des titres. Google affiche déjà le nom du site au-dessus
+ *  du titre : on garde la forme courte, et seulement quand elle tient. */
+const SUFFIXE_TITRE = " | Banana Growth";
+const TITRE_MAX = 62;
+
+/**
+ * Titre complet envoyé à Google : le titre de la page, suivi de la marque si
+ * l'ensemble tient dans ~62 caractères (au-delà, Google coupe). Un titre long
+ * reste donc entier plutôt que de voir sa fin remplacée par « … ».
+ */
+export function titrePage(base: string): string {
+  const complet = `${base}${SUFFIXE_TITRE}`;
+  return complet.length <= TITRE_MAX ? complet : base;
+}
+
 /**
  * Fabrique les métadonnées d'une page.
  *
@@ -24,6 +39,7 @@ export function pageMetadata({
   path: string;
 }): Metadata {
   const url = path === "/" ? SITE_URL : `${SITE_URL}${path}`;
+  title = titrePage(title);
 
   return {
     title,

@@ -11,7 +11,7 @@ export const YURPLAN: GuideOutil = {
   slug: "yurplan",
   nom: "Yurplan",
   pilier: {
-    titre: "Plan de taggage Yurplan : suivre les ventes de sa billetterie",
+    titre: "Plan de taggage Yurplan : suivre les ventes en ligne",
     description:
       "Yurplan pousse checkout et purchase dans Tag Manager, mais bloque le HTML personnalisé. Couche de données, balises autorisées et plan de taggage complet.",
     chapo:

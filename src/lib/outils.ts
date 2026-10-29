@@ -315,7 +315,7 @@ export const OUTILS: Outil[] = [
     baseline:
       "Spécialiste français du karting, né du chronométrage. Plus de 900 clients dans 67 pays, et la seule solution du panel à intégrer nativement le live timing.",
     description:
-      "Apex Timing : 900 clients, 67 pays, le spécialiste du karting né du chronométrage. Pour qui, fonctions clés, packs tarifaires et commission — documentation à l'appui.",
+      "Apex Timing : 900 clients, 67 pays, le spécialiste du karting né du chronométrage. Pour qui, fonctions clés, tarifs et commission, documentation à l'appui.",
     pourQuiCourt:
       "Karting de loisir, et centres multiactivités adossés à une piste.",
     editeur: { pays: "France", depuis: "2011" },

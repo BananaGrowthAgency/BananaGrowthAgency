@@ -13,9 +13,9 @@ export const APEX_TIMING: GuideOutil = {
   slug: "apex-timing",
   nom: "Apex Timing",
   pilier: {
-    titre: "Plan de taggage Apex Timing : suivre ses conversions publicitaires",
+    titre: "Plan de taggage Apex Timing : suivre ses conversions",
     description:
-      "Apex Timing documente huit événements conformes à GA4 et une fonction de consentement, mais sert son tunnel en cadres intégrés. Couche de données et plan de taggage.",
+      "Apex Timing documente huit événements GA4 et une fonction de consentement, mais sert son tunnel en cadres intégrés. Couche de données et plan de taggage.",
     chapo:
       "Apex Timing est l'un des rares moteurs à documenter publiquement son plan de taggage — et cette documentation est bonne : huit événements aux noms conformes à la spécification actuelle, et une fonction dédiée à la transmission du consentement. La difficulté est architecturale : le tunnel s'affiche en cadres intégrés servis depuis le domaine de l'éditeur.",
     architecture: {
