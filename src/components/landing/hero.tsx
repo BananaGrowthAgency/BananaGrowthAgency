@@ -79,8 +79,8 @@ export function Hero() {
           <CtaButton href={CALENDLY_URL} className="w-full sm:w-auto">
             {HERO.cta}
           </CtaButton>
-          <CtaButton href="#services" variant="ghost" className="w-full sm:w-auto">
-            Découvrir nos services
+          <CtaButton href="#contact" variant="ghost" className="w-full sm:w-auto">
+            Envoyer un message
           </CtaButton>
         </motion.div>
 

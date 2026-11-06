@@ -3,10 +3,10 @@ import { FilAriane } from "@/components/fil-ariane";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import type { GuideOutil, Pilier } from "@/lib/tracking";
 import { VersionTabs } from "@/components/landing/version-tabs";
-import { CALENDLY_AUDIT_PARC } from "@/lib/site";
+import { CALENDLY_AUDIT_PARC, PARC_HREF } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
-import { CtaButton } from "@/components/cta-button";
+import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 
 function SectionTitle({
@@ -341,9 +341,7 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
                   et combien ça coûte.
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaButton href={CALENDLY_AUDIT_PARC}>
-                    Réserver mon audit
-                  </CtaButton>
+                  <CtaPair audit={CALENDLY_AUDIT_PARC} contact={`${PARC_HREF}#contact`} />
                 </div>
                 <p className="relative mt-6 flex items-center justify-center gap-2 text-sm text-foreground/45">
                   <Check className="h-4 w-4 text-pink/70" />

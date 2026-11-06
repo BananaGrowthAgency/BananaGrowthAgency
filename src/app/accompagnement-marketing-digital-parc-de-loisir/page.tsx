@@ -7,7 +7,7 @@ import { Footer } from "@/components/landing/footer";
 import { Contact } from "@/components/landing/contact";
 import { Testimonial } from "@/components/landing/testimonial";
 import { ParcFaq } from "@/components/landing/parc-faq";
-import { CtaButton } from "@/components/cta-button";
+import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
@@ -79,7 +79,7 @@ function ParcHero() {
         </div>
         <div>
           <div className="mt-9 flex justify-center">
-            <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.hero.cta}</CtaButton>
+            <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.hero.cta} />
           </div>
         </div>
       </div>
@@ -167,7 +167,7 @@ function ParcMission() {
                     {PARC.mission.ctaText}
                   </p>
                   <div className="mt-7 flex justify-center">
-                    <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.mission.cta}</CtaButton>
+                    <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.mission.cta} />
                   </div>
                 </div>
               </div>
@@ -250,7 +250,7 @@ function ParcFinalCta() {
               {PARC.finalCta.subtitle}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaButton href={CALENDLY_AUDIT_PARC}>{PARC.finalCta.cta}</CtaButton>
+              <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.finalCta.cta} />
             </div>
           </div>
         </Reveal>

@@ -1,5 +1,5 @@
 import { CALENDLY_URL, FINAL_CTA } from "@/lib/site";
-import { CtaButton } from "@/components/cta-button";
+import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 
@@ -25,7 +25,7 @@ export function Cta() {
               {FINAL_CTA.subtitle}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaButton href={CALENDLY_URL}>{FINAL_CTA.cta}</CtaButton>
+              <CtaPair audit={CALENDLY_URL} label={FINAL_CTA.cta} />
             </div>
           </div>
         </Reveal>
