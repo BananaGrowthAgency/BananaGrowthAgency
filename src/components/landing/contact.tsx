@@ -93,10 +93,10 @@ export function Contact() {
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
 
             <div className="relative">
-              <h2 className="font-display text-3xl font-bold uppercase leading-[1.05] tracking-tight text-foreground md:text-4xl">
-                On parle de <span className="text-spectrum">croissance&nbsp;?</span>
+              <h2 className="text-center font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight text-foreground sm:text-7xl md:text-[5.5rem]">
+                On parle de <span className="block text-spectrum">croissance&nbsp;?</span>
               </h2>
-              <p className="mt-3 text-foreground/70">
+              <p className="mt-4 text-center text-foreground/70 md:text-lg">
                 Parlez-nous de votre parc : on vous recontacte sous 24&nbsp;h ouvrées.
               </p>
 
