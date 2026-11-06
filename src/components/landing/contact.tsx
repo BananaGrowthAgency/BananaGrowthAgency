@@ -1,153 +1,191 @@
 "use client";
 
-import { useEffect } from "react";
-import Script from "next/script";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 
-const ELFSIGHT_APP_CLASS = "elfsight-app-601ffa1e-33b9-4f7e-bee9-ca84346fcf7b";
-const STYLE_ID = "bb-neon-elfsight-form";
+/* Formulaire de contact maison (remplace Elfsight) : /api/contact range le lead
+   dans le CRM (source « Formulaire de contact ») et prévient Ben par email.
+   Après envoi : /remerciements, où GTM compte la conversion. */
 
-/* Le formulaire Elfsight est rendu dans un shadow DOM (ouvert) : le CSS global
-   du site ne peut pas l'atteindre. On injecte donc ces règles DANS le shadow
-   root pour harmoniser le formulaire avec la DA néon du site. */
-const NEON_FORM_CSS = `
-  form { width: 100% !important; }
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
+const UTM_STORE = "bb-utm";
 
-  /* Boîte visible du champ (Elfsight : .es-fields-short-text, -long-text, …).
-     :not(#bb) booste la spécificité pour battre les feuilles de style
-     adoptées (constructable stylesheets) d'Elfsight. */
-  [class*="es-fields"]:not(#bb) {
-    background: rgba(4, 5, 15, 0.55) !important;
-    border: 1px solid rgba(255, 255, 255, 0.14) !important;
-    border-radius: 14px !important;
-    box-shadow: none !important;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+const field =
+  "w-full rounded-[14px] border border-white/15 bg-[rgba(4,5,15,0.55)] px-4 py-3 text-base text-foreground placeholder:text-foreground/40 outline-none transition focus:border-pink/85 focus:shadow-[0_0_0_1px_rgba(255,46,154,0.45),0_0_22px_rgba(255,46,154,0.22)]";
+const label = "mb-1.5 block text-sm font-medium text-foreground/72";
+
+/** UTM de l'arrivée sur le site, gardées pour la session (le formulaire est souvent sur une autre page). */
+function readUtm(): Record<string, string> {
+  const fromUrl: Record<string, string> = {};
+  const sp = new URLSearchParams(window.location.search);
+  for (const k of UTM_KEYS) {
+    const v = sp.get(k);
+    if (v) fromUrl[k] = v;
   }
-
-  [class*="es-fields"]:not(#bb):focus-within {
-    border-color: rgba(255, 46, 154, 0.85) !important;
-    box-shadow: 0 0 0 1px rgba(255, 46, 154, 0.45),
-                0 0 22px rgba(255, 46, 154, 0.22) !important;
+  try {
+    if (Object.keys(fromUrl).length) sessionStorage.setItem(UTM_STORE, JSON.stringify(fromUrl));
+    else return JSON.parse(sessionStorage.getItem(UTM_STORE) || "{}");
+  } catch {
+    /* stockage indisponible : on garde ce que l'URL donne */
   }
-
-  input:not(#bb), textarea:not(#bb), select:not(#bb) {
-    background: transparent !important;
-    color: #f6f4fb !important;
-    font-size: 16px !important;
-    border-radius: 14px !important;
-  }
-
-  textarea:not(#bb) { resize: vertical !important; }
-
-  input::placeholder, textarea::placeholder {
-    color: rgba(246, 244, 251, 0.4) !important;
-  }
-
-  label:not(#bb) {
-    color: rgba(246, 244, 251, 0.72) !important;
-    font-weight: 500 !important;
-  }
-
-  button, input[type="submit"], [class*="ButtonContainer"] {
-    border: none !important;
-    border-radius: 9999px !important;
-    background: linear-gradient(90deg, #ffd21e 0%, #ff7a18 48%, #ff2e9a 100%) !important;
-    color: #ffffff !important;
-    font-weight: 800 !important;
-    min-height: 54px !important;
-    cursor: pointer !important;
-    box-shadow: 0 0 28px rgba(255, 46, 154, 0.3),
-                0 0 22px rgba(255, 122, 24, 0.16) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
-  }
-
-  button:hover, input[type="submit"]:hover, [class*="ButtonContainer"]:hover {
-    transform: translateY(-2px) !important;
-    filter: saturate(1.08) !important;
-    box-shadow: 0 0 42px rgba(255, 46, 154, 0.42),
-                0 0 32px rgba(255, 122, 24, 0.24) !important;
-  }
-
-  button:active, input[type="submit"]:active, [class*="ButtonContainer"]:active {
-    transform: translateY(0) !important;
-  }
-`;
-
-function useNeonElfsightForm() {
-  useEffect(() => {
-    let shadowObserver: MutationObserver | null = null;
-
-    const addStyle = (sr: ShadowRoot) => {
-      if (sr.getElementById(STYLE_ID)) return;
-      const style = document.createElement("style");
-      style.id = STYLE_ID;
-      style.textContent = NEON_FORM_CSS;
-      sr.appendChild(style);
-    };
-
-    const inject = () => {
-      const app = document.querySelector("." + ELFSIGHT_APP_CLASS);
-      if (!app) return;
-
-      let host: Element | null = null;
-      for (const el of app.querySelectorAll("*")) {
-        if (el.shadowRoot) {
-          host = el;
-          break;
-        }
-      }
-      if (!host || !host.shadowRoot) return;
-
-      const sr = host.shadowRoot;
-      if (!sr.querySelector("form")) return;
-
-      addStyle(sr);
-
-      // Réinjecte si Elfsight re-render le formulaire (ex. après envoi).
-      if (!shadowObserver) {
-        shadowObserver = new MutationObserver(() => addStyle(sr));
-        shadowObserver.observe(sr, { childList: true, subtree: true });
-      }
-    };
-
-    // Elfsight se charge en asynchrone : on retente jusqu'à ce que le form existe.
-    inject();
-    const interval = setInterval(inject, 500);
-    const bodyObserver = new MutationObserver(inject);
-    bodyObserver.observe(document.body, { childList: true, subtree: true });
-    const stop = setTimeout(() => clearInterval(interval), 25000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(stop);
-      bodyObserver.disconnect();
-      shadowObserver?.disconnect();
-    };
-  }, []);
+  return fromUrl;
 }
 
 export function Contact() {
-  useNeonElfsightForm();
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [error, setError] = useState("");
+  const startedAt = useRef(0);
+
+  useEffect(() => {
+    startedAt.current = performance.now();
+    readUtm(); // mémorise les UTM dès l'arrivée
+    router.prefetch("/remerciements");
+  }, [router]);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: form.get("firstName"),
+          lastName: form.get("lastName"),
+          email: form.get("email"),
+          phone: form.get("phone"),
+          company: form.get("company"),
+          message: form.get("message"),
+          // Case piège invisible : un robot la coche, un humain (ou son gestionnaire de mots de passe) jamais.
+          confirm: form.get("confirm") === "on",
+          elapsedMs: Math.round(performance.now() - startedAt.current),
+          page: window.location.pathname,
+          utm: readUtm(),
+        }),
+      });
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error || "Envoi impossible");
+      }
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: "formulaire_contact" });
+      router.push("/remerciements");
+    } catch (err) {
+      setStatus("error");
+      setError(
+        err instanceof Error && err.message !== "Failed to fetch"
+          ? err.message
+          : "Connexion impossible, réessayez dans un instant.",
+      );
+    }
+  }
 
   return (
     <section id="contact" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-2xl">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 p-4 neon-ring sm:p-6 md:p-8">
+          <div className="relative overflow-hidden rounded-3xl border border-pink/20 bg-ink-soft/70 p-5 neon-ring sm:p-8 md:p-10">
             <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-40" />
 
-            {/* Formulaire Elfsight (stylé via injection dans son shadow DOM) */}
             <div className="relative">
-              {/* Chargé une fois la page affichée (lazyOnload) : le formulaire
-                  est en bas de page, il ne doit pas retarder le premier rendu. */}
-              <Script
-                src="https://elfsightcdn.com/platform.js"
-                strategy="lazyOnload"
-              />
-              <div
-                className={ELFSIGHT_APP_CLASS}
-                data-elfsight-app-lazy
-              />
+              <h2 className="font-display text-3xl font-bold uppercase leading-[1.05] tracking-tight text-foreground md:text-4xl">
+                On parle de <span className="text-spectrum">croissance&nbsp;?</span>
+              </h2>
+              <p className="mt-3 text-foreground/70">
+                Parlez-nous de votre parc : on vous recontacte sous 24&nbsp;h ouvrées.
+              </p>
+
+              <form onSubmit={onSubmit} className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="cf-first" className={label}>
+                    Prénom *
+                  </label>
+                  <input id="cf-first" name="firstName" required autoComplete="given-name" className={field} />
+                </div>
+                <div>
+                  <label htmlFor="cf-last" className={label}>
+                    Nom
+                  </label>
+                  <input id="cf-last" name="lastName" autoComplete="family-name" className={field} />
+                </div>
+                <div>
+                  <label htmlFor="cf-email" className={label}>
+                    Email *
+                  </label>
+                  <input id="cf-email" name="email" type="email" required autoComplete="email" className={field} />
+                </div>
+                <div>
+                  <label htmlFor="cf-phone" className={label}>
+                    Téléphone
+                  </label>
+                  <input id="cf-phone" name="phone" type="tel" autoComplete="tel" className={field} />
+                </div>
+                <div className="sm:col-span-2">
+                  <label htmlFor="cf-company" className={label}>
+                    Parc ou entreprise *
+                  </label>
+                  <input id="cf-company" name="company" required autoComplete="organization" className={field} />
+                </div>
+                <div className="sm:col-span-2">
+                  <label htmlFor="cf-message" className={label}>
+                    Votre projet
+                  </label>
+                  <textarea
+                    id="cf-message"
+                    name="message"
+                    rows={4}
+                    placeholder="Vos objectifs, vos canaux actuels, votre saison…"
+                    className={`${field} resize-y`}
+                  />
+                </div>
+
+                {/* Piège à robots : hors écran, hors tabulation, ignoré des lecteurs d'écran. */}
+                <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                  <label>
+                    <input type="checkbox" name="confirm" tabIndex={-1} />
+                    Confirmer
+                  </label>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="group relative inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-full bg-spectrum px-6 text-base font-extrabold text-white neon-ring-strong transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_42px_rgba(255,46,154,0.42),0_0_32px_rgba(255,122,24,0.24)] active:translate-y-0 disabled:cursor-wait disabled:opacity-80"
+                  >
+                    {status === "sending" ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" /> Envoi…
+                      </>
+                    ) : (
+                      <>
+                        Envoyer ma demande
+                        <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </button>
+                  {status === "error" && (
+                    <p role="alert" className="mt-3 text-center text-sm text-pink">
+                      {error} Vous pouvez aussi écrire à{" "}
+                      <a href="mailto:hello@banana-growth.agency" className="underline">
+                        hello@banana-growth.agency
+                      </a>
+                      .
+                    </p>
+                  )}
+                  <p className="mt-4 text-center text-xs text-foreground/45">
+                    Vos coordonnées servent uniquement à vous recontacter.{" "}
+                    <Link href="/politique-de-confidentialite" className="underline hover:text-foreground/70">
+                      Politique de confidentialité
+                    </Link>
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
         </Reveal>
