@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { navPour, CALENDLY_URL } from "@/lib/site";
+import { navPour, RDV_URL } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +75,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:block">
-          <CtaButton href={CALENDLY_URL}>Prendre RDV</CtaButton>
+          <CtaButton href={RDV_URL}>Prendre RDV</CtaButton>
         </div>
 
         <button
@@ -106,7 +106,7 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <CtaButton href={CALENDLY_URL} className="mt-2 w-full">
+            <CtaButton href={RDV_URL} className="mt-2 w-full">
               Prendre RDV
             </CtaButton>
           </nav>

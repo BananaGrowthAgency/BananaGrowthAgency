@@ -3,7 +3,7 @@ import { FilAriane } from "@/components/fil-ariane";
 import { ArrowUpRight, Check, TriangleAlert } from "lucide-react";
 import type { GuideOutil, Plateforme } from "@/lib/tracking";
 import { VersionTabs } from "@/components/landing/version-tabs";
-import { CALENDLY_AUDIT_PARC, PARC_HREF } from "@/lib/site";
+import { AUDIT_PARC_URL, PARC_HREF } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaPair } from "@/components/cta-pair";
@@ -387,7 +387,7 @@ export function TrackingPlateforme({
                   combien ça coûte.
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaPair audit={CALENDLY_AUDIT_PARC} contact={`${PARC_HREF}#contact`} />
+                  <CtaPair audit={AUDIT_PARC_URL} contact={`${PARC_HREF}#contact`} />
                 </div>
               </div>
             </Reveal>

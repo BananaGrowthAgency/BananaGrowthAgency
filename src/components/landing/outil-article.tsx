@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import type { Outil } from "@/lib/outils";
 import { aUnGuide } from "@/lib/tracking";
-import { CALENDLY_AUDIT_PARC, PARC_HREF } from "@/lib/site";
+import { AUDIT_PARC_URL, PARC_HREF } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaPair } from "@/components/cta-pair";
@@ -413,7 +413,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                   selon votre activité et vos objectifs de fréquentation.
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaPair audit={CALENDLY_AUDIT_PARC} contact={`${PARC_HREF}#contact`} />
+                  <CtaPair audit={AUDIT_PARC_URL} contact={`${PARC_HREF}#contact`} />
                 </div>
                 <p className="relative mt-6 text-sm text-foreground/45">
                   Voir aussi{" "}

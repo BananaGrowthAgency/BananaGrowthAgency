@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CALENDLY_URL, HERO } from "@/lib/site";
+import { RDV_URL, HERO } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
@@ -76,7 +76,7 @@ export function Hero() {
           transition={{ delay: 0.34, duration: 0.6 }}
           className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
         >
-          <CtaButton href={CALENDLY_URL} className="w-full sm:w-auto">
+          <CtaButton href={RDV_URL} className="w-full sm:w-auto">
             {HERO.cta}
           </CtaButton>
           <CtaButton href="#contact" variant="ghost" className="w-full sm:w-auto">

@@ -32,10 +32,10 @@ const nextConfig: NextConfig = {
         destination: "/accompagnement-marketing-digital-parc-de-loisir",
         permanent: true,
       },
-      // Ancienne page de réservation Wix -> prise de rendez-vous Calendly.
+      // Ancienne page de réservation Wix -> prise de rendez-vous.
       {
         source: "/book-online",
-        destination: "https://calendly.com/banana-growth/30min",
+        destination: "/rendez-vous",
         permanent: true,
       },
       // Ancienne page client « Space » -> accueil.

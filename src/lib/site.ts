@@ -1,6 +1,6 @@
-export const CALENDLY_URL = "https://calendly.com/banana-growth/30min";
-export const CALENDLY_AUDIT_PARC =
-  "https://calendly.com/banana-growth/audit-offert-parc-de-loisir";
+/** Prise de rendez-vous maison (src/app/rendez-vous), branchée sur l'agenda Google de Ben. */
+export const RDV_URL = "/rendez-vous";
+export const AUDIT_PARC_URL = "/rendez-vous/audit-offert-parc-de-loisir";
 
 export const HERO = {
   title: "L'agence de Growth Marketing",

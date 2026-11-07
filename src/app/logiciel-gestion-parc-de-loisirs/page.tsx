@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { pageMetadata } from "@/lib/metadata";
 import { OUTILS, OUTILS_HUB } from "@/lib/outils";
-import { CALENDLY_AUDIT_PARC } from "@/lib/site";
+import { AUDIT_PARC_URL } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaButton } from "@/components/cta-button";
@@ -186,7 +186,7 @@ export default function OutilsHubPage() {
                   {OUTILS_HUB.cta.texte}
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaButton href={CALENDLY_AUDIT_PARC}>
+                  <CtaButton href={AUDIT_PARC_URL}>
                     {OUTILS_HUB.cta.bouton}
                   </CtaButton>
                 </div>

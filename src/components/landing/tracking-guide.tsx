@@ -3,7 +3,7 @@ import { FilAriane } from "@/components/fil-ariane";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import type { GuideOutil, Pilier } from "@/lib/tracking";
 import { VersionTabs } from "@/components/landing/version-tabs";
-import { CALENDLY_AUDIT_PARC, PARC_HREF } from "@/lib/site";
+import { AUDIT_PARC_URL, PARC_HREF } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaPair } from "@/components/cta-pair";
@@ -341,7 +341,7 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
                   et combien ça coûte.
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaPair audit={CALENDLY_AUDIT_PARC} contact={`${PARC_HREF}#contact`} />
+                  <CtaPair audit={AUDIT_PARC_URL} contact={`${PARC_HREF}#contact`} />
                 </div>
                 <p className="relative mt-6 flex items-center justify-center gap-2 text-sm text-foreground/45">
                   <Check className="h-4 w-4 text-pink/70" />

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { DIFFERENTIATION, CALENDLY_URL } from "@/lib/site";
+import { DIFFERENTIATION, RDV_URL } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { CtaPair } from "@/components/cta-pair";
 
@@ -58,7 +58,7 @@ export function Differentiation() {
                 </p>
 
                 <div className="mt-8">
-                  <CtaPair audit={CALENDLY_URL} label="Prendre rendez-vous" className="sm:justify-start" />
+                  <CtaPair audit={RDV_URL} label="Prendre rendez-vous" className="sm:justify-start" />
                 </div>
               </div>
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CALENDLY_AUDIT_PARC, PARC, PARC_HREF } from "@/lib/site";
+import { AUDIT_PARC_URL, PARC, PARC_HREF } from "@/lib/site";
 import { getOutil } from "@/lib/outils";
 import { aUnGuide } from "@/lib/tracking";
 import {
@@ -88,7 +88,7 @@ function Hero({ s }: { s: Secteur }) {
         </div>
         <div>
           <div className="mt-9 flex justify-center">
-            <CtaPair audit={CALENDLY_AUDIT_PARC} />
+            <CtaPair audit={AUDIT_PARC_URL} />
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@ function ProblemeMission({ s }: { s: Secteur }) {
                     </span>
                   </p>
                   <div className="mt-6">
-                    <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.mission.cta} />
+                    <CtaPair audit={AUDIT_PARC_URL} label={PARC.mission.cta} />
                   </div>
                 </div>
               </div>
@@ -451,7 +451,7 @@ function SaisonCta({ s }: { s: Secteur }) {
               Réservez votre audit gratuit et remplissez {s.votre}.
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.finalCta.cta} />
+              <CtaPair audit={AUDIT_PARC_URL} label={PARC.finalCta.cta} />
             </div>
           </div>
         </Reveal>

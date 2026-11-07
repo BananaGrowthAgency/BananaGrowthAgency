@@ -3,7 +3,7 @@ import { ArrowRight, ArrowUpRight, TriangleAlert } from "lucide-react";
 import { pageMetadata } from "@/lib/metadata";
 import { GUIDES } from "@/lib/tracking";
 import { TAGGAGE_HUB } from "@/lib/tracking/hub";
-import { CALENDLY_AUDIT_PARC } from "@/lib/site";
+import { AUDIT_PARC_URL } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaButton } from "@/components/cta-button";
@@ -267,7 +267,7 @@ export default function PlanDeTaggagePage() {
                   {TAGGAGE_HUB.cta.texte}
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaButton href={CALENDLY_AUDIT_PARC}>
+                  <CtaButton href={AUDIT_PARC_URL}>
                     {TAGGAGE_HUB.cta.bouton}
                   </CtaButton>
                 </div>

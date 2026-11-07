@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { titrePage } from "@/lib/metadata";
 import Image from "next/image";
-import { CALENDLY_AUDIT_PARC, PARC } from "@/lib/site";
+import { AUDIT_PARC_URL, PARC } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { Contact } from "@/components/landing/contact";
@@ -79,7 +79,7 @@ function ParcHero() {
         </div>
         <div>
           <div className="mt-9 flex justify-center">
-            <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.hero.cta} />
+            <CtaPair audit={AUDIT_PARC_URL} label={PARC.hero.cta} />
           </div>
         </div>
       </div>
@@ -167,7 +167,7 @@ function ParcMission() {
                     {PARC.mission.ctaText}
                   </p>
                   <div className="mt-7 flex justify-center">
-                    <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.mission.cta} />
+                    <CtaPair audit={AUDIT_PARC_URL} label={PARC.mission.cta} />
                   </div>
                 </div>
               </div>
@@ -250,7 +250,7 @@ function ParcFinalCta() {
               {PARC.finalCta.subtitle}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaPair audit={CALENDLY_AUDIT_PARC} label={PARC.finalCta.cta} />
+              <CtaPair audit={AUDIT_PARC_URL} label={PARC.finalCta.cta} />
             </div>
           </div>
         </Reveal>

@@ -61,7 +61,7 @@ export function Booking({ type }: { type: BookingType }) {
 
   useEffect(() => {
     readUtm();
-    router.prefetch("/rendez-vous/confirme");
+    router.prefetch("/remerciements/rendez-vous");
     fetchSlots(type.key).then(applySlots);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -178,7 +178,7 @@ export function Booking({ type }: { type: BookingType }) {
         booking_type: type.key,
       });
       const q = new URLSearchParams({ type: type.key, start: slot, tz });
-      router.push(`/rendez-vous/confirme?${q}`);
+      router.push(`/remerciements/rendez-vous?${q}`);
     } catch (err) {
       setStatus("error");
       setError(
