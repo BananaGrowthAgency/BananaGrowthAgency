@@ -112,6 +112,16 @@ export async function POST(request: Request) {
       message: [`📅 ${type.title} réservé : ${when} (heure de Paris)`, ...details].join("\n"),
       page: clip(body.page, 200) || type.path,
       utm: body.utm,
+      // Le CRM programme l'email de suivi personnel de Ben (30 min après la réservation).
+      followUp: {
+        kind: type.key,
+        title: type.title,
+        start: startDate.toISOString(),
+        meet: event.hangoutLink ?? "",
+        googleAds: answers.googleAds ?? "",
+        metaAds: answers.metaAds ?? "",
+        message: answers.message ?? "",
+      },
     });
   } catch (e) {
     console.error("[rendez-vous] lead non transmis au CRM", e, { email });
