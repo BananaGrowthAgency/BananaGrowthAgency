@@ -5,34 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { readUtm } from "@/lib/utm";
 
 /* Formulaire de contact maison (remplace Elfsight) : /api/contact range le lead
    dans le CRM (source « Formulaire de contact ») et prévient Ben par email.
    Après envoi : /remerciements, où GTM compte la conversion. */
 
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
-const UTM_STORE = "bb-utm";
-
 const field =
   "w-full rounded-[14px] border border-white/15 bg-[rgba(4,5,15,0.55)] px-4 py-3 text-base text-foreground placeholder:text-foreground/40 outline-none transition focus:border-pink/85 focus:shadow-[0_0_0_1px_rgba(255,46,154,0.45),0_0_22px_rgba(255,46,154,0.22)]";
 const label = "mb-1.5 block text-sm font-medium text-foreground/72";
-
-/** UTM de l'arrivée sur le site, gardées pour la session (le formulaire est souvent sur une autre page). */
-function readUtm(): Record<string, string> {
-  const fromUrl: Record<string, string> = {};
-  const sp = new URLSearchParams(window.location.search);
-  for (const k of UTM_KEYS) {
-    const v = sp.get(k);
-    if (v) fromUrl[k] = v;
-  }
-  try {
-    if (Object.keys(fromUrl).length) sessionStorage.setItem(UTM_STORE, JSON.stringify(fromUrl));
-    else return JSON.parse(sessionStorage.getItem(UTM_STORE) || "{}");
-  } catch {
-    /* stockage indisponible : on garde ce que l'URL donne */
-  }
-  return fromUrl;
-}
 
 export function Contact() {
   const router = useRouter();
