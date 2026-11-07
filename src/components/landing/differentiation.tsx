@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { DIFFERENTIATION, CALENDLY_URL } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
-import { CtaButton } from "@/components/cta-button";
+import { CtaPair } from "@/components/cta-pair";
 
 const HIGHLIGHT_ICONS = ["shield", "trophy"];
 
@@ -58,7 +58,7 @@ export function Differentiation() {
                 </p>
 
                 <div className="mt-8">
-                  <CtaButton href={CALENDLY_URL}>Prendre Rendez-vous</CtaButton>
+                  <CtaPair audit={CALENDLY_URL} label="Prendre rendez-vous" className="sm:justify-start" />
                 </div>
               </div>
 

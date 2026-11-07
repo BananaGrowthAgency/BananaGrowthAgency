@@ -3,10 +3,10 @@ import { FilAriane } from "@/components/fil-ariane";
 import { ArrowUpRight, Check, TriangleAlert } from "lucide-react";
 import type { GuideOutil, Plateforme } from "@/lib/tracking";
 import { VersionTabs } from "@/components/landing/version-tabs";
-import { CALENDLY_AUDIT_PARC } from "@/lib/site";
+import { CALENDLY_AUDIT_PARC, PARC_HREF } from "@/lib/site";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
-import { CtaButton } from "@/components/cta-button";
+import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 
 function SectionTitle({
@@ -387,9 +387,7 @@ export function TrackingPlateforme({
                   combien ça coûte.
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaButton href={CALENDLY_AUDIT_PARC}>
-                    Réserver mon audit
-                  </CtaButton>
+                  <CtaPair audit={CALENDLY_AUDIT_PARC} contact={`${PARC_HREF}#contact`} />
                 </div>
               </div>
             </Reveal>
