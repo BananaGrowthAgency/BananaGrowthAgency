@@ -1,6 +1,8 @@
 // Formulaire de contact du site → CRM (crm.banana-growth.agency/api/formulaire-contact).
 // Le secret partagé reste côté serveur : le navigateur ne parle qu'à cette route.
 
+import { checkBotId } from "botid/server";
+
 const CRM_ENDPOINT = process.env.CRM_CONTACT_ENDPOINT ?? "https://crm.banana-growth.agency/api/formulaire-contact";
 // Un humain met plus de 2 s à remplir le formulaire (durée mesurée dans le navigateur).
 const MIN_FILL_MS = 2000;
@@ -18,6 +20,17 @@ export async function POST(request: Request) {
   if (typeof body.elapsedMs === "number" && body.elapsedMs < MIN_FILL_MS) {
     console.warn("[contact] écarté : rempli trop vite", { email, elapsedMs: body.elapsedMs });
     return Response.json({ ok: true });
+  }
+
+  // BotID (Vercel) : un robot probable n'est pas jeté mais transmis avec un drapeau,
+  // le CRM le met en quarantaine (récupérable) au lieu de créer un parc et d'envoyer l'email.
+  let botSuspect = false;
+  try {
+    const verdict = await checkBotId();
+    botSuspect = verdict.isBot && !verdict.isVerifiedBot;
+    if (botSuspect) console.warn("[contact] robot probable (BotID), envoyé en quarantaine", { email });
+  } catch (e) {
+    console.error("[contact] BotID indisponible", e);
   }
 
   const secret = process.env.CONTACT_FORM_SECRET;
@@ -43,6 +56,7 @@ export async function POST(request: Request) {
       message: body.message,
       page: body.page,
       utm: body.utm,
+      botSuspect,
     }),
   }).catch((e: unknown) => {
     console.error("[contact] CRM injoignable", e);
