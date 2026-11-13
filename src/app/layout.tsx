@@ -70,6 +70,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {children}
+        {/* Bandeau header du webinaire bons cadeaux : se retire seul après le live (19/11/2026, 11 h). */}
+        <Script
+          id="bandeau-webinaire"
+          src="https://webinaire.banana-growth.agency/bandeau-webinaire.js"
+          data-source="bga"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
