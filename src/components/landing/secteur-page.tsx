@@ -19,79 +19,29 @@ import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
 
 /* Même gabarit visuel que la landing parcs de loisirs, alimenté par
-   les données de src/lib/secteurs.ts (ou src/lib/es/secteurs.ts). Les
-   sections « équipe » et « humain + IA » restent communes : c'est ce qui
-   nous distingue des pages sectorielles générées à la chaîne.
+   les données de src/lib/secteurs.ts (ou src/lib/es/secteurs.ts). La
+   frise « 45 premiers jours » reste commune : elle dit concrètement ce qui
+   se passe après la signature, quel que soit le secteur.
 
    Le contenu (secteur, FAQ, fiches outils, autres secteurs) arrive en props
    depuis la page, déjà dans la bonne langue. Seuls les textes d'interface
    sont ici, dans TEXTES. */
 
-/* Six engagements au même format : trois côté IA, trois côté humain. */
-const ENGAGEMENTS = {
+/* Les 45 premiers jours : ce qui se passe concrètement après la signature.
+   Reprend les engagements de la FAQ (campagnes en moins de 15 jours,
+   +20 % de fréquentation visés à 45 jours). */
+const ETAPES = {
   fr: [
-    {
-      titre: "Un interlocuteur dédié",
-      texte:
-        "Quelqu'un qui connaît votre activité, vos créneaux creux et vos équipes, et que vous pouvez appeler.",
-    },
-    {
-      titre: "Des méthodes testées sur le terrain",
-      texte:
-        "Ce que nous mettons en place a déjà fonctionné chez d'autres acteurs du loisir. Pas de théorie.",
-    },
-    {
-      titre: "De la pédagogie",
-      texte:
-        "Nous formons vos équipes pour qu'elles comprennent ce qui se passe et gagnent en autonomie.",
-    },
-    {
-      titre: "Visible dans les réponses des IA",
-      texte:
-        "Vos clients demandent déjà à ChatGPT ou à Google quoi faire ce week-end. Nous travaillons votre présence dans ces réponses.",
-    },
-    {
-      titre: "Des créations testées à grande échelle",
-      texte:
-        "L'IA nous aide à décliner et tester des dizaines de variantes d'annonces. Nous gardons celles qui remplissent vos créneaux.",
-    },
-    {
-      titre: "Un reporting qui tourne tout seul",
-      texte:
-        "Vos données publicitaires et vos réservations remontent chaque matin dans un tableau de bord.",
-    },
+    { quand: "Semaine 1", titre: "L'audit", texte: "Site, fiche Google, campagnes en cours, suivi des réservations : nous repérons ce qui freine vos ventes." },
+    { quand: "Semaine 2", titre: "Le tracking", texte: "Nous branchons votre logiciel de réservation à Google et Meta, pour savoir enfin d'où vient chaque réservation." },
+    { quand: "Jour 15", titre: "Les campagnes en ligne", texte: "Google Ads et Meta Ads démarrent sur les publics et les offres qui remplissent vos créneaux." },
+    { quand: "Jour 45", titre: "Le premier bilan", texte: "Réservations, coût par réservation, prochaines actions. Notre objectif : +20 % de fréquentation." },
   ],
   es: [
-    {
-      titre: "Un interlocutor dedicado",
-      texte:
-        "Alguien que conoce tu actividad, tus franjas flojas y tus equipos, y al que puedes llamar.",
-    },
-    {
-      titre: "Métodos probados sobre el terreno",
-      texte:
-        "Lo que ponemos en marcha ya ha funcionado en otros negocios de ocio. Nada de teoría.",
-    },
-    {
-      titre: "Pedagogía",
-      texte:
-        "Formamos a tus equipos para que entiendan lo que pasa y ganen autonomía.",
-    },
-    {
-      titre: "Visible en las respuestas de las IA",
-      texte:
-        "Tus clientes ya preguntan a ChatGPT o a Google qué hacer este fin de semana. Trabajamos tu presencia en esas respuestas.",
-    },
-    {
-      titre: "Creatividades probadas a gran escala",
-      texte:
-        "La IA nos ayuda a declinar y probar decenas de variantes de anuncios. Nos quedamos con las que llenan tus franjas.",
-    },
-    {
-      titre: "Un reporting que funciona solo",
-      texte:
-        "Tus datos publicitarios y tus reservas se actualizan cada mañana en un panel de control.",
-    },
+    { quand: "Semana 1", titre: "La auditoría", texte: "Web, ficha de Google, campañas activas, seguimiento de reservas: detectamos lo que frena tus ventas." },
+    { quand: "Semana 2", titre: "El tracking", texte: "Conectamos tu software de reservas con Google y Meta para saber por fin de dónde viene cada reserva." },
+    { quand: "Día 15", titre: "Campañas en marcha", texte: "Google Ads y Meta Ads arrancan con los públicos y las ofertas que llenan tus franjas." },
+    { quand: "Día 45", titre: "El primer balance", texte: "Reservas, coste por reserva, próximos pasos. Nuestro objetivo: +20 % de afluencia." },
   ],
 } as const;
 
@@ -120,11 +70,10 @@ const TEXTES = {
       "Une publicité ne s'optimise que si elle voit les réservations qu'elle génère. Nos fiches sur les logiciels du secteur expliquent ce que chacun permet de mesurer, et comment le brancher.",
     fiche: "Fiche",
     plan: "Plan de taggage",
-    quiAlt: "L'équipe Banana Growth Agency devant des enseignes de loisirs",
-    qui: "Qui sommes-nous",
-    quiTitre: ["Une équipe humaine,", "augmentée par l'IA"],
-    quiTexte: (votre: string) =>
-      `Nous ne sommes pas une plateforme qui génère des campagnes à la chaîne. Nous sommes une petite équipe passionnée par le loisir, qui utilise l'IA pour aller plus vite, et garde l'humain pour ce qui compte : comprendre ${votre} et vos clients.`,
+    jours: "Concrètement",
+    joursTitre: ["Vos 45 premiers jours", "avec nous"],
+    joursTexte: (votre: string) =>
+      `Pas de long tunnel de préparation : voici ce qui se passe pour ${votre} dès la signature.`,
     services: "Nos services",
     servicesTitre: ["Un cocktail de services qui", "porte ses fruits"],
     avis: ["Ils nous font déjà", "confiance"],
@@ -158,11 +107,10 @@ const TEXTES = {
       "Un anuncio solo se optimiza si ve las reservas que genera. Nuestras fichas sobre el software del sector explican qué permite medir cada uno y cómo conectarlo.",
     fiche: "Ficha de",
     plan: "Plan de etiquetado de",
-    quiAlt: "El equipo de Banana Growth Agency delante de rótulos de negocios de ocio",
-    qui: "Quiénes somos",
-    quiTitre: ["Un equipo humano,", "potenciado por la IA"],
-    quiTexte: (votre: string) =>
-      `No somos una plataforma que genera campañas en cadena. Somos un pequeño equipo apasionado por el ocio, que usa la IA para ir más rápido y reserva lo humano para lo que importa: entender ${votre} y a tus clientes.`,
+    jours: "En concreto",
+    joursTitre: ["Tus primeros 45 días", "con nosotros"],
+    joursTexte: (votre: string) =>
+      `Sin largas fases de preparación: esto es lo que pasa en ${votre} desde la firma.`,
     services: "Nuestros servicios",
     servicesTitre: ["Un cóctel de servicios que", "da sus frutos"],
     avis: ["Ya confían en", "nosotros"],
@@ -471,51 +419,49 @@ function Outils({
 }
 
 
-function HumainIa({ s, t, locale }: Ctx) {
+function PremiersJours({ s, t, locale }: Ctx) {
+  const etapes = ETAPES[locale];
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.3fr]">
-          <Reveal>
-            <div className="relative aspect-square overflow-hidden rounded-3xl border border-pink/20 neon-ring">
-              <Image
-                src="/canva/photos/qui-sommes-nous.jpg"
-                alt={t.quiAlt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className={eyebrowClass}>{t.jours}</span>
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+            {t.joursTitre[0]}{" "}
+            <span className="text-spectrum">{t.joursTitre[1]}</span>
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
+            {t.joursTexte(s.votre)}
+          </p>
+        </Reveal>
 
-          <div>
-            <Reveal>
-              <span className={eyebrowClass}>{t.qui}</span>
-              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-                {t.quiTitre[0]}{" "}
-                <span className="text-spectrum">{t.quiTitre[1]}</span>
-              </h2>
-              <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
-                {t.quiTexte(s.votre)}
-              </p>
+        <ol className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Fil de la frise, derrière les pastilles (grand écran seulement). */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-5 hidden h-px bg-gradient-to-r from-yellow/50 via-orange/50 to-pink/50 lg:block"
+          />
+          {etapes.map((e, i) => (
+            <Reveal key={e.quand} delay={i * 0.08} className="h-full">
+              <li className="relative flex h-full flex-col items-center text-center">
+                <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-spectrum font-display text-lg font-bold text-white neon-ring-strong">
+                  {i + 1}
+                </span>
+                <div className="mt-4 h-full w-full rounded-2xl border border-white/10 bg-ink-soft/60 p-5">
+                  <p className="text-xs uppercase tracking-[0.15em] text-pink/80">
+                    {e.quand}
+                  </p>
+                  <h3 className="mt-2 font-display text-xl font-bold text-foreground">
+                    {e.titre}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/60">
+                    {e.texte}
+                  </p>
+                </div>
+              </li>
             </Reveal>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {ENGAGEMENTS[locale].map((item, i) => (
-                <Reveal key={item.titre} delay={(i % 2) * 0.06} className="h-full">
-                  <div className="h-full rounded-2xl border border-white/10 bg-ink-soft/60 p-5">
-                    <h3 className="font-display text-lg font-bold text-foreground">
-                      {item.titre}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-foreground/60">
-                      {item.texte}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
+          ))}
+        </ol>
       </div>
     </section>
   );
@@ -696,7 +642,7 @@ export function SecteurPage({
           }
         />
         <SaisonCta {...ctx} />
-        <HumainIa {...ctx} />
+        <PremiersJours {...ctx} />
         <ParcFaq
           items={faq}
           title={t.faq?.title}
