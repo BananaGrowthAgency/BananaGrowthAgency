@@ -13,13 +13,13 @@ const MESSAGES = {
   fr: {
     invalide: "Requête invalide.",
     indispo: "Envoi momentanément indisponible.",
-    champs: "Merci de remplir prénom, email et parc.",
+    champs: "Merci de remplir prénom, email et établissement.",
     echec: "Envoi impossible pour le moment.",
   },
   es: {
     invalide: "Solicitud no válida.",
     indispo: "Envío no disponible por el momento.",
-    champs: "Rellena tu nombre, tu email y tu parque.",
+    champs: "Rellena tu nombre, tu email y tu negocio.",
     echec: "No se ha podido enviar por el momento.",
   },
 } as const;
