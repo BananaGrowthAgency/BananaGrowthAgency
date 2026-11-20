@@ -1,9 +1,12 @@
-import { RDV_URL, FINAL_CTA } from "@/lib/site";
+import { RDV_URL, FINAL_CTA as FINAL_CTA_FR } from "@/lib/site";
+import { FINAL_CTA_ES } from "@/lib/es/site";
+import type { Locale } from "@/lib/i18n";
 import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 
-export function Cta() {
+export function Cta({ locale = "fr" }: { locale?: Locale }) {
+  const FINAL_CTA = locale === "es" ? FINAL_CTA_ES : FINAL_CTA_FR;
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-4xl">
@@ -18,14 +21,23 @@ export function Cta() {
               wrapperClassName="relative mx-auto mb-6 block w-fit"
             />
             <h2 className="relative font-display text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              Prêt à <span className="text-spectrum">vitaminer</span>&nbsp;votre
-              croissance&nbsp;?
+              {locale === "es" ? (
+                <>
+                  ¿Listo para <span className="text-spectrum">vitaminar</span>
+                  &nbsp;tu crecimiento?
+                </>
+              ) : (
+                <>
+                  Prêt à <span className="text-spectrum">vitaminer</span>&nbsp;votre
+                  croissance&nbsp;?
+                </>
+              )}
             </h2>
             <p className="relative mx-auto mt-4 max-w-md text-foreground/60">
               {FINAL_CTA.subtitle}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaPair audit={RDV_URL} label={FINAL_CTA.cta} />
+              <CtaPair locale={locale} audit={RDV_URL} label={FINAL_CTA.cta} />
             </div>
           </div>
         </Reveal>

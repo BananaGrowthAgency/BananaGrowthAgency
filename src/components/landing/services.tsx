@@ -1,18 +1,35 @@
-import { SERVICES } from "@/lib/site";
+import { SERVICES as SERVICES_FR } from "@/lib/site";
+import { SERVICES_ES } from "@/lib/es/site";
+import type { Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    eyebrow: "Nos services",
+    title: "Un cocktail de services qui",
+    highlight: "porte ses fruits",
+  },
+  es: {
+    eyebrow: "Nuestros servicios",
+    title: "Un cóctel de servicios que",
+    highlight: "da sus frutos",
+  },
+} as const;
 import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 
-export function Services() {
+export function Services({ locale = "fr" }: { locale?: Locale }) {
+  const SERVICES = locale === "es" ? SERVICES_ES : SERVICES_FR;
+  const t = TEXTES[locale];
   return (
     <section id="services" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
-            Nos services
+            {t.eyebrow}
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Un cocktail de services qui{" "}
-            <span className="text-spectrum">porte ses fruits</span>
+            {t.title}{" "}
+            <span className="text-spectrum">{t.highlight}</span>
           </h2>
         </Reveal>
 

@@ -1,20 +1,23 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { SITE_URL } from "@/lib/site";
+import type { Locale } from "@/lib/i18n";
 
 export type Etape = { nom: string; href?: string };
 
 /**
  * Fil d'Ariane visible, doublé du balisage BreadcrumbList que Google affiche
  * à la place de l'URL dans ses résultats. La dernière étape est la page
- * courante : pas de lien.
+ * courante : pas de lien. Les `href` arrivent déjà dans la bonne langue.
  */
 export function FilAriane({
   etapes,
   className,
+  locale = "fr",
 }: {
   etapes: readonly Etape[];
   className?: string;
+  locale?: Locale;
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -28,7 +31,10 @@ export function FilAriane({
   };
 
   return (
-    <nav aria-label="Fil d'Ariane" className={className}>
+    <nav
+      aria-label={locale === "es" ? "Ruta de navegación" : "Fil d'Ariane"}
+      className={className}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

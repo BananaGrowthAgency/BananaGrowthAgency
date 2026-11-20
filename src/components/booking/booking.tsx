@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CalendarDays, ChevronLeft, ChevronRight, Clock, Globe, Loader2, Video } from "lucide-react";
 import type { BookingType } from "@/lib/booking/config";
+import { lien, type Locale } from "@/lib/i18n";
 import { readUtm } from "@/lib/utm";
 import { cn } from "@/lib/utils";
 
@@ -13,18 +14,68 @@ import { cn } from "@/lib/utils";
 const field =
   "w-full rounded-[14px] border border-white/15 bg-[rgba(4,5,15,0.55)] px-4 py-3 text-base text-foreground placeholder:text-foreground/40 outline-none transition focus:border-pink/85 focus:shadow-[0_0_0_1px_rgba(255,46,154,0.45),0_0_22px_rgba(255,46,154,0.22)]";
 const labelCls = "mb-1.5 block text-sm font-medium text-foreground/72";
-const WEEKDAYS = ["lun.", "mar.", "mer.", "jeu.", "ven.", "sam.", "dim."];
+
+const TEXTES = {
+  fr: {
+    intl: "fr-FR",
+    weekdays: ["lun.", "mar.", "mer.", "jeu.", "ven.", "sam.", "dim."],
+    agendaIndispo: "Agenda indisponible",
+    retour: "Revenir au choix du créneau",
+    visio: "Visio Google Meet, lien envoyé à la confirmation",
+    choisir: "Choisissez la date et l'heure",
+    reessayer: "Réessayer",
+    chargement: "Chargement des disponibilités…",
+    aucun: "Aucun créneau libre dans les prochains jours. Écrivez-nous à",
+    moisPrec: "Mois précédent",
+    moisSuiv: "Mois suivant",
+    infos: "Vos informations",
+    selection: "Sélectionnez…",
+    oui: "Oui",
+    non: "Non",
+    reservation: "Réservation…",
+    confirmer: "Confirmer le rendez-vous",
+    note: "Vous recevrez une invitation Google Agenda avec le lien de la visio. Vos coordonnées servent uniquement à préparer et suivre ce rendez-vous.",
+    pris: "Ce créneau vient d'être pris.",
+    impossible: "Réservation impossible",
+    connexion: "Connexion impossible, réessayez dans un instant.",
+  },
+  es: {
+    intl: "es-ES",
+    weekdays: ["lun.", "mar.", "mié.", "jue.", "vie.", "sáb.", "dom."],
+    agendaIndispo: "Agenda no disponible por el momento.",
+    retour: "Volver a la elección del horario",
+    visio: "Videollamada por Google Meet, enlace enviado al confirmar",
+    choisir: "Elige la fecha y la hora",
+    reessayer: "Reintentar",
+    chargement: "Cargando la disponibilidad…",
+    aucun: "No hay horarios libres en los próximos días. Escríbenos a",
+    moisPrec: "Mes anterior",
+    moisSuiv: "Mes siguiente",
+    infos: "Tus datos",
+    selection: "Selecciona…",
+    oui: "Sí",
+    non: "No",
+    reservation: "Reservando…",
+    confirmer: "Confirmar la cita",
+    note: "Recibirás una invitación de Google Calendar con el enlace de la videollamada. Tus datos solo se usan para preparar y hacer el seguimiento de esta cita.",
+    pris: "Este horario se acaba de ocupar.",
+    impossible: "No se ha podido reservar",
+    connexion: "Error de conexión, vuelve a intentarlo en un momento.",
+  },
+} as const;
 
 const dayKey = (d: Date, tz: string) =>
   new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
 
 type SlotsResult = { slots: string[]; tz: string } | { error: string };
 
-async function fetchSlots(key: string): Promise<SlotsResult> {
+async function fetchSlots(key: string, locale: Locale): Promise<SlotsResult> {
+  const indispo = TEXTES[locale].agendaIndispo;
   try {
     const res = await fetch(`/api/rendez-vous/creneaux?type=${key}`, { cache: "no-store" });
     const body = (await res.json()) as { slots?: string[]; error?: string };
-    if (!res.ok || !body.slots) throw new Error(body.error || "Agenda indisponible");
+    // En espagnol, on n'affiche pas le message (français) de l'API.
+    if (!res.ok || !body.slots) throw new Error((locale === "fr" && body.error) || indispo);
     let tz = "Europe/Paris";
     try {
       tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz;
@@ -33,11 +84,12 @@ async function fetchSlots(key: string): Promise<SlotsResult> {
     }
     return { slots: body.slots, tz };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Agenda indisponible" };
+    return { error: locale === "fr" && e instanceof Error ? e.message : indispo };
   }
 }
 
-export function Booking({ type }: { type: BookingType }) {
+export function Booking({ type, locale = "fr" }: { type: BookingType; locale?: Locale }) {
+  const t = TEXTES[locale];
   const router = useRouter();
   const [tz, setTz] = useState("Europe/Paris");
   const [slots, setSlots] = useState<string[] | null>(null);
@@ -57,12 +109,12 @@ export function Booking({ type }: { type: BookingType }) {
     setLoadError("");
     setTz(r.tz);
   }
-  const loadSlots = () => fetchSlots(type.key).then(applySlots);
+  const loadSlots = () => fetchSlots(type.key, locale).then(applySlots);
 
   useEffect(() => {
     readUtm();
-    router.prefetch("/remerciements/rendez-vous");
-    fetchSlots(type.key).then(applySlots);
+    router.prefetch(lien(locale, "/remerciements/rendez-vous"));
+    fetchSlots(type.key, locale).then(applySlots);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,14 +132,14 @@ export function Booking({ type }: { type: BookingType }) {
   const shownMonth = month ?? (firstDay ? { y: +firstDay.slice(0, 4), m: +firstDay.slice(5, 7) } : null);
 
   const fmtTime = (iso: string) =>
-    new Intl.DateTimeFormat("fr-FR", { timeZone: tz, hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+    new Intl.DateTimeFormat(t.intl, { timeZone: tz, hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
   const fmtDay = (k: string) =>
-    new Intl.DateTimeFormat("fr-FR", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" }).format(
+    new Intl.DateTimeFormat(t.intl, { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" }).format(
       new Date(`${k}T12:00:00Z`),
     );
   const fmtSlotLong = (iso: string) => {
     const end = new Date(Date.parse(iso) + type.durationMin * 60_000).toISOString();
-    const date = new Intl.DateTimeFormat("fr-FR", {
+    const date = new Intl.DateTimeFormat(t.intl, {
       timeZone: tz,
       weekday: "long",
       day: "numeric",
@@ -98,7 +150,7 @@ export function Booking({ type }: { type: BookingType }) {
   };
   const tzLabel = (() => {
     try {
-      const name = new Intl.DateTimeFormat("fr-FR", { timeZone: tz, timeZoneName: "long" })
+      const name = new Intl.DateTimeFormat(t.intl, { timeZone: tz, timeZoneName: "long" })
         .formatToParts(new Date())
         .find((p) => p.type === "timeZoneName")?.value;
       return name ? name.charAt(0).toUpperCase() + name.slice(1) : tz;
@@ -154,6 +206,7 @@ export function Booking({ type }: { type: BookingType }) {
       elapsedMs: Math.round(e.timeStamp - formStartedAt.current),
       page: window.location.pathname,
       utm: readUtm(),
+      locale,
     };
     for (const q of type.questions) payload[q.name] = form.get(q.name);
     try {
@@ -169,22 +222,22 @@ export function Booking({ type }: { type: BookingType }) {
         setStep("pick");
         await loadSlots();
         setStatus("error");
-        setError(body.error || "Ce créneau vient d'être pris.");
+        setError(body.error || t.pris);
         return;
       }
-      if (!res.ok) throw new Error(body.error || "Réservation impossible");
+      if (!res.ok) throw new Error(body.error || t.impossible);
       (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({
         event: "rendez_vous_reserve",
         booking_type: type.key,
       });
       const q = new URLSearchParams({ type: type.key, start: slot, tz });
-      router.push(`/remerciements/rendez-vous?${q}`);
+      router.push(`${lien(locale, "/remerciements/rendez-vous")}?${q}`);
     } catch (err) {
       setStatus("error");
       setError(
         err instanceof Error && err.message !== "Failed to fetch"
           ? err.message
-          : "Connexion impossible, réessayez dans un instant.",
+          : t.connexion,
       );
     }
   }
@@ -202,7 +255,7 @@ export function Booking({ type }: { type: BookingType }) {
               type="button"
               onClick={() => setStep("pick")}
               className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-pink/40 text-pink transition hover:bg-pink/10"
-              aria-label="Revenir au choix du créneau"
+              aria-label={t.retour}
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
@@ -216,7 +269,7 @@ export function Booking({ type }: { type: BookingType }) {
               <Clock className="h-5 w-5 shrink-0 text-pink" /> {type.durationMin} min
             </li>
             <li className="flex items-start gap-3">
-              <Video className="h-5 w-5 shrink-0 text-pink" /> Visio Google Meet, lien envoyé à la confirmation
+              <Video className="h-5 w-5 shrink-0 text-pink" /> {t.visio}
             </li>
             {step === "form" && slot && (
               <li className="flex items-start gap-3 font-semibold text-foreground">
@@ -239,7 +292,7 @@ export function Booking({ type }: { type: BookingType }) {
           {step === "pick" ? (
             <>
               <h2 className="font-display text-3xl uppercase tracking-tight text-foreground">
-                Choisissez la date et l&apos;heure
+                {t.choisir}
               </h2>
               {status === "error" && error && (
                 <p role="alert" className="mt-3 text-sm text-pink">
@@ -251,16 +304,16 @@ export function Booking({ type }: { type: BookingType }) {
                 <div className="mt-8 text-sm text-foreground/70">
                   <p>{loadError}</p>
                   <button type="button" onClick={() => void loadSlots()} className="mt-3 text-pink underline">
-                    Réessayer
+                    {t.reessayer}
                   </button>
                 </div>
               ) : !slots ? (
                 <div className="mt-10 flex items-center gap-3 text-foreground/60">
-                  <Loader2 className="h-5 w-5 animate-spin" /> Chargement des disponibilités…
+                  <Loader2 className="h-5 w-5 animate-spin" /> {t.chargement}
                 </div>
               ) : !slots.length ? (
                 <p className="mt-8 text-sm text-foreground/70">
-                  Aucun créneau libre dans les prochains jours. Écrivez-nous à{" "}
+                  {t.aucun}{" "}
                   <a href="mailto:hello@banana-growth.agency" className="text-pink underline">
                     hello@banana-growth.agency
                   </a>
@@ -275,14 +328,14 @@ export function Booking({ type }: { type: BookingType }) {
                         type="button"
                         onClick={() => shiftMonth(-1)}
                         disabled={!canPrev}
-                        aria-label="Mois précédent"
+                        aria-label={t.moisPrec}
                         className="flex h-9 w-9 items-center justify-center rounded-full text-foreground/70 transition hover:bg-white/10 disabled:opacity-25"
                       >
                         <ChevronLeft className="h-5 w-5" />
                       </button>
                       <p className="font-semibold capitalize text-foreground">
                         {shownMonth &&
-                          new Intl.DateTimeFormat("fr-FR", { timeZone: "UTC", month: "long", year: "numeric" }).format(
+                          new Intl.DateTimeFormat(t.intl, { timeZone: "UTC", month: "long", year: "numeric" }).format(
                             new Date(Date.UTC(shownMonth.y, shownMonth.m - 1, 15)),
                           )}
                       </p>
@@ -290,14 +343,14 @@ export function Booking({ type }: { type: BookingType }) {
                         type="button"
                         onClick={() => shiftMonth(1)}
                         disabled={!canNext}
-                        aria-label="Mois suivant"
+                        aria-label={t.moisSuiv}
                         className="flex h-9 w-9 items-center justify-center rounded-full text-foreground/70 transition hover:bg-white/10 disabled:opacity-25"
                       >
                         <ChevronRight className="h-5 w-5" />
                       </button>
                     </div>
                     <div className="grid grid-cols-7 gap-1.5 text-center">
-                      {WEEKDAYS.map((w) => (
+                      {t.weekdays.map((w) => (
                         <span key={w} className="pb-2 text-xs uppercase text-foreground/45">
                           {w}
                         </span>
@@ -359,7 +412,7 @@ export function Booking({ type }: { type: BookingType }) {
           ) : (
             <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
               <h2 className="font-display text-3xl uppercase tracking-tight text-foreground sm:col-span-2">
-                Vos informations
+                {t.infos}
               </h2>
               {type.questions.map((q) => {
                 const id = `bk-${q.name}`;
@@ -375,10 +428,10 @@ export function Booking({ type }: { type: BookingType }) {
                     ) : q.type === "yesno" ? (
                       <select id={id} name={q.name} required={q.required} defaultValue="" className={field}>
                         <option value="" disabled>
-                          Sélectionnez…
+                          {t.selection}
                         </option>
-                        <option value="oui">Oui</option>
-                        <option value="non">Non</option>
+                        <option value="oui">{t.oui}</option>
+                        <option value="non">{t.non}</option>
                       </select>
                     ) : (
                       <input
@@ -410,10 +463,10 @@ export function Booking({ type }: { type: BookingType }) {
                 >
                   {status === "sending" ? (
                     <>
-                      <Loader2 className="h-5 w-5 animate-spin" /> Réservation…
+                      <Loader2 className="h-5 w-5 animate-spin" /> {t.reservation}
                     </>
                   ) : (
-                    "Confirmer le rendez-vous"
+                    t.confirmer
                   )}
                 </button>
                 {status === "error" && error && (
@@ -422,8 +475,7 @@ export function Booking({ type }: { type: BookingType }) {
                   </p>
                 )}
                 <p className="mt-4 text-center text-xs text-foreground/45">
-                  Vous recevrez une invitation Google Agenda avec le lien de la visio. Vos coordonnées servent uniquement
-                  à préparer et suivre ce rendez-vous.
+                  {t.note}
                 </p>
               </div>
             </form>

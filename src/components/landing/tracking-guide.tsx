@@ -8,6 +8,60 @@ import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
+import { lien, type Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    architecture: "Architecture",
+    architectureTitre: ["Où se passe", "l'achat"],
+    couche: "Couche de données",
+    coucheTitre: ["Ce que", "pousse réellement"],
+    variables: "Variables disponibles",
+    pointCle: "Le point qui change tout",
+    vue: "Vue d'ensemble",
+    vueTitre: ["Quel événement vers", "quelle destination"],
+    methode: "Méthode",
+    methodeTitre: ["Dans quel", "ordre"],
+    accueil: "Accueil",
+    plans: "Plans de taggage",
+    fiche: "Fiche",
+    badge: "Plan de taggage",
+    guidesTitre: ["Les guides par", "plateforme"],
+    guidesIntro:
+      "Chaque plateforme a ses balises, ses noms d'événements et ses pièges. Un guide par destination, avec le code à copier.",
+    lire: "Lire le guide",
+    ctaTitre: "Vos conversions ne collent pas avec votre caisse ?",
+    ctaTexte:
+      "C'est le symptôme le plus courant, et il a presque toujours l'une des causes listées dans ces guides. Nous auditons votre installation et vous disons ce qui se perd, où, et combien ça coûte.",
+    preuve: "Guides établis d'après des installations en production",
+  },
+  es: {
+    architecture: "Arquitectura",
+    architectureTitre: ["Dónde se hace", "la compra"],
+    couche: "Capa de datos",
+    coucheTitre: ["Lo que", "envía realmente"],
+    variables: "Variables disponibles",
+    pointCle: "El punto que lo cambia todo",
+    vue: "Visión de conjunto",
+    vueTitre: ["Qué evento va a", "qué destino"],
+    methode: "Método",
+    methodeTitre: ["En qué", "orden"],
+    accueil: "Inicio",
+    plans: "Planes de etiquetado",
+    fiche: "Ficha",
+    badge: "Plan de etiquetado",
+    guidesTitre: ["Las guías por", "plataforma"],
+    guidesIntro:
+      "Cada plataforma tiene sus etiquetas, sus nombres de eventos y sus trampas. Una guía por destino, con el código listo para copiar.",
+    lire: "Leer la guía",
+    ctaTitre: "¿Tus conversiones no cuadran con tu caja?",
+    ctaTexte:
+      "Es el síntoma más habitual, y casi siempre tiene una de las causas descritas en estas guías. Auditamos tu instalación y te decimos qué se pierde, dónde y cuánto te cuesta.",
+    preuve: "Guías elaboradas a partir de instalaciones en producción",
+  },
+} as const;
+
+type Textes = (typeof TEXTES)[Locale];
 
 function SectionTitle({
   eyebrow,
@@ -50,7 +104,15 @@ function Destination({ label, valeur }: { label: string; valeur: string }) {
 }
 
 /** Le corps qui change d'une version à l'autre. */
-function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
+function PilierBody({
+  pilier,
+  nom,
+  t,
+}: {
+  pilier: Pilier;
+  nom: string;
+  t: Textes;
+}) {
   return (
     <>
       <section className="relative px-4 pb-4 pt-6">
@@ -66,8 +128,9 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Architecture">
-                Où se passe <span className="text-spectrum">l&apos;achat</span>
+              <SectionTitle eyebrow={t.architecture}>
+                {t.architectureTitre[0]}{" "}
+                <span className="text-spectrum">{t.architectureTitre[1]}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
                 {pilier.architecture.intro}
@@ -92,9 +155,9 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Couche de données">
-                Ce que {nom}{" "}
-                <span className="text-spectrum">pousse réellement</span>
+              <SectionTitle eyebrow={t.couche}>
+                {t.coucheTitre[0]} {nom}{" "}
+                <span className="text-spectrum">{t.coucheTitre[1]}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
                 {pilier.dataLayer.intro}
@@ -122,7 +185,7 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
             <Reveal delay={0.12}>
               <div className="mt-6 rounded-2xl border border-white/10 bg-ink-soft/40 px-5 py-5 md:px-7">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-foreground/45">
-                  Variables disponibles
+                  {t.variables}
                 </h3>
                 <ul className="mt-3 space-y-1.5">
                   {pilier.dataLayer.variables.map((v) => (
@@ -140,7 +203,7 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
             <Reveal delay={0.16}>
               <div className="mt-6 rounded-2xl border border-pink/25 bg-ink-soft/60 px-5 py-6 neon-ring md:px-7">
                 <h3 className="font-display text-lg font-bold tracking-tight text-foreground md:text-xl">
-                  Le point qui change tout
+                  {t.pointCle}
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-foreground/70">
                   {pilier.dataLayer.remarque}
@@ -154,9 +217,9 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Vue d'ensemble">
-                Quel événement vers{" "}
-                <span className="text-spectrum">quelle destination</span>
+              <SectionTitle eyebrow={t.vue}>
+                {t.vueTitre[0]}{" "}
+                <span className="text-spectrum">{t.vueTitre[1]}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
                 {pilier.parcours.intro}
@@ -192,8 +255,9 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Méthode">
-                Dans quel <span className="text-spectrum">ordre</span>
+              <SectionTitle eyebrow={t.methode}>
+                {t.methodeTitre[0]}{" "}
+                <span className="text-spectrum">{t.methodeTitre[1]}</span>
               </SectionTitle>
             </Reveal>
             <Reveal delay={0.08}>
@@ -220,22 +284,36 @@ function PilierBody({ pilier, nom }: { pilier: Pilier; nom: string }) {
   );
 }
 
-export function TrackingGuide({ guide }: { guide: GuideOutil }) {
+export function TrackingGuide({
+  guide,
+  locale = "fr",
+}: {
+  guide: GuideOutil;
+  locale?: Locale;
+}) {
   const { pilier, versions, variantes } = guide;
+  const t = TEXTES[locale];
+  const base = lien(locale, "/plan-de-taggage-parc-de-loisirs");
 
   const corps =
     versions && variantes ? (
       <VersionTabs
+        locale={locale}
         versions={versions}
         contenus={Object.fromEntries(
           versions.map((v) => [
             v.id,
-            <PilierBody key={v.id} pilier={variantes[v.id].pilier} nom={guide.nom} />,
+            <PilierBody
+              key={v.id}
+              pilier={variantes[v.id].pilier}
+              nom={guide.nom}
+              t={t}
+            />,
           ]),
         )}
       />
     ) : (
-      <PilierBody pilier={pilier} nom={guide.nom} />
+      <PilierBody pilier={pilier} nom={guide.nom} t={t} />
     );
 
   return (
@@ -249,24 +327,25 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
             <Reveal>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
                 <FilAriane
+                  locale={locale}
                   etapes={[
-                    { nom: "Accueil", href: "/" },
-                    { nom: "Plans de taggage", href: "/plan-de-taggage-parc-de-loisirs" },
+                    { nom: t.accueil, href: lien(locale, "/") },
+                    { nom: t.plans, href: base },
                     { nom: guide.nom },
                   ]}
                 />
                 <Link
-                  href={`/logiciel-gestion-parc-de-loisirs/${guide.slug}`}
+                  href={lien(locale, `/logiciel-gestion-parc-de-loisirs/${guide.slug}`)}
                   className="text-foreground/40 transition-colors hover:text-pink"
                 >
-                  Fiche {guide.nom}
+                  {t.fiche} {guide.nom}
                 </Link>
               </div>
             </Reveal>
 
             <Reveal delay={0.06}>
               <span className="mt-6 inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink">
-                Plan de taggage
+                {t.badge}
               </span>
             </Reveal>
 
@@ -289,18 +368,18 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                Les guides par <span className="text-spectrum">plateforme</span>
+                {t.guidesTitre[0]}{" "}
+                <span className="text-spectrum">{t.guidesTitre[1]}</span>
               </h2>
               <p className="mt-3 text-base leading-relaxed text-foreground/60">
-                Chaque plateforme a ses balises, ses noms d&apos;événements et
-                ses pièges. Un guide par destination, avec le code à copier.
+                {t.guidesIntro}
               </p>
             </Reveal>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {guide.plateformes.map((p, i) => (
                 <Reveal key={p.slug} delay={Math.min(i, 4) * 0.05} className="h-full">
                   <Link
-                    href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}/${p.slug}`}
+                    href={`${base}/${guide.slug}/${p.slug}`}
                     className="card-link group flex h-full flex-col rounded-2xl border bg-ink-soft/50 px-5 py-5 md:px-6 md:py-6"
                   >
                     <div className="flex items-start justify-between gap-3">
@@ -313,7 +392,7 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
                       {p.titre}
                     </span>
                     <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
-                      Lire le guide
+                      {t.lire}
                       <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                   </Link>
@@ -332,27 +411,28 @@ export function TrackingGuide({ guide }: { guide: GuideOutil }) {
               <div className="relative overflow-hidden rounded-3xl border border-pink/30 bg-ink-soft/80 px-6 py-12 text-center neon-ring md:px-12 md:py-14">
                 <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
                 <h2 className="relative font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                  Vos conversions ne collent pas avec votre caisse ?
+                  {t.ctaTitre}
                 </h2>
                 <p className="relative mx-auto mt-4 max-w-lg text-foreground/60">
-                  C&apos;est le symptôme le plus courant, et il a presque
-                  toujours l&apos;une des causes listées dans ces guides. Nous
-                  auditons votre installation et vous disons ce qui se perd, où,
-                  et combien ça coûte.
+                  {t.ctaTexte}
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaPair audit={AUDIT_PARC_URL} contact={`${PARC_HREF}#contact`} />
+                  <CtaPair
+                    locale={locale}
+                    audit={AUDIT_PARC_URL}
+                    contact={`${PARC_HREF}#contact`}
+                  />
                 </div>
                 <p className="relative mt-6 flex items-center justify-center gap-2 text-sm text-foreground/45">
                   <Check className="h-4 w-4 text-pink/70" />
-                  Guides établis d&apos;après des installations en production
+                  {t.preuve}
                 </p>
               </div>
             </Reveal>
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

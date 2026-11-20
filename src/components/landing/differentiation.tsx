@@ -1,11 +1,30 @@
 import Image from "next/image";
-import { DIFFERENTIATION, RDV_URL } from "@/lib/site";
+import { DIFFERENTIATION as DIFFERENTIATION_FR, RDV_URL } from "@/lib/site";
+import { DIFFERENTIATION_ES } from "@/lib/es/site";
+import type { Locale } from "@/lib/i18n";
 import { Reveal } from "@/components/reveal";
 import { CtaPair } from "@/components/cta-pair";
 
 const HIGHLIGHT_ICONS = ["shield", "trophy"];
 
-export function Differentiation() {
+const TEXTES = {
+  fr: {
+    title: "En quoi sommes-nous",
+    highlight: "différents\u00a0?",
+    cta: "Prendre rendez-vous",
+    alt: "L'équipe Banana Growth Agency",
+  },
+  es: {
+    title: "¿En qué nos",
+    highlight: "diferenciamos?",
+    cta: "Reservar una cita",
+    alt: "El equipo de Banana Growth Agency",
+  },
+} as const;
+
+export function Differentiation({ locale = "fr" }: { locale?: Locale }) {
+  const DIFFERENTIATION = locale === "es" ? DIFFERENTIATION_ES : DIFFERENTIATION_FR;
+  const t = TEXTES[locale];
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
@@ -17,8 +36,8 @@ export function Differentiation() {
               {/* Texte — à gauche */}
               <div className="p-8 md:p-12">
                 <h2 className="font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-                  En quoi sommes-nous{" "}
-                  <span className="text-spectrum">différents&nbsp;?</span>
+                  {t.title}{" "}
+                  <span className="text-spectrum">{t.highlight}</span>
                 </h2>
 
                 <div className="mt-6 space-y-4">
@@ -58,7 +77,7 @@ export function Differentiation() {
                 </p>
 
                 <div className="mt-8">
-                  <CtaPair audit={RDV_URL} label="Prendre rendez-vous" className="sm:justify-start" />
+                  <CtaPair locale={locale} audit={RDV_URL} label={t.cta} className="sm:justify-start" />
                 </div>
               </div>
 
@@ -66,7 +85,7 @@ export function Differentiation() {
               <div className="relative min-h-[24rem] border-t border-pink/15 lg:min-h-full lg:border-l lg:border-t-0">
                 <Image
                   src="/canva/photos/equipe-banana.jpg"
-                  alt="L'équipe Banana Growth Agency"
+                  alt={t.alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-[center_22%] lg:object-center"

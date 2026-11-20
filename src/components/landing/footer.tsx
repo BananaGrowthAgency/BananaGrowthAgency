@@ -1,7 +1,32 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_FOOTER, FOOTER_TAGLINE, FOOTER_PRODUCT, PARC_HREF } from "@/lib/site";
+import { NAV_FOOTER, FOOTER_TAGLINE, FOOTER_PRODUCT, PARC_HREF, navEs } from "@/lib/site";
 import { cheminSecteur, secteursParFamille } from "@/lib/secteurs";
+import { secteursParFamilleEs } from "@/lib/es/secteurs";
+import { lien, type Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    tagline: FOOTER_TAGLINE,
+    confidentialite: "Politique de confidentialité",
+    mentions: "Mentions Légales",
+    secteurs: "Nos secteurs",
+    parcs: "Parcs de loisirs",
+    produit: FOOTER_PRODUCT.text,
+    droits: "Tous droits réservés.",
+  },
+  es: {
+    tagline:
+      "La agencia de Growth Marketing que vitamina el crecimiento de las empresas ambiciosas.",
+    confidentialite: "Política de privacidad",
+    mentions: "Aviso legal",
+    secteurs: "Nuestros sectores",
+    parcs: "Parques de ocio",
+    produit:
+      "la plataforma para encontrar influencers y creadores de contenido cerca de tu negocio.",
+    droits: "Todos los derechos reservados.",
+  },
+} as const;
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -34,7 +59,10 @@ const socials = [
   },
 ];
 
-export function Footer() {
+export function Footer({ locale = "fr" }: { locale?: Locale } = {}) {
+  const t = TEXTES[locale];
+  const nav = locale === "es" ? navEs(NAV_FOOTER) : NAV_FOOTER;
+  const familles = locale === "es" ? secteursParFamilleEs() : secteursParFamille();
   return (
     <footer className="relative overflow-hidden border-t border-white/10 px-4 py-12">
       {/* Fond noir dégradé */}
@@ -45,7 +73,7 @@ export function Footer() {
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 text-center md:flex-row md:items-start md:justify-between md:text-left">
         <div className="flex max-w-xs flex-col items-center md:items-start">
-          <Link href="/" className="flex items-center">
+          <Link href={lien(locale, "/")} className="flex items-center">
             <Image
               src="/logo/logoRow.png"
               alt="Banana Growth Agency"
@@ -55,12 +83,12 @@ export function Footer() {
             />
           </Link>
           <p className="mt-4 text-sm leading-relaxed text-foreground/45">
-            {FOOTER_TAGLINE}
+            {t.tagline}
           </p>
         </div>
 
         <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-start md:gap-x-8">
-          {NAV_FOOTER.map((l) => (
+          {nav.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -70,16 +98,16 @@ export function Footer() {
             </Link>
           ))}
           <Link
-            href="/politique-de-confidentialite"
+            href={lien(locale, "/politique-de-confidentialite")}
             className="text-sm text-foreground/55 transition-colors hover:text-pink"
           >
-            Politique de confidentialité
+            {t.confidentialite}
           </Link>
           <Link
-            href="/mentions-legales"
+            href={lien(locale, "/mentions-legales")}
             className="text-sm text-foreground/55 transition-colors hover:text-pink"
           >
-            Mentions Légales
+            {t.mentions}
           </Link>
         </nav>
 
@@ -102,10 +130,10 @@ export function Footer() {
       {/* Pages secteurs : le maillage depuis tout le site passe par ici. */}
       <div className="relative mx-auto mt-10 max-w-6xl border-t border-white/10 pt-8">
         <p className="text-center text-sm font-semibold uppercase tracking-[0.15em] text-foreground/60 md:text-left">
-          Nos secteurs
+          {t.secteurs}
         </p>
         <div className="mt-5 grid gap-6 text-center sm:grid-cols-3 sm:text-left">
-          {secteursParFamille().map((f) => (
+          {familles.map((f) => (
             <div key={f.famille}>
               <p className="text-xs uppercase tracking-[0.15em] text-pink/70">
                 {f.label}
@@ -114,17 +142,17 @@ export function Footer() {
                 {f.famille === "indoor" && (
                   <li>
                     <Link
-                      href={PARC_HREF}
+                      href={lien(locale, PARC_HREF)}
                       className="text-sm text-foreground/50 transition-colors hover:text-pink"
                     >
-                      Parcs de loisirs
+                      {t.parcs}
                     </Link>
                   </li>
                 )}
                 {f.secteurs.map((s) => (
                   <li key={s.slug}>
                     <Link
-                      href={cheminSecteur(s.slug)}
+                      href={lien(locale, cheminSecteur(s.slug))}
                       className="text-sm text-foreground/50 transition-colors hover:text-pink"
                     >
                       {s.nom}
@@ -147,10 +175,10 @@ export function Footer() {
           >
             {FOOTER_PRODUCT.name}
           </Link>
-          , {FOOTER_PRODUCT.text}
+          , {t.produit}
         </p>
         <p className="mt-4 text-xs text-foreground/35">
-          © {new Date().getFullYear()} Banana Growth Agency. Tous droits réservés.
+          © {new Date().getFullYear()} Banana Growth Agency. {t.droits}
         </p>
       </div>
     </footer>

@@ -8,6 +8,54 @@ import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
+import { lien, type Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    avant: "Avant de commencer",
+    etape: "Étape",
+    variables: ["Les", "variables", "à créer"],
+    declencheurs: ["Les", "déclencheurs", ""],
+    balises: ["Les", "balises", ""],
+    balisesIntro:
+      "Les noms suivent la convention que nous utilisons en production : le rôle de la balise se lit d'un coup d'œil dans la liste, même après plusieurs années.",
+    type: "Type — ",
+    declencheur: "Déclencheur — ",
+    pieges: "Pièges",
+    piegesTitre: ["Ce qui casse le", "plus souvent"],
+    recette: "Recette",
+    recetteTitre: ["Vérifier que ça", "fonctionne"],
+    accueil: "Accueil",
+    plans: "Plans de taggage",
+    autres: "Les autres plateformes sur",
+    ctaTitre: "Vos conversions ne collent pas avec votre caisse ?",
+    ctaTexte:
+      "C'est le symptôme le plus courant, et il a presque toujours l'une des causes listées ci-dessus. Nous auditons votre installation et vous disons ce qui se perd, où, et combien ça coûte.",
+  },
+  es: {
+    avant: "Antes de empezar",
+    etape: "Paso",
+    variables: ["Las", "variables", "que hay que crear"],
+    declencheurs: ["Los", "activadores", ""],
+    balises: ["Las", "etiquetas", ""],
+    balisesIntro:
+      "Los nombres siguen la convención que usamos en producción: la función de cada etiqueta se entiende de un vistazo en la lista, incluso años después.",
+    type: "Tipo — ",
+    declencheur: "Activador — ",
+    pieges: "Trampas",
+    piegesTitre: ["Lo que falla", "más a menudo"],
+    recette: "Comprobación",
+    recetteTitre: ["Comprobar que", "funciona"],
+    accueil: "Inicio",
+    plans: "Planes de etiquetado",
+    autres: "Las otras plataformas en",
+    ctaTitre: "¿Tus conversiones no cuadran con tu caja?",
+    ctaTexte:
+      "Es el síntoma más habitual, y casi siempre tiene una de las causas descritas arriba. Auditamos tu instalación y te decimos qué se pierde, dónde y cuánto te cuesta.",
+  },
+} as const;
+
+type Textes = (typeof TEXTES)[Locale];
 
 function SectionTitle({
   eyebrow,
@@ -40,7 +88,13 @@ function Code({ children }: { children: string }) {
 }
 
 /** Le corps qui change d'une version à l'autre. */
-function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
+function PlateformeBody({
+  plateforme,
+  t,
+}: {
+  plateforme: Plateforme;
+  t: Textes;
+}) {
   return (
     <>
       <section className="relative px-4 pb-2 pt-6">
@@ -58,7 +112,7 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
             <Reveal>
               <div className="rounded-2xl border border-white/10 bg-ink-soft/50 px-5 py-6 md:px-7">
                 <h2 className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                  Avant de commencer
+                  {t.avant}
                 </h2>
                 <ul className="mt-4 space-y-2.5">
                   {plateforme.prerequis.map((p) => (
@@ -79,8 +133,10 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Étape 1">
-                Les <span className="text-spectrum">variables</span> à créer
+              <SectionTitle eyebrow={`${t.etape} 1`}>
+                {t.variables[0]}{" "}
+                <span className="text-spectrum">{t.variables[1]}</span>{" "}
+                {t.variables[2]}
               </SectionTitle>
             </Reveal>
             <div className="mt-8 space-y-3">
@@ -114,8 +170,9 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Étape 2">
-                Les <span className="text-spectrum">déclencheurs</span>
+              <SectionTitle eyebrow={`${t.etape} 2`}>
+                {t.declencheurs[0]}{" "}
+                <span className="text-spectrum">{t.declencheurs[1]}</span>
               </SectionTitle>
             </Reveal>
             <div className="mt-8 space-y-3">
@@ -149,13 +206,12 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Étape 3">
-                Les <span className="text-spectrum">balises</span>
+              <SectionTitle eyebrow={`${t.etape} 3`}>
+                {t.balises[0]}{" "}
+                <span className="text-spectrum">{t.balises[1]}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
-                Les noms suivent la convention que nous utilisons en production :
-                le rôle de la balise se lit d&apos;un coup d&apos;œil dans la
-                liste, même après plusieurs années.
+                {t.balisesIntro}
               </p>
             </Reveal>
 
@@ -168,12 +224,12 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
                     </h3>
                     <div className="mt-2 flex flex-col gap-1 text-sm sm:flex-row sm:gap-5">
                       <span className="text-foreground/55">
-                        <span className="text-foreground/35">Type — </span>
+                        <span className="text-foreground/35">{t.type}</span>
                         {b.type}
                       </span>
                       <span className="text-foreground/55">
                         <span className="text-foreground/35">
-                          Déclencheur —{" "}
+                          {t.declencheur}
                         </span>
                         {b.declencheur}
                       </span>
@@ -215,9 +271,9 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Pièges">
-                Ce qui casse le{" "}
-                <span className="text-spectrum">plus souvent</span>
+              <SectionTitle eyebrow={t.pieges}>
+                {t.piegesTitre[0]}{" "}
+                <span className="text-spectrum">{t.piegesTitre[1]}</span>
               </SectionTitle>
             </Reveal>
             <div className="mt-8 space-y-4">
@@ -244,8 +300,9 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
         <section className="relative px-4 py-12 md:py-16">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Recette">
-                Vérifier que ça <span className="text-spectrum">fonctionne</span>
+              <SectionTitle eyebrow={t.recette}>
+                {t.recetteTitre[0]}{" "}
+                <span className="text-spectrum">{t.recetteTitre[1]}</span>
               </SectionTitle>
             </Reveal>
             <Reveal delay={0.08}>
@@ -273,10 +330,14 @@ function PlateformeBody({ plateforme }: { plateforme: Plateforme }) {
 export function TrackingPlateforme({
   guide,
   plateforme,
+  locale = "fr",
 }: {
   guide: GuideOutil;
   plateforme: Plateforme;
+  locale?: Locale;
 }) {
+  const t = TEXTES[locale];
+  const base = lien(locale, "/plan-de-taggage-parc-de-loisirs");
   const autres = guide.plateformes.filter((p) => p.slug !== plateforme.slug);
   const { versions, variantes } = guide;
 
@@ -284,6 +345,7 @@ export function TrackingPlateforme({
   const corps =
     versions && variantes ? (
       <VersionTabs
+        locale={locale}
         versions={versions}
         contenus={Object.fromEntries(
           versions.map((v) => {
@@ -291,12 +353,15 @@ export function TrackingPlateforme({
               variantes[v.id].plateformes.find(
                 (x) => x.slug === plateforme.slug,
               ) ?? plateforme;
-            return [v.id, <PlateformeBody key={v.id} plateforme={variante} />];
+            return [
+              v.id,
+              <PlateformeBody key={v.id} plateforme={variante} t={t} />,
+            ];
           }),
         )}
       />
     ) : (
-      <PlateformeBody plateforme={plateforme} />
+      <PlateformeBody plateforme={plateforme} t={t} />
     );
 
   return (
@@ -309,10 +374,11 @@ export function TrackingPlateforme({
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
               <FilAriane
+                locale={locale}
                 etapes={[
-                  { nom: "Accueil", href: "/" },
-                  { nom: "Plans de taggage", href: "/plan-de-taggage-parc-de-loisirs" },
-                  { nom: guide.nom, href: `/plan-de-taggage-parc-de-loisirs/${guide.slug}` },
+                  { nom: t.accueil, href: lien(locale, "/") },
+                  { nom: t.plans, href: base },
+                  { nom: guide.nom, href: `${base}/${guide.slug}` },
                   { nom: plateforme.nom },
                 ]}
               />
@@ -345,14 +411,14 @@ export function TrackingPlateforme({
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                Les autres plateformes sur {guide.nom}
+                {t.autres} {guide.nom}
               </h2>
             </Reveal>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               {autres.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 0.05} className="h-full">
                   <Link
-                    href={`/plan-de-taggage-parc-de-loisirs/${guide.slug}/${p.slug}`}
+                    href={`${base}/${guide.slug}/${p.slug}`}
                     className="card-link group flex h-full flex-col rounded-2xl border bg-ink-soft/50 px-4 py-4 md:px-5 md:py-5"
                   >
                     <span className="flex items-start justify-between gap-2">
@@ -378,23 +444,24 @@ export function TrackingPlateforme({
               <div className="relative overflow-hidden rounded-3xl border border-pink/30 bg-ink-soft/80 px-6 py-12 text-center neon-ring md:px-12 md:py-14">
                 <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
                 <h2 className="relative font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                  Vos conversions ne collent pas avec votre caisse ?
+                  {t.ctaTitre}
                 </h2>
                 <p className="relative mx-auto mt-4 max-w-lg text-foreground/60">
-                  C&apos;est le symptôme le plus courant, et il a presque
-                  toujours l&apos;une des causes listées ci-dessus. Nous auditons
-                  votre installation et vous disons ce qui se perd, où, et
-                  combien ça coûte.
+                  {t.ctaTexte}
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaPair audit={AUDIT_PARC_URL} contact={`${PARC_HREF}#contact`} />
+                  <CtaPair
+                    locale={locale}
+                    audit={AUDIT_PARC_URL}
+                    contact={`${PARC_HREF}#contact`}
+                  />
                 </div>
               </div>
             </Reveal>
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

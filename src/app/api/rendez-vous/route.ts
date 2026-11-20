@@ -1,4 +1,4 @@
-import { BOOKING_TZ, getBookingType } from "@/lib/booking/config";
+import { BOOKING_TZ, bookingTypeFor, getBookingType } from "@/lib/booking/config";
 import { createEvent } from "@/lib/booking/google";
 import { isSlotAvailable } from "@/lib/booking/slots";
 
@@ -8,6 +8,27 @@ import { isSlotAvailable } from "@/lib/booking/slots";
 const CRM_ENDPOINT = process.env.CRM_CONTACT_ENDPOINT ?? "https://crm.banana-growth.agency/api/formulaire-contact";
 const MIN_FILL_MS = 2000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Messages au visiteur. En espagnol si la réservation vient d'une page /es (champ `locale`
+// envoyé par le composant, ou à défaut le chemin de la page).
+const MESSAGES = {
+  fr: {
+    invalide: "Requête invalide.",
+    champs: "Merci de remplir tous les champs obligatoires avec un email valide.",
+    creneau: "Créneau invalide.",
+    pris: "Ce créneau vient d'être pris. Choisissez-en un autre.",
+    agenda: "Agenda momentanément indisponible.",
+    echec: "La réservation n'a pas pu aboutir. Réessayez dans un instant.",
+  },
+  es: {
+    invalide: "Solicitud no válida.",
+    champs: "Rellena todos los campos obligatorios con un email válido.",
+    creneau: "Horario no válido.",
+    pris: "Este horario se acaba de ocupar. Elige otro.",
+    agenda: "Agenda no disponible por el momento.",
+    echec: "No se ha podido completar la reserva. Vuelve a intentarlo en un momento.",
+  },
+} as const;
 
 const clip = (v: unknown, max = 500) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
@@ -41,7 +62,10 @@ async function sendToCrm(payload: Record<string, unknown>) {
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
   const type = getBookingType(typeof body?.type === "string" ? body.type : null);
-  if (!body || !type) return Response.json({ error: "Requête invalide." }, { status: 400 });
+  const locale =
+    body?.locale === "es" || (typeof body?.page === "string" && /^\/es(\/|$)/.test(body.page)) ? "es" : "fr";
+  const m = MESSAGES[locale];
+  if (!body || !type) return Response.json({ error: m.invalide }, { status: 400 });
 
   const answers: Record<string, string> = {};
   for (const q of type.questions) answers[q.name] = clip(body[q.name], q.type === "textarea" ? 3000 : 300);
@@ -55,19 +79,19 @@ export async function POST(request: Request) {
 
   const missing = type.questions.filter((q) => q.required && !answers[q.name]);
   if (missing.length || !EMAIL_RE.test(email)) {
-    return Response.json({ error: "Merci de remplir tous les champs obligatoires avec un email valide." }, { status: 400 });
+    return Response.json({ error: m.champs }, { status: 400 });
   }
 
   const start = Date.parse(typeof body.start === "string" ? body.start : "");
-  if (!Number.isFinite(start)) return Response.json({ error: "Créneau invalide." }, { status: 400 });
+  if (!Number.isFinite(start)) return Response.json({ error: m.creneau }, { status: 400 });
 
   try {
     if (!(await isSlotAvailable(type, start))) {
-      return Response.json({ error: "Ce créneau vient d'être pris. Choisissez-en un autre." }, { status: 409 });
+      return Response.json({ error: m.pris }, { status: 409 });
     }
   } catch (e) {
     console.error("[rendez-vous] vérification impossible", e);
-    return Response.json({ error: "Agenda momentanément indisponible." }, { status: 503 });
+    return Response.json({ error: m.agenda }, { status: 503 });
   }
 
   const startDate = new Date(start);
@@ -76,20 +100,30 @@ export async function POST(request: Request) {
   const when = formatParis(startDate);
   const yesNo = (v: string) => (v === "oui" ? "Oui" : v === "non" ? "Non" : v);
 
-  const details = type.questions
-    .filter((q) => !["firstName", "lastName", "email"].includes(q.name) && answers[q.name])
-    .map((q) => `${q.label.replace(/\s*\?$/, "")} : ${q.type === "yesno" ? yesNo(answers[q.name]) : answers[q.name]}`);
+  const detailsOf = (t: typeof type, yn: (v: string) => string, sep: string) =>
+    t.questions
+      .filter((q) => !["firstName", "lastName", "email"].includes(q.name) && answers[q.name])
+      .map((q) => `${q.label.replace(/\s*\?$/, "").replace(/^¿/, "")}${sep}${q.type === "yesno" ? yn(answers[q.name]) : answers[q.name]}`);
+  // Détails en français pour le CRM (interne).
+  const details = detailsOf(type, yesNo, " : ");
+
+  // L'invitation Google Agenda part au prospect : dans sa langue.
+  const typeVu = bookingTypeFor(type.key, locale);
+  const eventDescription =
+    locale === "es"
+      ? [
+          `${typeVu.title} — reservada en banana-growth.agency`,
+          "",
+          `Contacto: ${fullName} <${email}>`,
+          ...detailsOf(typeVu, (v) => (v === "oui" ? "Sí" : v === "non" ? "No" : v), ": "),
+        ]
+      : [`${type.title} — réservé sur banana-growth.agency`, "", `Contact : ${fullName} <${email}>`, ...details];
 
   let event;
   try {
     event = await createEvent({
-      summary: `${type.eventLabel} Banana Growth × ${answers.company || fullName}`,
-      description: [
-        `${type.title} — réservé sur banana-growth.agency`,
-        "",
-        `Contact : ${fullName} <${email}>`,
-        ...details,
-      ].join("\n"),
+      summary: `${typeVu.eventLabel} Banana Growth × ${answers.company || fullName}`,
+      description: eventDescription.join("\n"),
       start: startDate,
       end,
       timeZone: BOOKING_TZ,
@@ -98,7 +132,7 @@ export async function POST(request: Request) {
     });
   } catch (e) {
     console.error("[rendez-vous] création de l'événement impossible", e, { email, start: startDate.toISOString() });
-    return Response.json({ error: "La réservation n'a pas pu aboutir. Réessayez dans un instant." }, { status: 502 });
+    return Response.json({ error: m.echec }, { status: 502 });
   }
 
   // Le rendez-vous est posé : un échec du CRM ne doit pas le faire échouer.
@@ -109,7 +143,11 @@ export async function POST(request: Request) {
       email,
       phone: answers.phone,
       company: answers.company || fullName,
-      message: [`📅 ${type.title} réservé : ${when} (heure de Paris)`, ...details].join("\n"),
+      message: [
+        `📅 ${type.title} réservé : ${when} (heure de Paris)`,
+        ...(locale === "es" ? ["Langue : ES"] : []),
+        ...details,
+      ].join("\n"),
       page: clip(body.page, 200) || type.path,
       utm: body.utm,
       // Le CRM programme l'email de suivi personnel de Ben (30 min après la réservation).

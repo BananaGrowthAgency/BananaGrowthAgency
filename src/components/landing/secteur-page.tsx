@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AUDIT_PARC_URL, PARC, PARC_HREF } from "@/lib/site";
-import { getOutil } from "@/lib/outils";
+import { PARC_ES } from "@/lib/parc-es";
+import type { ParcContenu } from "@/components/landing/parc-landing";
+import type { Outil } from "@/lib/outils";
 import { aUnGuide } from "@/lib/tracking";
-import {
-  cheminSecteur,
-  faqAgence,
-  secteursParFamille,
-  type Secteur,
-} from "@/lib/secteurs";
+import { cheminSecteur, type Famille, type Secteur } from "@/lib/secteurs";
+import { lien, type Locale } from "@/lib/i18n";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { Contact } from "@/components/landing/contact";
@@ -21,18 +19,176 @@ import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
 
 /* Même gabarit visuel que la landing parcs de loisirs, alimenté par
-   les données de src/lib/secteurs.ts. Les sections « équipe » et
-   « humain + IA » restent communes : c'est ce qui nous distingue des
-   pages sectorielles générées à la chaîne. */
+   les données de src/lib/secteurs.ts (ou src/lib/es/secteurs.ts). Les
+   sections « équipe » et « humain + IA » restent communes : c'est ce qui
+   nous distingue des pages sectorielles générées à la chaîne.
+
+   Le contenu (secteur, FAQ, fiches outils, autres secteurs) arrive en props
+   depuis la page, déjà dans la bonne langue. Seuls les textes d'interface
+   sont ici, dans TEXTES. */
+
+/* Six engagements au même format : trois côté IA, trois côté humain. */
+const ENGAGEMENTS = {
+  fr: [
+    {
+      titre: "Un interlocuteur dédié",
+      texte:
+        "Quelqu'un qui connaît votre activité, vos créneaux creux et vos équipes, et que vous pouvez appeler.",
+    },
+    {
+      titre: "Des méthodes testées sur le terrain",
+      texte:
+        "Ce que nous mettons en place a déjà fonctionné chez d'autres acteurs du loisir. Pas de théorie.",
+    },
+    {
+      titre: "De la pédagogie",
+      texte:
+        "Nous formons vos équipes pour qu'elles comprennent ce qui se passe et gagnent en autonomie.",
+    },
+    {
+      titre: "Visible dans les réponses des IA",
+      texte:
+        "Vos clients demandent déjà à ChatGPT ou à Google quoi faire ce week-end. Nous travaillons votre présence dans ces réponses.",
+    },
+    {
+      titre: "Des créations testées à grande échelle",
+      texte:
+        "L'IA nous aide à décliner et tester des dizaines de variantes d'annonces. Nous gardons celles qui remplissent vos créneaux.",
+    },
+    {
+      titre: "Un reporting qui tourne tout seul",
+      texte:
+        "Vos données publicitaires et vos réservations remontent chaque matin dans un tableau de bord.",
+    },
+  ],
+  es: [
+    {
+      titre: "Un interlocutor dedicado",
+      texte:
+        "Alguien que conoce tu actividad, tus franjas flojas y tus equipos, y al que puedes llamar.",
+    },
+    {
+      titre: "Métodos probados sobre el terreno",
+      texte:
+        "Lo que ponemos en marcha ya ha funcionado en otros negocios de ocio. Nada de teoría.",
+    },
+    {
+      titre: "Pedagogía",
+      texte:
+        "Formamos a tus equipos para que entiendan lo que pasa y ganen autonomía.",
+    },
+    {
+      titre: "Visible en las respuestas de las IA",
+      texte:
+        "Tus clientes ya preguntan a ChatGPT o a Google qué hacer este fin de semana. Trabajamos tu presencia en esas respuestas.",
+    },
+    {
+      titre: "Creatividades probadas a gran escala",
+      texte:
+        "La IA nos ayuda a declinar y probar decenas de variantes de anuncios. Nos quedamos con las que llenan tus franjas.",
+    },
+    {
+      titre: "Un reporting que funciona solo",
+      texte:
+        "Tus datos publicitarios y tus reservas se actualizan cada mañana en un panel de control.",
+    },
+  ],
+} as const;
+
+const TEXTES = {
+  fr: {
+    nombre: "fr-FR",
+    accueil: "Accueil",
+    parcs: "Parcs de loisirs",
+    badge: "Marketing digital",
+    h1: "Accompagnement marketing digital pour",
+    vousGerez: (un: string) => `Vous gérez ${un} ?`,
+    pilotons: (votre: string) =>
+      `Nous pilotons votre stratégie marketing, afin que vous puissiez vous concentrer sur l'essentiel : l'expérience de vos clients et la gestion de ${votre}.`,
+    pret: (votre: string) => `Prêt(e) à booster la fréquentation de ${votre} ?`,
+    equipeAlt: "L'équipe Banana Growth Agency",
+    demande: "La demande en ligne",
+    demandeTitre: ["Ce que cherchent", "vos clients"],
+    recherches: "recherches / mois",
+    source:
+      "Volumes de recherche Google en France, mesurés avec SE Ranking en octobre 2026.",
+    publics: "Vos publics",
+    publicsTitre: ["Un message pour", "chaque client"],
+    logiciel: "Votre logiciel de réservation",
+    logicielTitre: ["Des campagnes", "reliées à vos ventes"],
+    logicielTexte:
+      "Une publicité ne s'optimise que si elle voit les réservations qu'elle génère. Nos fiches sur les logiciels du secteur expliquent ce que chacun permet de mesurer, et comment le brancher.",
+    fiche: "Fiche",
+    plan: "Plan de taggage",
+    quiAlt: "L'équipe Banana Growth Agency devant des enseignes de loisirs",
+    qui: "Qui sommes-nous",
+    quiTitre: ["Une équipe humaine,", "augmentée par l'IA"],
+    quiTexte: (votre: string) =>
+      `Nous ne sommes pas une plateforme qui génère des campagnes à la chaîne. Nous sommes une petite équipe passionnée par le loisir, qui utilise l'IA pour aller plus vite, et garde l'humain pour ce qui compte : comprendre ${votre} et vos clients.`,
+    services: "Nos services",
+    servicesTitre: ["Un cocktail de services qui", "porte ses fruits"],
+    avis: ["Ils nous font déjà", "confiance"],
+    saison: "Votre saison",
+    remplir: (votre: string) =>
+      `Réservez votre audit gratuit et remplissez ${votre}.`,
+    aussi: "Nous accompagnons aussi",
+    faq: undefined,
+  },
+  es: {
+    nombre: "es-ES",
+    accueil: "Inicio",
+    parcs: "Parques de ocio",
+    badge: "Marketing digital",
+    h1: "Agencia de marketing digital para",
+    vousGerez: (un: string) => `¿Gestionas ${un}?`,
+    pilotons: (votre: string) =>
+      `Pilotamos tu estrategia de marketing para que puedas centrarte en lo esencial: la experiencia de tus clientes y la gestión de ${votre}.`,
+    pret: (votre: string) => `¿Listo para disparar la afluencia de ${votre}?`,
+    equipeAlt: "El equipo de Banana Growth Agency",
+    demande: "La demanda online",
+    demandeTitre: ["Lo que buscan", "tus clientes"],
+    recherches: "búsquedas / mes",
+    source:
+      "Volúmenes de búsqueda de Google en Francia, medidos con SE Ranking en octubre de 2026.",
+    publics: "Tus públicos",
+    publicsTitre: ["Un mensaje para", "cada cliente"],
+    logiciel: "Tu software de reservas",
+    logicielTitre: ["Campañas", "conectadas a tus ventas"],
+    logicielTexte:
+      "Un anuncio solo se optimiza si ve las reservas que genera. Nuestras fichas sobre el software del sector explican qué permite medir cada uno y cómo conectarlo.",
+    fiche: "Ficha de",
+    plan: "Plan de etiquetado de",
+    quiAlt: "El equipo de Banana Growth Agency delante de rótulos de negocios de ocio",
+    qui: "Quiénes somos",
+    quiTitre: ["Un equipo humano,", "potenciado por la IA"],
+    quiTexte: (votre: string) =>
+      `No somos una plataforma que genera campañas en cadena. Somos un pequeño equipo apasionado por el ocio, que usa la IA para ir más rápido y reserva lo humano para lo que importa: entender ${votre} y a tus clientes.`,
+    services: "Nuestros servicios",
+    servicesTitre: ["Un cóctel de servicios que", "da sus frutos"],
+    avis: ["Ya confían en", "nosotros"],
+    saison: "Tu temporada",
+    remplir: (votre: string) =>
+      `Reserva tu auditoría gratuita y llena ${votre}.`,
+    aussi: "También acompañamos a",
+    faq: { title: "Preguntas", highlight: "frecuentes" },
+  },
+} as const;
+
+type Textes = (typeof TEXTES)[Locale];
+
+/** Ce dont chaque section a besoin, en plus du secteur. */
+type Ctx = { s: Secteur; t: Textes; P: ParcContenu; locale: Locale };
+
+export type FamilleSecteurs = {
+  famille: Famille;
+  label: string;
+  secteurs: readonly Secteur[];
+};
 
 const eyebrowClass =
   "text-base uppercase tracking-[0.2em] md:text-xl text-pink/80";
 
-function formatVolume(n: number) {
-  return n.toLocaleString("fr-FR");
-}
-
-function Hero({ s }: { s: Secteur }) {
+function Hero({ s, t, locale }: Ctx) {
   return (
     <section
       id="top"
@@ -65,19 +221,20 @@ function Hero({ s }: { s: Secteur }) {
         <div>
           <FilAriane
             className="mb-6 flex justify-center"
+            locale={locale}
             etapes={[
-              { nom: "Accueil", href: "/" },
-              { nom: "Parcs de loisirs", href: PARC_HREF },
+              { nom: t.accueil, href: lien(locale, "/") },
+              { nom: t.parcs, href: lien(locale, PARC_HREF) },
               { nom: s.nom },
             ]}
           />
           <span className="inline-block rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 text-sm uppercase tracking-[0.2em] text-pink md:text-base">
-            Marketing digital · {s.nom}
+            {t.badge} · {s.nom}
           </span>
         </div>
         <div>
           <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            Accompagnement marketing digital pour{" "}
+            {t.h1}{" "}
             <span className="text-spectrum">{s.pour}</span>
           </h1>
         </div>
@@ -88,7 +245,7 @@ function Hero({ s }: { s: Secteur }) {
         </div>
         <div>
           <div className="mt-9 flex justify-center">
-            <CtaPair audit={AUDIT_PARC_URL} />
+            <CtaPair locale={locale} audit={AUDIT_PARC_URL} />
           </div>
         </div>
       </div>
@@ -98,7 +255,7 @@ function Hero({ s }: { s: Secteur }) {
 
 /* Problème et mission dans une même carte, la photo de l'équipe à côté :
    on casse le tout-centré dès le premier écran après le hero. */
-function ProblemeMission({ s }: { s: Secteur }) {
+function ProblemeMission({ s, t, P, locale }: Ctx) {
   return (
     <section className="relative px-4 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
@@ -108,7 +265,7 @@ function ProblemeMission({ s }: { s: Secteur }) {
 
             <div className="relative grid lg:grid-cols-[1.4fr_1fr]">
               <div className="px-6 py-12 md:px-12 md:py-14">
-                <span className={eyebrowClass}>Vous gérez {s.un} ?</span>
+                <span className={eyebrowClass}>{t.vousGerez(s.un)}</span>
                 <div className="mt-6 space-y-4">
                   {s.probleme.map((line, i) => (
                     <p
@@ -122,26 +279,27 @@ function ProblemeMission({ s }: { s: Secteur }) {
 
                 <div className="mt-10 border-t border-white/10 pt-8">
                   <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                    {PARC.mission.title}
+                    {P.mission.title}
                   </h2>
                   <div className="mt-5 space-y-4">
                     <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
-                      {PARC.mission.lines[0]}
+                      {P.mission.lines[0]}
                     </p>
                     <p className="text-base leading-relaxed text-foreground/65 md:text-lg">
-                      Nous pilotons votre stratégie marketing, afin que vous
-                      puissiez vous concentrer sur l&apos;essentiel :
-                      l&apos;expérience de vos clients et la gestion de{" "}
-                      {s.votre}.
+                      {t.pilotons(s.votre)}
                     </p>
                   </div>
                   <p className="mt-8 font-display text-xl font-bold leading-tight tracking-tight md:text-2xl">
                     <span className="text-spectrum">
-                      Prêt(e) à booster la fréquentation de {s.votre} ?
+                      {t.pret(s.votre)}
                     </span>
                   </p>
                   <div className="mt-6">
-                    <CtaPair audit={AUDIT_PARC_URL} label={PARC.mission.cta} />
+                    <CtaPair
+                      locale={locale}
+                      audit={AUDIT_PARC_URL}
+                      label={P.mission.cta}
+                    />
                   </div>
                 </div>
               </div>
@@ -149,7 +307,7 @@ function ProblemeMission({ s }: { s: Secteur }) {
               <div className="relative min-h-[24rem] border-t border-pink/15 lg:min-h-full lg:border-l lg:border-t-0">
                 <Image
                   src="/canva/photos/equipe-banana.jpg"
-                  alt="L'équipe Banana Growth Agency"
+                  alt={t.equipeAlt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover object-[center_25%] lg:object-center"
@@ -160,7 +318,7 @@ function ProblemeMission({ s }: { s: Secteur }) {
         </Reveal>
 
         <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
-          {PARC.stats.map((st, i) => (
+          {P.stats.map((st, i) => (
             <Reveal key={st.label} delay={i * 0.08} className="h-full">
               <div className="glass flex h-full flex-col items-center justify-center rounded-2xl border border-white/10 px-4 py-6 text-center">
                 <CountUp
@@ -179,14 +337,15 @@ function ProblemeMission({ s }: { s: Secteur }) {
   );
 }
 
-function Demande({ s }: { s: Secteur }) {
+function Demande({ s, t }: Ctx) {
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-5xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className={eyebrowClass}>La demande en ligne</span>
+          <span className={eyebrowClass}>{t.demande}</span>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Ce que cherchent <span className="text-spectrum">vos clients</span>
+            {t.demandeTitre[0]}{" "}
+            <span className="text-spectrum">{t.demandeTitre[1]}</span>
           </h2>
           <p className="mt-6 text-base leading-relaxed text-foreground/65 md:text-lg">
             {s.demande.intro}
@@ -200,10 +359,10 @@ function Demande({ s }: { s: Secteur }) {
                 <span className="text-base text-foreground/80">« {r.mot} »</span>
                 <span className="whitespace-nowrap text-right">
                   <span className="font-display text-xl font-bold text-spectrum">
-                    {formatVolume(r.volume)}
+                    {r.volume.toLocaleString(t.nombre)}
                   </span>
                   <span className="block text-xs text-foreground/45">
-                    recherches / mois
+                    {t.recherches}
                   </span>
                 </span>
               </div>
@@ -211,22 +370,22 @@ function Demande({ s }: { s: Secteur }) {
           ))}
         </div>
         <p className="mt-6 text-center text-xs text-foreground/40">
-          Volumes de recherche Google en France, mesurés avec SE Ranking en
-          octobre 2026.
+          {s.demande.source ?? t.source}
         </p>
       </div>
     </section>
   );
 }
 
-function Publics({ s }: { s: Secteur }) {
+function Publics({ s, t }: Ctx) {
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className={eyebrowClass}>Vos publics</span>
+          <span className={eyebrowClass}>{t.publics}</span>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Un message pour <span className="text-spectrum">chaque client</span>
+            {t.publicsTitre[0]}{" "}
+            <span className="text-spectrum">{t.publicsTitre[1]}</span>
           </h2>
         </Reveal>
 
@@ -255,22 +414,24 @@ function Publics({ s }: { s: Secteur }) {
 
 /* Liens vers les fiches logiciels et plans de taggage : du contenu existant,
    mieux relié, et un bloc propre à chaque secteur. */
-function Outils({ s }: { s: Secteur }) {
-  const outils = (s.outils ?? []).map(getOutil).filter((o) => o !== undefined);
+function Outils({
+  t,
+  locale,
+  outils,
+}: Ctx & { outils: readonly Outil[] }) {
   if (outils.length === 0) return null;
 
   return (
     <section className="relative px-4 py-16 md:py-20">
       <div className="mx-auto max-w-5xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className={eyebrowClass}>Votre logiciel de réservation</span>
+          <span className={eyebrowClass}>{t.logiciel}</span>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Des campagnes <span className="text-spectrum">reliées à vos ventes</span>
+            {t.logicielTitre[0]}{" "}
+            <span className="text-spectrum">{t.logicielTitre[1]}</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
-            Une publicité ne s&apos;optimise que si elle voit les réservations
-            qu&apos;elle génère. Nos fiches sur les logiciels du secteur expliquent
-            ce que chacun permet de mesurer, et comment le brancher.
+            {t.logicielTexte}
           </p>
         </Reveal>
 
@@ -286,17 +447,17 @@ function Outils({ s }: { s: Secteur }) {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
                   <Link
-                    href={`/logiciel-gestion-parc-de-loisirs/${o.slug}`}
+                    href={lien(locale, `/logiciel-gestion-parc-de-loisirs/${o.slug}`)}
                     className="text-pink underline decoration-pink/40 underline-offset-4 transition-colors hover:decoration-pink"
                   >
-                    Fiche {o.nom}
+                    {t.fiche} {o.nom}
                   </Link>
                   {aUnGuide(o.slug) && (
                     <Link
-                      href={`/plan-de-taggage-parc-de-loisirs/${o.slug}`}
+                      href={lien(locale, `/plan-de-taggage-parc-de-loisirs/${o.slug}`)}
                       className="text-pink underline decoration-pink/40 underline-offset-4 transition-colors hover:decoration-pink"
                     >
-                      Plan de taggage {o.nom}
+                      {t.plan} {o.nom}
                     </Link>
                   )}
                 </div>
@@ -309,41 +470,8 @@ function Outils({ s }: { s: Secteur }) {
   );
 }
 
-/* Six engagements au même format : trois côté IA, trois côté humain. */
-const ENGAGEMENTS = [
-  {
-    titre: "Un interlocuteur dédié",
-    texte:
-      "Quelqu'un qui connaît votre activité, vos créneaux creux et vos équipes, et que vous pouvez appeler.",
-  },
-  {
-    titre: "Des méthodes testées sur le terrain",
-    texte:
-      "Ce que nous mettons en place a déjà fonctionné chez d'autres acteurs du loisir. Pas de théorie.",
-  },
-  {
-    titre: "De la pédagogie",
-    texte:
-      "Nous formons vos équipes pour qu'elles comprennent ce qui se passe et gagnent en autonomie.",
-  },
-  {
-    titre: "Visible dans les réponses des IA",
-    texte:
-      "Vos clients demandent déjà à ChatGPT ou à Google quoi faire ce week-end. Nous travaillons votre présence dans ces réponses.",
-  },
-  {
-    titre: "Des créations testées à grande échelle",
-    texte:
-      "L'IA nous aide à décliner et tester des dizaines de variantes d'annonces. Nous gardons celles qui remplissent vos créneaux.",
-  },
-  {
-    titre: "Un reporting qui tourne tout seul",
-    texte:
-      "Vos données publicitaires et vos réservations remontent chaque matin dans un tableau de bord.",
-  },
-];
 
-function HumainIa({ s }: { s: Secteur }) {
+function HumainIa({ s, t, locale }: Ctx) {
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
@@ -352,7 +480,7 @@ function HumainIa({ s }: { s: Secteur }) {
             <div className="relative aspect-square overflow-hidden rounded-3xl border border-pink/20 neon-ring">
               <Image
                 src="/canva/photos/qui-sommes-nous.jpg"
-                alt="L'équipe Banana Growth Agency devant des enseignes de loisirs"
+                alt={t.quiAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
@@ -362,22 +490,18 @@ function HumainIa({ s }: { s: Secteur }) {
 
           <div>
             <Reveal>
-              <span className={eyebrowClass}>Qui sommes-nous</span>
+              <span className={eyebrowClass}>{t.qui}</span>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-                Une équipe humaine,{" "}
-                <span className="text-spectrum">augmentée par l&apos;IA</span>
+                {t.quiTitre[0]}{" "}
+                <span className="text-spectrum">{t.quiTitre[1]}</span>
               </h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
-                Nous ne sommes pas une plateforme qui génère des campagnes à la
-                chaîne. Nous sommes une petite équipe passionnée par le loisir,
-                qui utilise l&apos;IA pour aller plus vite, et garde
-                l&apos;humain pour ce qui compte : comprendre {s.votre} et vos
-                clients.
+                {t.quiTexte(s.votre)}
               </p>
             </Reveal>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {ENGAGEMENTS.map((item, i) => (
+              {ENGAGEMENTS[locale].map((item, i) => (
                 <Reveal key={item.titre} delay={(i % 2) * 0.06} className="h-full">
                   <div className="h-full rounded-2xl border border-white/10 bg-ink-soft/60 p-5">
                     <h3 className="font-display text-lg font-bold text-foreground">
@@ -399,20 +523,20 @@ function HumainIa({ s }: { s: Secteur }) {
 
 /* Version compacte des services : les descriptions sont sur la page parcs,
    inutile de les répéter sur chaque page secteur. */
-function Services() {
+function Services({ t, P }: Ctx) {
   return (
     <section id="services" className="relative px-4 py-16 md:py-20">
       <div className="mx-auto max-w-5xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className={eyebrowClass}>Nos services</span>
+          <span className={eyebrowClass}>{t.services}</span>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Un cocktail de services qui{" "}
-            <span className="text-spectrum">porte ses fruits</span>
+            {t.servicesTitre[0]}{" "}
+            <span className="text-spectrum">{t.servicesTitre[1]}</span>
           </h2>
         </Reveal>
 
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {PARC.services.map((sv, i) => (
+          {P.services.map((sv, i) => (
             <Reveal key={sv.title} delay={(i % 3) * 0.05}>
               <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-soft/60 p-3 md:p-4">
                 <NeonIcon
@@ -433,25 +557,29 @@ function Services() {
   );
 }
 
-function SaisonCta({ s }: { s: Secteur }) {
+function SaisonCta({ s, t, P, locale }: Ctx) {
   return (
     <section className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-4xl">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-pink/30 bg-ink-soft/80 px-6 py-14 text-center neon-ring md:px-12 md:py-20">
             <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
-            <span className={`relative ${eyebrowClass}`}>Votre saison</span>
+            <span className={`relative ${eyebrowClass}`}>{t.saison}</span>
             <p className="relative mx-auto mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 md:text-lg">
               {s.saison}
             </p>
             <h2 className="relative mt-10 font-display text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              {PARC.finalCta.title}
+              {P.finalCta.title}
             </h2>
             <p className="relative mx-auto mt-4 max-w-md text-foreground/60">
-              Réservez votre audit gratuit et remplissez {s.votre}.
+              {t.remplir(s.votre)}
             </p>
             <div className="relative mt-8 flex justify-center">
-              <CtaPair audit={AUDIT_PARC_URL} label={PARC.finalCta.cta} />
+              <CtaPair
+                locale={locale}
+                audit={AUDIT_PARC_URL}
+                label={P.finalCta.cta}
+              />
             </div>
           </div>
         </Reveal>
@@ -460,17 +588,22 @@ function SaisonCta({ s }: { s: Secteur }) {
   );
 }
 
-function AutresSecteurs({ s }: { s: Secteur }) {
+function AutresSecteurs({
+  s,
+  t,
+  locale,
+  familles,
+}: Ctx & { familles: readonly FamilleSecteurs[] }) {
   return (
     <section className="relative px-4 py-16 md:py-20">
       <div className="mx-auto max-w-6xl">
         <Reveal className="text-center">
           <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            Nous accompagnons aussi
+            {t.aussi}
           </h2>
         </Reveal>
         <div className="mt-10 grid gap-8 md:grid-cols-3">
-          {secteursParFamille().map((f) => (
+          {familles.map((f) => (
             <div key={f.famille}>
               <p className="text-sm uppercase tracking-[0.15em] text-pink/80">
                 {f.label}
@@ -481,7 +614,7 @@ function AutresSecteurs({ s }: { s: Secteur }) {
                   .map((o) => (
                     <li key={o.slug}>
                       <Link
-                        href={cheminSecteur(o.slug)}
+                        href={lien(locale, cheminSecteur(o.slug))}
                         className="inline-block rounded-full border border-white/10 px-3 py-1 text-sm text-foreground/65 transition-colors hover:border-pink/50 hover:text-pink"
                       >
                         {o.nom}
@@ -491,10 +624,10 @@ function AutresSecteurs({ s }: { s: Secteur }) {
                 {f.famille === "indoor" && (
                   <li>
                     <Link
-                      href={PARC_HREF}
+                      href={lien(locale, PARC_HREF)}
                       className="inline-block rounded-full border border-white/10 px-3 py-1 text-sm text-foreground/65 transition-colors hover:border-pink/50 hover:text-pink"
                     >
-                      Parcs de loisirs
+                      {t.parcs}
                     </Link>
                   </li>
                 )}
@@ -509,44 +642,70 @@ function AutresSecteurs({ s }: { s: Secteur }) {
 
 /** Le carrousel ne rend qu'un avis dans le HTML : on met le plus proche du
     secteur en premier, pour que chaque page ne serve pas le même texte. */
-function avisEnPremier(s: Secteur) {
+function avisEnPremier(s: Secteur, P: ParcContenu) {
   const cle = s.avis ?? "overland";
   return [
-    ...PARC.testimonials.filter((t) => t.logo === cle),
-    ...PARC.testimonials.filter((t) => t.logo !== cle),
+    ...P.testimonials.filter((t) => t.logo === cle),
+    ...P.testimonials.filter((t) => t.logo !== cle),
   ];
 }
 
-export function SecteurPage({ secteur: s }: { secteur: Secteur }) {
-  // FAQ agence d'abord, puis FAQ métier du secteur.
-  const faq = [...faqAgence(s), ...s.faq];
+export function SecteurPage({
+  secteur: s,
+  faq,
+  outils,
+  familles,
+  locale = "fr",
+}: {
+  secteur: Secteur;
+  /** FAQ complète, agence d'abord puis métier du secteur. */
+  faq: readonly { q: string; a: string }[];
+  /** Fiches outils du secteur, déjà résolues dans la bonne langue. */
+  outils: readonly Outil[];
+  /** Tous les secteurs par famille, pour le maillage en bas de page. */
+  familles: readonly FamilleSecteurs[];
+  locale?: Locale;
+}) {
+  const t = TEXTES[locale];
+  const ctx: Ctx = {
+    s,
+    t,
+    P: locale === "es" ? PARC_ES : PARC,
+    locale,
+  };
 
   return (
     <>
       <Navbar />
       <main>
-        <Hero s={s} />
-        <ProblemeMission s={s} />
-        <Demande s={s} />
-        <Publics s={s} />
-        <Outils s={s} />
-        <Services />
+        <Hero {...ctx} />
+        <ProblemeMission {...ctx} />
+        <Demande {...ctx} />
+        <Publics {...ctx} />
+        <Outils {...ctx} outils={outils} />
+        <Services {...ctx} />
         <Testimonial
-          items={avisEnPremier(s)}
+          locale={locale}
+          items={avisEnPremier(s, ctx.P)}
+          eyebrow={locale === "es" ? PARC_ES.ui.testimonialsEyebrow : undefined}
           quoteMinH="min-h-[26rem] sm:min-h-[18rem] md:min-h-[15rem]"
           title={
             <>
-              Ils nous font déjà <span className="text-spectrum">confiance</span>
+              {t.avis[0]} <span className="text-spectrum">{t.avis[1]}</span>
             </>
           }
         />
-        <SaisonCta s={s} />
-        <HumainIa s={s} />
-        <ParcFaq items={faq} />
-        <AutresSecteurs s={s} />
-        <Contact />
+        <SaisonCta {...ctx} />
+        <HumainIa {...ctx} />
+        <ParcFaq
+          items={faq}
+          title={t.faq?.title}
+          highlight={t.faq?.highlight}
+        />
+        <AutresSecteurs {...ctx} familles={familles} />
+        <Contact locale={locale} />
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

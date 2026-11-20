@@ -10,7 +10,18 @@ import { UseCases } from "@/components/landing/use-cases";
 import { Cta } from "@/components/landing/cta";
 import { Contact } from "@/components/landing/contact";
 import { Footer } from "@/components/landing/footer";
+import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
+import { hreflang } from "@/lib/i18n";
+
+/* Même titre et description que le layout racine ; on ajoute seulement le
+   canonical et le hreflang vers /es. */
+export const metadata: Metadata = {
+  title: "Banana Growth Agency — L'agence Growth qui vitamine votre croissance",
+  description:
+    "Agence de Growth Marketing : stratégie, data, SEO, paid, CRM, contenu et CRO. 10 ans d'expertise pour accélérer votre acquisition.",
+  alternates: { canonical: "/", languages: hreflang("/") },
+};
 
 /* Balisage Organization : aide Google à rattacher les recherches de marque
    (« Banana Growth », « agence banana ») à l'accueil. */

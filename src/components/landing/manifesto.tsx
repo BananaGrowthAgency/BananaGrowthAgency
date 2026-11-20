@@ -1,13 +1,21 @@
-import { PROBLEM } from "@/lib/site";
+import { PROBLEM as PROBLEM_FR } from "@/lib/site";
+import { PROBLEM_ES } from "@/lib/es/site";
+import type { Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: { eyebrow: "Manifesto" },
+  es: { eyebrow: "Manifiesto" },
+} as const;
 import { Reveal } from "@/components/reveal";
 
-export function Manifesto() {
+export function Manifesto({ locale = "fr" }: { locale?: Locale }) {
+  const PROBLEM = locale === "es" ? PROBLEM_ES : PROBLEM_FR;
   return (
     <section id="manifesto" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-3xl text-center">
         <Reveal>
           <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
-            Manifesto
+            {TEXTES[locale].eyebrow}
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
             {PROBLEM.title}

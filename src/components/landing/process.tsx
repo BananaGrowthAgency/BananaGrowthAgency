@@ -14,6 +14,7 @@ import {
 import type { ComponentType } from "react";
 import { PROCESS } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n";
 import {
   BookingMock,
   ChatMock,
@@ -21,24 +22,53 @@ import {
   GrowthMock,
 } from "@/components/landing/mocks/step-mocks";
 
+type VisualProps = { active?: boolean; locale?: Locale };
+
 const META: {
-  title: string;
   icon: string;
-  Visual: ComponentType<{ active?: boolean }>;
+  Visual: ComponentType<VisualProps>;
 }[] = [
-  { title: "Réservez", icon: "booking", Visual: BookingMock },
-  { title: "Échangeons", icon: "chat", Visual: ChatMock },
-  { title: "Votre offre", icon: "offer", Visual: OfferMock },
-  { title: "On exécute", icon: "exec", Visual: GrowthMock },
+  { icon: "booking", Visual: BookingMock },
+  { icon: "chat", Visual: ChatMock },
+  { icon: "offer", Visual: OfferMock },
+  { icon: "exec", Visual: GrowthMock },
 ];
 
-const STEPS = PROCESS.map((p, i) => ({
-  step: p.step,
-  desc: p.desc,
-  title: META[i]?.title ?? `Étape ${p.step}`,
-  icon: META[i]?.icon ?? "exec",
-  Visual: META[i]?.Visual ?? GrowthMock,
-}));
+const TEXTES = {
+  fr: {
+    eyebrow: "Notre méthode",
+    title: "Une recette simple et",
+    highlight: "efficace",
+    step: "Étape",
+    titles: ["Réservez", "Échangeons", "Votre offre", "On exécute"],
+  },
+  es: {
+    eyebrow: "Nuestro método",
+    title: "Una receta simple y",
+    highlight: "eficaz",
+    step: "Paso",
+    titles: ["Reserva", "Hablemos", "Tu propuesta", "Ejecutamos"],
+  },
+} as const;
+
+type ProcessStep = { step: string; desc: string };
+
+type Step = ProcessStep & {
+  title: string;
+  icon: string;
+  Visual: ComponentType<VisualProps>;
+};
+
+function buildSteps(steps: readonly ProcessStep[], locale: Locale): Step[] {
+  const t = TEXTES[locale];
+  return steps.map((p, i) => ({
+    step: p.step,
+    desc: p.desc,
+    title: t.titles[i] ?? `${t.step} ${p.step}`,
+    icon: META[i]?.icon ?? "exec",
+    Visual: META[i]?.Visual ?? GrowthMock,
+  }));
+}
 
 /** Étape active = celle dont le curseur banane a dépassé le milieu de la card.
  *  Renvoie -1 tant que la banane n'a pas atteint le milieu de la 1re card
@@ -72,14 +102,15 @@ function StepIcon({
   );
 }
 
-function Header() {
+function Header({ locale }: { locale: Locale }) {
+  const t = TEXTES[locale];
   return (
     <div className="flex flex-col items-center text-center">
       <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
-        Notre méthode
+        {t.eyebrow}
       </span>
       <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-        Une recette simple et <span className="text-spectrum">efficace</span>
+        {t.title} <span className="text-spectrum">{t.highlight}</span>
       </h2>
     </div>
   );
@@ -127,7 +158,7 @@ function ProgressBar({
 }
 
 /** Desktop : section épinglée, les étapes défilent horizontalement au scroll. */
-function ProcessHorizontal() {
+function ProcessHorizontal({ steps: STEPS, locale }: { steps: Step[]; locale: Locale }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -170,7 +201,7 @@ function ProcessHorizontal() {
     >
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden py-12">
         <div className="mx-auto w-full max-w-6xl px-6 pt-12 md:pt-16">
-          <Header />
+          <Header locale={locale} />
         </div>
 
         {/* Bloc des étapes — centré verticalement dans l'écran */}
@@ -234,7 +265,7 @@ function ProcessHorizontal() {
                   <p className="max-w-md text-base leading-relaxed text-foreground/65 md:text-lg">
                     {row.desc}
                   </p>
-                  <row.Visual active={i === litActive} />
+                  <row.Visual active={i === litActive} locale={locale} />
                 </div>
               </div>
             ))}
@@ -247,7 +278,7 @@ function ProcessHorizontal() {
 }
 
 /** Mobile : carousel horizontal swipeable + barre de progression. */
-function ProcessMobile() {
+function ProcessMobile({ steps: STEPS, locale }: { steps: Step[]; locale: Locale }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
@@ -275,7 +306,7 @@ function ProcessMobile() {
       className="relative overflow-hidden px-0 py-20 md:hidden"
     >
       <div className="mx-auto max-w-5xl px-6">
-        <Header />
+        <Header locale={locale} />
         <div className="mt-8">
           <div className="relative h-3">
             <div className="absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 overflow-hidden rounded-full bg-white/15">
@@ -322,7 +353,7 @@ function ProcessMobile() {
             <p className="max-w-md text-base leading-relaxed text-foreground/65">
               {row.desc}
             </p>
-            <row.Visual active={i === active} />
+            <row.Visual active={i === active} locale={locale} />
           </div>
         ))}
       </div>
@@ -331,11 +362,11 @@ function ProcessMobile() {
 }
 
 /** Repli statique (mouvement réduit) : empilement vertical classique. */
-function ProcessStatic() {
+function ProcessStatic({ steps: STEPS, locale }: { steps: Step[]; locale: Locale }) {
   return (
     <section id="process" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <Header />
+        <Header locale={locale} />
         <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2">
           {STEPS.map((row, i) => (
             <div
@@ -357,7 +388,7 @@ function ProcessStatic() {
                   {row.desc}
                 </p>
               </div>
-              <row.Visual />
+              <row.Visual locale={locale} />
             </div>
           ))}
         </div>
@@ -366,13 +397,20 @@ function ProcessStatic() {
   );
 }
 
-export function Process() {
+export function Process({
+  locale = "fr",
+  steps = PROCESS,
+}: {
+  locale?: Locale;
+  steps?: readonly ProcessStep[];
+}) {
   const prefersReducedMotion = useReducedMotion();
-  if (prefersReducedMotion) return <ProcessStatic />;
+  const built = buildSteps(steps, locale);
+  if (prefersReducedMotion) return <ProcessStatic steps={built} locale={locale} />;
   return (
     <>
-      <ProcessMobile />
-      <ProcessHorizontal />
+      <ProcessMobile steps={built} locale={locale} />
+      <ProcessHorizontal steps={built} locale={locale} />
     </>
   );
 }

@@ -14,6 +14,80 @@ import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
+import { lien, type Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    accueil: "Accueil",
+    logiciels: "Logiciels de gestion",
+    editeur: "Éditeur",
+    depuis: "Depuis",
+    site: "Site officiel",
+    pourQui: "Pour qui",
+    pourQuiTitre: "À qui s'adresse",
+    pasLeBon: "Quand ce n'est pas le bon outil",
+    fonctionnalites: "Fonctionnalités",
+    fonctionnalitesTitre: ["Les fonctionnalités", "clés"],
+    tarifs: "Tarifs",
+    tarifsTitre: "Combien coûte",
+    manque: "Ce qui manque encore",
+    manqueNote:
+      "Nous sollicitons l'éditeur pour obtenir ces éléments. Cette fiche sera mise à jour dès réception.",
+    verifie: "Vérifié par nos soins",
+    reel: "Ce que montre une installation réelle",
+    guideTech: "Guide technique",
+    planDe: "Plan de taggage",
+    guideTexte:
+      "Plan de marquage, couche de données, pièges courants et checklist de recette — d'après des installations en production.",
+    ouvrir: "Ouvrir le guide",
+    aSavoir: "À savoir",
+    vigilance: ["Points de", "vigilance"],
+    lacunes: "Ce que nous n'avons pas pu vérifier",
+    lacunesTexte:
+      "Par souci d'honnêteté, voici les points sur lesquels nous manquons d'information à ce jour. Nous préférons les signaler plutôt que de les combler par des suppositions.",
+    sources: "Sources",
+    ctaTitre: (nom: string) => `${nom} est-il fait pour votre parc ?`,
+    ctaTexte:
+      "Nous opérons ces plateformes au quotidien pour une vingtaine de parcs en France. Trente minutes suffisent à cadrer le choix selon votre activité et vos objectifs de fréquentation.",
+    voirAussi: "Voir aussi",
+    accompagnement: "notre accompagnement dédié aux parcs de loisirs",
+  },
+  es: {
+    accueil: "Inicio",
+    logiciels: "Software de gestión",
+    editeur: "Proveedor de",
+    depuis: "Desde",
+    site: "Web oficial",
+    pourQui: "Para quién",
+    pourQuiTitre: "Para quién es",
+    pasLeBon: "Cuándo no es la herramienta adecuada",
+    fonctionnalites: "Funcionalidades",
+    fonctionnalitesTitre: ["Las funcionalidades", "clave"],
+    tarifs: "Precios",
+    tarifsTitre: "Cuánto cuesta",
+    manque: "Lo que aún falta",
+    manqueNote:
+      "Hemos pedido estos datos al proveedor. Esta ficha se actualizará en cuanto los recibamos.",
+    verifie: "Verificado por nosotros",
+    reel: "Lo que muestra una instalación real",
+    guideTech: "Guía técnica",
+    planDe: "Plan de etiquetado",
+    guideTexte:
+      "Plan de etiquetado, capa de datos, trampas habituales y checklist de comprobación, a partir de instalaciones en producción.",
+    ouvrir: "Abrir la guía",
+    aSavoir: "A tener en cuenta",
+    vigilance: ["Puntos de", "atención"],
+    lacunes: "Lo que no hemos podido verificar",
+    lacunesTexte:
+      "Por honestidad, estos son los puntos sobre los que todavía nos falta información. Preferimos señalarlos antes que rellenarlos con suposiciones.",
+    sources: "Fuentes",
+    ctaTitre: (nom: string) => `¿${nom} es para tu parque?`,
+    ctaTexte:
+      "Operamos estas plataformas a diario para una veintena de parques en Francia. En treinta minutos podemos acotar la elección según tu actividad y tus objetivos de afluencia.",
+    voirAussi: "Ver también",
+    accompagnement: "nuestro acompañamiento para parques de ocio",
+  },
+} as const;
 
 function SectionTitle({
   eyebrow,
@@ -36,8 +110,15 @@ function SectionTitle({
   );
 }
 
-export function OutilArticle({ outil }: { outil: Outil }) {
+export function OutilArticle({
+  outil,
+  locale = "fr",
+}: {
+  outil: Outil;
+  locale?: Locale;
+}) {
   const { editeur } = outil;
+  const t = TEXTES[locale];
   const guide = aUnGuide(outil.slug);
 
   return (
@@ -50,9 +131,13 @@ export function OutilArticle({ outil }: { outil: Outil }) {
           <div className="relative mx-auto max-w-3xl">
             <Reveal>
               <FilAriane
+                locale={locale}
                 etapes={[
-                  { nom: "Accueil", href: "/" },
-                  { nom: "Logiciels de gestion", href: "/logiciel-gestion-parc-de-loisirs" },
+                  { nom: t.accueil, href: lien(locale, "/") },
+                  {
+                    nom: t.logiciels,
+                    href: lien(locale, "/logiciel-gestion-parc-de-loisirs"),
+                  },
                   { nom: outil.nom },
                 ]}
               />
@@ -72,8 +157,14 @@ export function OutilArticle({ outil }: { outil: Outil }) {
 
             <Reveal delay={0.18}>
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-foreground/50">
-                <span>Éditeur {editeur.pays}</span>
-                {editeur.depuis && <span>Depuis {editeur.depuis}</span>}
+                <span>
+                  {t.editeur} {editeur.pays}
+                </span>
+                {editeur.depuis && (
+                  <span>
+                    {t.depuis} {editeur.depuis}
+                  </span>
+                )}
                 {editeur.groupe && <span>{editeur.groupe}</span>}
                 <a
                   href={outil.site}
@@ -81,7 +172,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                   rel="noopener noreferrer nofollow"
                   className="text-pink transition-colors hover:text-pink/75"
                 >
-                  Site officiel
+                  {t.site}
                 </a>
               </div>
             </Reveal>
@@ -107,8 +198,8 @@ export function OutilArticle({ outil }: { outil: Outil }) {
         <section className="relative px-4 py-14 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Pour qui">
-                À qui s&apos;adresse{" "}
+              <SectionTitle eyebrow={t.pourQui}>
+                {t.pourQuiTitre}{" "}
                 <span className="text-spectrum">{outil.nom}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
@@ -132,7 +223,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
             <Reveal delay={0.12}>
               <div className="mt-10 rounded-2xl border border-white/10 bg-ink-soft/60 px-5 py-6 md:px-7">
                 <h3 className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                  Quand ce n&apos;est pas le bon outil
+                  {t.pasLeBon}
                 </h3>
                 <ul className="mt-4 space-y-3">
                   {outil.pourQui.moinsAdapte.map((m) => (
@@ -153,8 +244,9 @@ export function OutilArticle({ outil }: { outil: Outil }) {
         <section className="relative px-4 py-14 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Fonctionnalités">
-                Les fonctionnalités <span className="text-spectrum">clés</span>
+              <SectionTitle eyebrow={t.fonctionnalites}>
+                {t.fonctionnalitesTitre[0]}{" "}
+                <span className="text-spectrum">{t.fonctionnalitesTitre[1]}</span>
               </SectionTitle>
             </Reveal>
 
@@ -179,8 +271,8 @@ export function OutilArticle({ outil }: { outil: Outil }) {
         <section className="relative px-4 py-14 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="Tarifs">
-                Combien coûte <span className="text-spectrum">{outil.nom}</span>
+              <SectionTitle eyebrow={t.tarifs}>
+                {t.tarifsTitre} <span className="text-spectrum">{outil.nom}</span>
               </SectionTitle>
               <p className="mt-5 text-base leading-relaxed text-foreground/65 md:text-lg">
                 {outil.tarifs.intro}
@@ -220,7 +312,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                   <div className="flex items-center gap-2.5">
                     <CircleHelp className="h-5 w-5 flex-none text-pink" />
                     <h3 className="font-display text-lg font-bold tracking-tight text-foreground md:text-xl">
-                      Ce qui manque encore
+                      {t.manque}
                     </h3>
                   </div>
                   <ul className="mt-4 space-y-2.5">
@@ -234,8 +326,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                     ))}
                   </ul>
                   <p className="mt-5 text-sm leading-relaxed text-foreground/45">
-                    Nous sollicitons l&apos;éditeur pour obtenir ces éléments.
-                    Cette fiche sera mise à jour dès réception.
+                    {t.manqueNote}
                   </p>
                 </div>
               </Reveal>
@@ -252,10 +343,10 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                   <div className="pointer-events-none absolute inset-0 bg-spectrum-radial opacity-25" />
                   <div className="relative">
                     <span className="text-sm uppercase tracking-[0.2em] text-pink/80">
-                      Vérifié par nos soins
+                      {t.verifie}
                     </span>
                     <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                      Ce que montre une installation réelle
+                      {t.reel}
                     </h2>
                     <p className="mt-4 text-base leading-relaxed text-foreground/65">
                       {outil.constate.intro}
@@ -283,27 +374,25 @@ export function OutilArticle({ outil }: { outil: Outil }) {
             <div className="mx-auto max-w-3xl">
               <Reveal>
                 <Link
-                  href={`/plan-de-taggage-parc-de-loisirs/${outil.slug}`}
+                  href={lien(locale, `/plan-de-taggage-parc-de-loisirs/${outil.slug}`)}
                   className="card-link group block rounded-2xl border bg-ink-soft/60 px-5 py-6 md:px-7 md:py-7"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <span className="text-xs font-semibold uppercase tracking-[0.15em] text-pink/80">
-                        Guide technique
+                        {t.guideTech}
                       </span>
                       <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                        Plan de taggage{" "}
+                        {t.planDe}{" "}
                         <span className="transition-colors group-hover:text-spectrum">
                           {outil.nom}
                         </span>
                       </h2>
                       <p className="mt-2 text-sm leading-relaxed text-foreground/60 md:text-base">
-                        Plan de marquage, couche de données, pièges courants et
-                        checklist de recette — d&apos;après des installations en
-                        production.
+                        {t.guideTexte}
                       </p>
                       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink">
-                        Ouvrir le guide
+                        {t.ouvrir}
                         <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                       </span>
                     </div>
@@ -319,8 +408,9 @@ export function OutilArticle({ outil }: { outil: Outil }) {
         <section className="relative px-4 py-14 md:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <SectionTitle eyebrow="À savoir">
-                Points de <span className="text-spectrum">vigilance</span>
+              <SectionTitle eyebrow={t.aSavoir}>
+                {t.vigilance[0]}{" "}
+                <span className="text-spectrum">{t.vigilance[1]}</span>
               </SectionTitle>
             </Reveal>
 
@@ -347,13 +437,10 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                 {outil.lacunes.length > 0 && (
                   <>
                     <h2 className="font-display text-xl font-bold tracking-tight text-foreground md:text-2xl">
-                      Ce que nous n&apos;avons pas pu vérifier
+                      {t.lacunes}
                     </h2>
                     <p className="mt-3 text-sm leading-relaxed text-foreground/55 md:text-base">
-                      Par souci d&apos;honnêteté, voici les points sur lesquels
-                      nous manquons d&apos;information à ce jour. Nous préférons
-                      les signaler plutôt que de les combler par des
-                      suppositions.
+                      {t.lacunesTexte}
                     </p>
                     <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
                       {outil.lacunes.map((l) => (
@@ -376,7 +463,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
                   }
                 >
                   <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-foreground/45">
-                    Sources
+                    {t.sources}
                   </h3>
                   <ul className="mt-3 space-y-1.5">
                     {outil.sources.map((s) => (
@@ -405,23 +492,25 @@ export function OutilArticle({ outil }: { outil: Outil }) {
               <div className="relative overflow-hidden rounded-3xl border border-pink/30 bg-ink-soft/80 px-6 py-12 text-center neon-ring md:px-12 md:py-14">
                 <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
                 <h2 className="relative font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                  {outil.nom} est-il fait pour votre parc ?
+                  {t.ctaTitre(outil.nom)}
                 </h2>
                 <p className="relative mx-auto mt-4 max-w-lg text-foreground/60">
-                  Nous opérons ces plateformes au quotidien pour une vingtaine
-                  de parcs en France. Trente minutes suffisent à cadrer le choix
-                  selon votre activité et vos objectifs de fréquentation.
+                  {t.ctaTexte}
                 </p>
                 <div className="relative mt-8 flex justify-center">
-                  <CtaPair audit={AUDIT_PARC_URL} contact={`${PARC_HREF}#contact`} />
+                  <CtaPair
+                    locale={locale}
+                    audit={AUDIT_PARC_URL}
+                    contact={`${PARC_HREF}#contact`}
+                  />
                 </div>
                 <p className="relative mt-6 text-sm text-foreground/45">
-                  Voir aussi{" "}
+                  {t.voirAussi}{" "}
                   <Link
-                    href="/accompagnement-marketing-digital-parc-de-loisir"
+                    href={lien(locale, PARC_HREF)}
                     className="text-pink underline-offset-4 transition-colors hover:underline"
                   >
-                    notre accompagnement dédié aux parcs de loisirs
+                    {t.accompagnement}
                   </Link>
                 </p>
               </div>
@@ -429,7 +518,7 @@ export function OutilArticle({ outil }: { outil: Outil }) {
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

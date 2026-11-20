@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage, LegalSection } from "@/components/landing/legal-page";
+import { hreflang } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Politique de Confidentialité — Banana Growth Agency",
   description:
     "Politique de confidentialité du site Banana Growth Agency : collecte, usage et protection de vos données personnelles.",
+  alternates: { languages: hreflang("/politique-de-confidentialite") },
 };
 
 export default function PolitiqueConfidentialitePage() {

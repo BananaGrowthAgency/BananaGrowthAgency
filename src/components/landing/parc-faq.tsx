@@ -19,7 +19,15 @@ type FaqItem = { q: string; a: string };
  *
  * Sans `items`, affiche la FAQ de la landing parcs de loisirs.
  */
-export function ParcFaq({ items = PARC.faq }: { items?: readonly FaqItem[] }) {
+export function ParcFaq({
+  items = PARC.faq,
+  title = "Les questions",
+  highlight = "fréquentes",
+}: {
+  items?: readonly FaqItem[];
+  title?: string;
+  highlight?: string;
+}) {
   const [open, setOpen] = useState<number | null>(0);
 
   const jsonLd = {
@@ -46,7 +54,7 @@ export function ParcFaq({ items = PARC.faq }: { items?: readonly FaqItem[] }) {
             FAQ
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Les questions <span className="text-spectrum">fréquentes</span>
+            {title} <span className="text-spectrum">{highlight}</span>
           </h2>
         </Reveal>
 

@@ -1,6 +1,13 @@
 import { notFound } from "next/navigation";
 import { pageMetadata } from "@/lib/metadata";
-import { SECTEURS, SECTEUR_PREFIXE, getSecteur } from "@/lib/secteurs";
+import {
+  SECTEURS,
+  SECTEUR_PREFIXE,
+  faqAgence,
+  getSecteur,
+  secteursParFamille,
+} from "@/lib/secteurs";
+import { getOutil } from "@/lib/outils";
 import { SecteurPage } from "@/components/landing/secteur-page";
 
 /**
@@ -47,5 +54,13 @@ export default async function Page({
   const s = secteurDepuisSegment(secteur);
   if (!s) notFound();
 
-  return <SecteurPage secteur={s} />;
+  return (
+    <SecteurPage
+      secteur={s}
+      // FAQ agence d'abord, puis FAQ métier du secteur.
+      faq={[...faqAgence(s), ...s.faq]}
+      outils={(s.outils ?? []).map(getOutil).filter((o) => o !== undefined)}
+      familles={secteursParFamille()}
+    />
+  );
 }

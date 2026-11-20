@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { hreflang, lien } from "@/lib/i18n";
 import { OUTILS } from "@/lib/outils";
 import { SECTEURS, cheminSecteur } from "@/lib/secteurs";
 import { GUIDES, toutesLesPlateformes } from "@/lib/tracking";
@@ -65,11 +66,41 @@ const PAGES: Array<{
   { chemin: "/politique-de-confidentialite", maj: MAJ.legal, priorite: 0.3, frequence: "yearly" },
 ];
 
+/** Version espagnole publiée le 20/11/2026 : sa date de mise à jour propre. */
+const MAJ_ES = "2026-11-20";
+
+const absolue = (chemin: string) => (chemin === "/" ? SITE_URL : `${SITE_URL}${chemin}`);
+
+/**
+ * Chaque page française a sa jumelle espagnole sous /es. Les deux entrées
+ * portent les hreflang croisés, en plus de ceux posés dans le <head>.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  return PAGES.map(({ chemin, maj, priorite, frequence }) => ({
-    url: chemin === "/" ? SITE_URL : `${SITE_URL}${chemin}`,
-    lastModified: maj,
-    changeFrequency: frequence,
-    priority: priorite,
-  }));
+  return PAGES.flatMap(({ chemin, maj, priorite, frequence }) => {
+    const langues = Object.fromEntries(
+      Object.entries(hreflang(chemin))
+        .filter(([l]) => l !== "x-default")
+        .map(([l, c]) => [l, absolue(c)]),
+    );
+    const alternates = Object.keys(langues).length ? { languages: langues } : undefined;
+    const fr = {
+      url: absolue(chemin),
+      lastModified: maj,
+      changeFrequency: frequence,
+      priority: priorite,
+      alternates,
+    };
+    const cheminEs = lien("es", chemin);
+    if (cheminEs === chemin) return [fr];
+    return [
+      fr,
+      {
+        url: absolue(cheminEs),
+        lastModified: maj > MAJ_ES ? maj : MAJ_ES,
+        changeFrequency: frequence,
+        priority: priorite,
+        alternates,
+      },
+    ];
+  });
 }

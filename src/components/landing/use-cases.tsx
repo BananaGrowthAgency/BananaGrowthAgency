@@ -1,18 +1,37 @@
 import Image from "next/image";
-import { USE_CASES } from "@/lib/site";
+import { USE_CASES as USE_CASES_FR } from "@/lib/site";
+import { USE_CASES_ES } from "@/lib/es/site";
+import type { Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    eyebrow: "Use Case",
+    title: "Ils ont obtenu des",
+    highlight: "résultats fructueux",
+    alt: "Résultat",
+  },
+  es: {
+    eyebrow: "Casos de éxito",
+    title: "Han obtenido",
+    highlight: "resultados jugosos",
+    alt: "Resultado",
+  },
+} as const;
 import { Reveal } from "@/components/reveal";
 
-export function UseCases() {
+export function UseCases({ locale = "fr" }: { locale?: Locale }) {
+  const USE_CASES = locale === "es" ? USE_CASES_ES : USE_CASES_FR;
+  const t = TEXTES[locale];
   return (
     <section id="use-cases" className="relative px-4 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-base uppercase tracking-[0.2em] md:text-xl text-pink/80">
-            Use Case
+            {t.eyebrow}
           </span>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Ils ont obtenu des{" "}
-            <span className="text-spectrum">résultats fructueux</span>
+            {t.title}{" "}
+            <span className="text-spectrum">{t.highlight}</span>
           </h2>
         </Reveal>
 
@@ -45,7 +64,7 @@ export function UseCases() {
                       <div className="pointer-events-none absolute inset-0 -z-10 bg-spectrum-radial opacity-60 blur-2xl transition-opacity duration-500 group-hover:opacity-90" />
                       <Image
                         src={`/canva/usecases/${u.image}.png`}
-                        alt={`Résultat ${u.channel} — ${u.headline}`}
+                        alt={`${t.alt} ${u.channel} — ${u.headline}`}
                         width={1600}
                         height={1100}
                         sizes="(max-width: 768px) 100vw, 50vw"

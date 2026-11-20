@@ -3,11 +3,12 @@ import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { Booking } from "@/components/booking/booking";
 import { BOOKING_TYPES } from "@/lib/booking/config";
+import { hreflang } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Prendre rendez-vous — Banana Growth Agency",
   description: "Réservez 30 minutes en visio avec Benjamin Joneau, fondateur de Banana Growth Agency.",
-  alternates: { canonical: "/rendez-vous" },
+  alternates: { canonical: "/rendez-vous", languages: hreflang("/rendez-vous") },
   robots: { index: false, follow: true },
 };
 

@@ -5,14 +5,39 @@ import { RDV_URL, HERO } from "@/lib/site";
 import { CtaButton } from "@/components/cta-button";
 import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
+import { lien, type Locale } from "@/lib/i18n";
 
-const stats = [
+const STATS = [
   { value: "10 ans", label: "d'expertise growth" },
   { value: "+490%", label: "de CA généré" },
   { value: "560%", label: "de ROAS max" },
-];
+] as const;
 
-export function Hero() {
+const SUBTITLE =
+  "Nous créons des stratégies marketing sur-mesure multicanaux qui garantissent le ROI de nos clients.";
+
+const TEXTES = {
+  fr: { message: "Envoyer un message" },
+  es: { message: "Enviar un mensaje" },
+} as const;
+
+type HeroContent = {
+  title: string;
+  titleHighlight: string;
+  cta: string;
+  subtitle?: string;
+};
+
+export function Hero({
+  locale = "fr",
+  content = HERO,
+  stats = STATS,
+}: {
+  locale?: Locale;
+  content?: HeroContent;
+  stats?: readonly { value: string; label: string }[];
+}) {
+  const t = TEXTES[locale];
   return (
     <section
       id="top"
@@ -55,9 +80,9 @@ export function Hero() {
           transition={{ delay: 0.18, duration: 0.6 }}
           className="mt-2 font-display text-4xl font-bold uppercase leading-[1.0] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
         >
-          {HERO.title}
+          {content.title}
           <br className="hidden sm:block" />{" "}
-          <span className="text-spectrum">{HERO.titleHighlight}</span>
+          <span className="text-spectrum">{content.titleHighlight}</span>
         </motion.h1>
 
         <motion.p
@@ -66,8 +91,7 @@ export function Hero() {
           transition={{ delay: 0.26, duration: 0.6 }}
           className="mx-auto mt-6 max-w-xl text-base text-foreground/65 md:text-lg"
         >
-          Nous créons des stratégies marketing sur-mesure multicanaux qui
-          garantissent le ROI de nos clients.
+          {content.subtitle ?? SUBTITLE}
         </motion.p>
 
         <motion.div
@@ -76,11 +100,11 @@ export function Hero() {
           transition={{ delay: 0.34, duration: 0.6 }}
           className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
         >
-          <CtaButton href={RDV_URL} className="w-full sm:w-auto">
-            {HERO.cta}
+          <CtaButton href={lien(locale, RDV_URL)} className="w-full sm:w-auto">
+            {content.cta}
           </CtaButton>
           <CtaButton href="#contact" variant="ghost" className="w-full sm:w-auto">
-            Envoyer un message
+            {t.message}
           </CtaButton>
         </motion.div>
 

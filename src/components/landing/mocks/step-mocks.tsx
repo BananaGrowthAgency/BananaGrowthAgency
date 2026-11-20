@@ -3,11 +3,60 @@
 import { motion } from "framer-motion";
 import { Check, Phone, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n";
+
+/** Textes des maquettes animées, par langue. */
+const TEXTES = {
+  fr: {
+    month: "Avril",
+    available: "Dispo",
+    confirmed: "RDV confirmé · 14h00",
+    bubbles: [
+      "Quels sont vos objectifs ce trimestre ?",
+      "Scaler notre CA sur Meta & Google 🚀",
+      "On construit la stratégie qu'il vous faut.",
+    ],
+    call: "Appel découverte",
+    online: "● en ligne · 30 min",
+    offer: "Votre offre",
+    days: "30 jours",
+    offerItems: [
+      "Audit acquisition complet",
+      "Roadmap 30 jours sur-mesure",
+      "Plan média multicanal",
+      "Objectifs de ROAS chiffrés",
+    ],
+    campaigns: "Campagnes",
+    revenue: "CA généré",
+  },
+  es: {
+    month: "Abril",
+    available: "Libre",
+    confirmed: "Cita confirmada · 14:00",
+    bubbles: [
+      "¿Cuáles son tus objetivos este trimestre?",
+      "Escalar nuestra facturación en Meta y Google 🚀",
+      "Construimos la estrategia que necesitas.",
+    ],
+    call: "Llamada de descubrimiento",
+    online: "● en línea · 30 min",
+    offer: "Tu propuesta",
+    days: "30 días",
+    offerItems: [
+      "Auditoría de adquisición completa",
+      "Hoja de ruta de 30 días a medida",
+      "Plan de medios multicanal",
+      "Objetivos de ROAS cuantificados",
+    ],
+    campaigns: "Campañas",
+    revenue: "Facturación generada",
+  },
+} as const;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Props communes : `active` pilote (re)jouer l'animation quand l'étape s'allume. */
-type MockProps = { active?: boolean };
+type MockProps = { active?: boolean; locale?: Locale };
 
 function MockCard({
   children,
@@ -30,17 +79,18 @@ function MockCard({
 }
 
 /* ── Étape 1 : Réservez — mini calendrier avec créneau confirmé ── */
-export function BookingMock({ active = true }: MockProps) {
+export function BookingMock({ active = true, locale = "fr" }: MockProps) {
+  const t = TEXTES[locale];
   const days = Array.from({ length: 21 }, (_, i) => i + 1);
   const selected = 14;
   return (
     <MockCard>
       <div className="mb-3 flex items-center justify-between">
         <span className="font-display text-sm font-bold text-foreground">
-          Avril
+          {t.month}
         </span>
         <span className="flex items-center gap-1 rounded-full bg-pink/15 px-2 py-0.5 text-[10px] font-medium text-pink">
-          <Sparkles className="h-3 w-3" /> Dispo
+          <Sparkles className="h-3 w-3" /> {t.available}
         </span>
       </div>
       <div className="grid grid-cols-7 gap-1.5">
@@ -74,7 +124,7 @@ export function BookingMock({ active = true }: MockProps) {
           <Check className="h-3.5 w-3.5" />
         </span>
         <span className="text-[11px] text-foreground/80">
-          RDV confirmé · 14h00
+          {t.confirmed}
         </span>
       </motion.div>
     </MockCard>
@@ -82,11 +132,12 @@ export function BookingMock({ active = true }: MockProps) {
 }
 
 /* ── Étape 2 : Échangeons — chat / call de découverte ── */
-export function ChatMock({ active = true }: MockProps) {
+export function ChatMock({ active = true, locale = "fr" }: MockProps) {
+  const t = TEXTES[locale];
   const bubbles = [
-    { side: "in" as const, text: "Quels sont vos objectifs ce trimestre ?" },
-    { side: "out" as const, text: "Scaler notre CA sur Meta & Google 🚀" },
-    { side: "in" as const, text: "On construit la stratégie qu'il vous faut." },
+    { side: "in" as const, text: t.bubbles[0] },
+    { side: "out" as const, text: t.bubbles[1] },
+    { side: "in" as const, text: t.bubbles[2] },
   ];
   return (
     <MockCard>
@@ -96,9 +147,9 @@ export function ChatMock({ active = true }: MockProps) {
         </span>
         <div>
           <p className="text-[11px] font-semibold text-foreground">
-            Appel découverte
+            {t.call}
           </p>
-          <p className="text-[9px] text-cyan">● en ligne · 30 min</p>
+          <p className="text-[9px] text-cyan">{t.online}</p>
         </div>
       </div>
       <div className="space-y-2">
@@ -128,21 +179,17 @@ export function ChatMock({ active = true }: MockProps) {
 }
 
 /* ── Étape 3 : Votre offre — proposition sur-mesure 30 jours ── */
-export function OfferMock({ active = true }: MockProps) {
-  const items = [
-    "Audit acquisition complet",
-    "Roadmap 30 jours sur-mesure",
-    "Plan média multicanal",
-    "Objectifs de ROAS chiffrés",
-  ];
+export function OfferMock({ active = true, locale = "fr" }: MockProps) {
+  const t = TEXTES[locale];
+  const items = t.offerItems;
   return (
     <MockCard>
       <div className="mb-3 flex items-center justify-between">
         <span className="font-display text-sm font-bold text-foreground">
-          Votre offre
+          {t.offer}
         </span>
         <span className="rounded-full bg-spectrum px-2 py-0.5 text-[10px] font-bold text-white">
-          30 jours
+          {t.days}
         </span>
       </div>
       <div className="space-y-2.5">
@@ -176,7 +223,8 @@ export function OfferMock({ active = true }: MockProps) {
 }
 
 /* ── Étape 4 : On exécute — campagnes multicanal lancées en live ── */
-export function GrowthMock({ active = true }: MockProps) {
+export function GrowthMock({ active = true, locale = "fr" }: MockProps) {
+  const t = TEXTES[locale];
   const channels = [
     { name: "Meta Ads", fill: 82, roas: "5,6", color: "from-pink/50 to-pink" },
     {
@@ -196,7 +244,7 @@ export function GrowthMock({ active = true }: MockProps) {
     <MockCard>
       <div className="mb-4 flex items-center justify-between">
         <span className="font-display text-sm font-bold text-foreground">
-          Campagnes
+          {t.campaigns}
         </span>
         <span className="flex items-center gap-1.5 rounded-full bg-cyan/15 px-2 py-0.5 text-[10px] font-semibold text-cyan">
           <motion.span
@@ -250,7 +298,7 @@ export function GrowthMock({ active = true }: MockProps) {
         className="mt-4 flex items-center justify-between rounded-xl border border-pink/20 bg-pink/5 px-3 py-2"
       >
         <span className="text-[10px] uppercase tracking-wide text-foreground/50">
-          CA généré
+          {t.revenue}
         </span>
         <span className="font-display text-base font-bold text-spectrum">
           +490%

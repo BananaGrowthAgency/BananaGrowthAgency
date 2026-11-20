@@ -6,13 +6,43 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { navPour, RDV_URL } from "@/lib/site";
+import { autreLangue, lien, localeDe } from "@/lib/i18n";
 import { CtaButton } from "@/components/cta-button";
 import { cn } from "@/lib/utils";
+
+/**
+ * Bouton FR / ES. Un simple lien vers la même page dans l'autre langue :
+ * pas de script de traduction, chaque langue est servie en statique.
+ */
+function LangSwitch({ es, href }: { es: boolean; href: string }) {
+  const base =
+    "flex h-7 min-w-9 items-center justify-center rounded-full px-2 text-xs font-semibold tracking-wide transition-colors";
+  const actif = "bg-spectrum text-white";
+  const inactif = "text-foreground/60 hover:text-pink";
+  return (
+    <Link
+      href={href}
+      hrefLang={es ? "fr" : "es"}
+      prefetch={false}
+      aria-label={es ? "Voir le site en français" : "Ver la web en español"}
+      className="flex items-center gap-0.5 rounded-full border border-pink/30 bg-ink/40 p-0.5"
+    >
+      <span className={cn(base, es ? inactif : actif)}>FR</span>
+      <span className={cn(base, es ? actif : inactif)}>ES</span>
+    </Link>
+  );
+}
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const liens = navPour(usePathname());
+  const pathname = usePathname();
+  const liens = navPour(pathname);
+  const es = localeDe(pathname) === "es";
+  const cta = es
+    ? { href: lien("es", RDV_URL), label: "Reservar cita" }
+    : { href: RDV_URL, label: "Prendre RDV" };
+  const bascule = autreLangue(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -43,7 +73,7 @@ export function Navbar() {
             scrolled ? "bg-ink/70 py-2" : "bg-ink/55 py-3",
           )}
         >
-        <Link href="/" className="flex items-center" aria-label="Banana Growth Agency">
+        <Link href={es ? "/es" : "/"} className="flex items-center" aria-label="Banana Growth Agency">
           <Image
             src="/logo/logoRow.png"
             alt="Banana Growth Agency"
@@ -74,14 +104,23 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
-          <CtaButton href={RDV_URL}>Prendre RDV</CtaButton>
+        <div className="hidden items-center gap-3 md:flex">
+          <LangSwitch es={es} href={bascule.href} />
+          <CtaButton href={cta.href}>{cta.label}</CtaButton>
+        </div>
+
+        <div className="ml-auto md:hidden">
+          <LangSwitch es={es} href={bascule.href} />
         </div>
 
         <button
           onClick={() => setOpen((v) => !v)}
           className="flex h-10 w-10 items-center justify-center rounded-xl border border-pink/30 text-pink md:hidden"
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-label={
+            es
+              ? open ? "Cerrar el menú" : "Abrir el menú"
+              : open ? "Fermer le menu" : "Ouvrir le menu"
+          }
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -106,8 +145,8 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <CtaButton href={RDV_URL} className="mt-2 w-full">
-              Prendre RDV
+            <CtaButton href={cta.href} className="mt-2 w-full">
+              {cta.label}
             </CtaButton>
           </nav>
         </div>

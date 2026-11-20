@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
+import { hreflang, lien, type Locale } from "@/lib/i18n";
 
 /** Suffixe de marque des titres. Google affiche déjà le nom du site au-dessus
  *  du titre : on garde la forme courte, et seulement quand elle tient. */
@@ -32,25 +33,32 @@ export function pageMetadata({
   title,
   description,
   path,
+  locale = "fr",
 }: {
   title: string;
   description: string;
-  /** Chemin absolu depuis la racine, ex. « /logiciel-gestion-parc-de-loisirs ». */
+  /**
+   * Chemin FRANÇAIS de la page, ex. « /logiciel-gestion-parc-de-loisirs ».
+   * En espagnol, le chemin /es correspondant est déduit, et les deux
+   * versions sont déclarées en hreflang.
+   */
   path: string;
+  locale?: Locale;
 }): Metadata {
-  const url = path === "/" ? SITE_URL : `${SITE_URL}${path}`;
+  const chemin = lien(locale, path);
+  const url = chemin === "/" ? SITE_URL : `${SITE_URL}${chemin}`;
   title = titrePage(title);
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: hreflang(path) },
     openGraph: {
       title,
       description,
       url,
       type: "website",
-      locale: "fr_FR",
+      locale: locale === "es" ? "es_ES" : "fr_FR",
       siteName: "Banana Growth Agency",
     },
   };

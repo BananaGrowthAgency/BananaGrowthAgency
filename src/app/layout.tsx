@@ -43,11 +43,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
+    <html suppressHydrationWarning
       lang="fr"
       className={`${inter.variable} ${displayFont.variable} ${geistMono.variable} antialiased`}
     >
       <head>
+        {/* Pages /es : langue du document en espagnol. Fait côté client pour
+            garder tout le site en statique (lire le chemin côté serveur
+            rendrait chaque page dynamique). Les hreflang portent le signal SEO. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if(/^\\/es(\\/|$)/.test(location.pathname))document.documentElement.lang='es'",
+          }}
+        />
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

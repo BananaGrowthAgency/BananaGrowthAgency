@@ -3,12 +3,13 @@ import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import { Booking } from "@/components/booking/booking";
 import { BOOKING_TYPES } from "@/lib/booking/config";
+import { hreflang } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Audit offert pour parcs de loisirs — Banana Growth Agency",
   description:
     "Réservez votre audit offert de 30 minutes : on identifie ensemble vos meilleures pistes pour remplir votre parc.",
-  alternates: { canonical: "/rendez-vous/audit-offert-parc-de-loisir" },
+  alternates: { canonical: "/rendez-vous/audit-offert-parc-de-loisir", languages: hreflang("/rendez-vous/audit-offert-parc-de-loisir") },
   robots: { index: false, follow: true },
 };
 

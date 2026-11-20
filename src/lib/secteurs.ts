@@ -48,6 +48,8 @@ export type Secteur = {
   demande: {
     intro: string;
     requetes: readonly Requete[];
+    /** Note de source sous les volumes, quand elle diffère du défaut (France, oct. 2026). */
+    source?: string;
   };
   publics: readonly { titre: string; texte: string }[];
   saison: string;
@@ -1677,6 +1679,75 @@ export const SECTEURS: readonly Secteur[] = [
       {
         q: "Un spa d'hôtel peut-il travailler avec vous ?",
         a: "Oui : nous travaillons la visibilité du spa auprès de la clientèle locale, en complément de la clientèle de l'hôtel.",
+      },
+    ],
+  },
+  {
+    slug: "love-room",
+    famille: "sejour",
+    nom: "Love rooms",
+    titre: "Marketing digital pour love rooms et suites à l'heure",
+    pour: "les love rooms et suites privatives",
+    un: "une love room",
+    votre: "votre love room",
+    metaDescription:
+      "Agence marketing digital pour love rooms, suites privatives et salles à thème louées à l'heure : SEO local, réservation en ligne, WhatsApp automatisé, tracking.",
+    subtitle:
+      "Suites avec jacuzzi, chambres à thème, salles louées à l'heure : nous remplissons vos créneaux de semaine, automatisons la réservation et vendons vos cartes cadeaux, en toute discrétion.",
+    probleme: [
+      "Une love room vend du temps : chaque créneau vide du mardi après-midi est perdu pour de bon.",
+      "La plupart des réservations passent encore par téléphone ou WhatsApp, avec un acompte à vérifier à la main : des heures de messages pour l'équipe, et des clients qui partent faute de réponse immédiate.",
+      "Et la publicité est bridée : Google et Meta encadrent fortement les annonces liées à l'intimité. Le référencement local, la fiche Google et le suivi des réservations deviennent décisifs.",
+    ],
+    demande: {
+      intro:
+        "« Love room » se cherche 74 000 fois par mois en France, « love room paris » 8 000 fois. Une demande forte et très locale, qui se gagne sur Google Maps et le référencement plus que par la publicité.",
+      requetes: [
+        { mot: "love room", volume: 74000 },
+        { mot: "love room paris", volume: 8000 },
+        { mot: "chambre avec jacuzzi privatif", volume: 3600 },
+        { mot: "love room lyon", volume: 2400 },
+        { mot: "love room pas cher", volume: 590 },
+        { mot: "nuit love room", volume: 110 },
+      ],
+      source:
+        "Volumes de recherche Google en France, mesurés avec SE Ranking en novembre 2026.",
+    },
+    publics: [
+      {
+        titre: "Les couples",
+        texte:
+          "Une soirée ou une nuit à part : SEO local, fiche Google soignée et campagnes autour des occasions (Saint-Valentin, anniversaires de couple).",
+      },
+      {
+        titre: "Les offreurs de cadeaux",
+        texte:
+          "Cartes cadeaux vendues en ligne et envoyées en PDF, avec des campagnes calées sur Noël et la Saint-Valentin.",
+      },
+      {
+        titre: "Les touristes et les créatifs",
+        texte:
+          "Visiteurs de passage qui cherchent en anglais, photographes et vidéastes qui louent un décor à l'heure : pages dédiées et site multilingue.",
+      },
+    ],
+    saison:
+      "Pics à la Saint-Valentin, le week-end et pendant les vacances ; creux en semaine et en journée. Nous remplissons les creux avec des tarifs dédiés et des relances automatiques, et préparons les temps forts à l'avance.",
+    faq: [
+      {
+        q: "Peut-on faire de la publicité pour une love room ?",
+        a: "Oui, avec précaution : Google Ads et Meta encadrent strictement les contenus liés à l'intimité. Nous construisons des annonces et des visuels conformes (décor, ambiance, cadeau, discrétion) et misons surtout sur ce qui n'est pas bridé : référencement local, fiche Google, avis clients et partenariats.",
+      },
+      {
+        q: "Comment automatiser les réservations par WhatsApp ?",
+        a: "Avec un assistant WhatsApp relié à votre agenda : il répond tout de suite aux questions (tarifs, disponibilités, accès), propose les créneaux libres, envoie le lien de paiement de l'acompte et la confirmation. Votre équipe ne reprend la main que sur les cas particuliers.",
+      },
+      {
+        q: "Comment mesurer les réservations qui passent par WhatsApp ou le téléphone ?",
+        a: "En traçant chaque clic vers WhatsApp et chaque appel depuis le site, puis en remontant les réservations confirmées dans Google et Meta. Vous savez enfin quelles recherches et quelles campagnes remplissent vos salles.",
+      },
+      {
+        q: "Comment préserver la discrétion de vos clients ?",
+        a: "Elle guide toute la communication : aucune donnée sensible dans les campagnes, des messages et des confirmations sobres, des audiences publicitaires agrégées et anonymes.",
       },
     ],
   },

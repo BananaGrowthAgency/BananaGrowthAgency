@@ -27,10 +27,10 @@ const nextConfig: NextConfig = {
         destination: "/politique-de-confidentialite",
         permanent: true,
       },
-      // Ancienne page parcs en espagnol -> page parcs FR.
+      // Ancienne page parcs en espagnol (Wix) -> version espagnole sous /es.
       {
         source: "/agencia-marketing-digital-parque-de-ocio",
-        destination: "/accompagnement-marketing-digital-parc-de-loisir",
+        destination: "/es/agencia-marketing-digital-parque-de-ocio",
         permanent: true,
       },
       // Ancienne page de réservation Wix -> prise de rendez-vous.

@@ -1,6 +1,8 @@
 /* Prise de rendez-vous maison (remplace Calendly).
    Réglages repris des deux types d'événement Calendly de Ben (novembre 2026). */
 
+import type { Locale } from "@/lib/i18n";
+
 export const BOOKING_TZ = "Europe/Paris";
 
 export type BookingQuestion = {
@@ -104,4 +106,58 @@ export const BOOKING_TYPES: Record<BookingKey, BookingType> = {
 
 export function getBookingType(key: string | null | undefined): BookingType | null {
   return key && key in BOOKING_TYPES ? BOOKING_TYPES[key as BookingKey] : null;
+}
+
+/* Version espagnole des textes visibles par le visiteur. Les ids (key, name des
+   questions, valeurs envoyées à l'API) ne changent pas : seuls les libellés. */
+const ES: Record<
+  BookingKey,
+  { title: string; eventLabel: string; description: string[]; labels: Record<string, string> }
+> = {
+  audit: {
+    title: "Auditoría gratuita para negocios de ocio experiencial",
+    eventLabel: "Auditoría gratuita",
+    description: [
+      "¿Ofreces actividades de ocio o experiencias únicas, en interior o al aire libre?",
+      "En Banana Growth Agency llevamos más de 5 años generando afluencia para los negocios de ocio activo y experiencial.",
+      "Reserva una cita e identifiquemos juntos tus mejores palancas de optimización. 🚀",
+    ],
+    labels: {
+      firstName: "Nombre",
+      lastName: "Apellidos",
+      email: "Email",
+      company: "¿Cómo se llama tu parque de ocio?",
+      googleAds: "¿Haces publicidad en Google?",
+      metaAds: "¿Haces publicidad en Instagram y Facebook?",
+    },
+  },
+  rdv: {
+    title: "Cita de 30 min",
+    eventLabel: "Cita",
+    description: [
+      "30 minutos por videollamada para hablar de tu crecimiento: tus objetivos, tus canales actuales y lo que podemos hacer juntos.",
+    ],
+    labels: {
+      firstName: "Nombre",
+      lastName: "Apellidos",
+      email: "Email",
+      phone: "Teléfono",
+      company: "Empresa",
+      message: "Todo lo que pueda ser útil para preparar nuestra conversación",
+    },
+  },
+};
+
+/** Type de rendez-vous avec ses textes dans la langue voulue (mêmes ids, mêmes réglages). */
+export function bookingTypeFor(key: BookingKey, locale: Locale = "fr"): BookingType {
+  const type = BOOKING_TYPES[key];
+  if (locale === "fr") return type;
+  const es = ES[key];
+  return {
+    ...type,
+    title: es.title,
+    eventLabel: es.eventLabel,
+    description: es.description,
+    questions: type.questions.map((q) => ({ ...q, label: es.labels[q.name] ?? q.label })),
+  };
 }

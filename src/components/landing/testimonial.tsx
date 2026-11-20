@@ -7,6 +7,26 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: {
+    eyebrow: "Avis",
+    title: "Ils adorent notre",
+    highlight: "cocktail",
+    prev: "Avis précédent",
+    next: "Avis suivant",
+    dot: "Avis",
+  },
+  es: {
+    eyebrow: "Opiniones",
+    title: "Les encanta nuestro",
+    highlight: "cóctel",
+    prev: "Opinión anterior",
+    next: "Opinión siguiente",
+    dot: "Opinión",
+  },
+} as const;
 
 const AUTOPLAY_MS = 6500;
 
@@ -48,18 +68,23 @@ type TestimonialProps = {
   /** Hauteur réservée pour la citation, afin que les flèches ne bougent pas
    * d'un avis à l'autre. À augmenter pour des témoignages plus longs. */
   quoteMinH?: string;
+  /** Langue des libellés d'interface (aria-labels, titre par défaut). */
+  locale?: Locale;
 };
 
 export function Testimonial({
   items = TESTIMONIALS,
-  eyebrow = "Avis",
+  locale = "fr",
+  eyebrow = TEXTES[locale].eyebrow,
   title = (
     <>
-      Ils adorent notre <span className="text-spectrum">cocktail</span>
+      {TEXTES[locale].title}{" "}
+      <span className="text-spectrum">{TEXTES[locale].highlight}</span>
     </>
   ),
   quoteMinH = "min-h-[13rem] md:min-h-[9rem]",
 }: TestimonialProps) {
+  const txt = TEXTES[locale];
   const [[index, dir], setState] = useState<[number, number]>([0, 0]);
   const [paused, setPaused] = useState(false);
   const count = items.length;
@@ -172,7 +197,7 @@ export function Testimonial({
             <button
               type="button"
               onClick={() => go(index - 1)}
-              aria-label="Avis précédent"
+              aria-label={txt.prev}
               className="absolute left-0 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-pink/30 bg-ink/80 text-foreground/80 backdrop-blur-sm transition-all hover:scale-110 hover:border-transparent hover:text-white hover:[background-image:linear-gradient(100deg,#ffd21e,#ff7a18,#ff2e9a)] hover:shadow-[0_0_20px_rgba(255,46,154,0.5)] md:-left-6"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -180,7 +205,7 @@ export function Testimonial({
             <button
               type="button"
               onClick={() => go(index + 1)}
-              aria-label="Avis suivant"
+              aria-label={txt.next}
               className="absolute right-0 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-pink/30 bg-ink/80 text-foreground/80 backdrop-blur-sm transition-all hover:scale-110 hover:border-transparent hover:text-white hover:[background-image:linear-gradient(100deg,#ffd21e,#ff7a18,#ff2e9a)] hover:shadow-[0_0_20px_rgba(255,46,154,0.5)] md:-right-6"
             >
               <ChevronRight className="h-5 w-5" />
@@ -194,7 +219,7 @@ export function Testimonial({
                 key={i}
                 type="button"
                 onClick={() => go(i)}
-                aria-label={`Avis ${i + 1}`}
+                aria-label={`${txt.dot} ${i + 1}`}
                 className={cn(
                   "h-2 rounded-full transition-all duration-300",
                   i === index

@@ -4,6 +4,12 @@ import { useState, type ReactNode } from "react";
 import { Info } from "lucide-react";
 import type { Version } from "@/lib/tracking";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n";
+
+const TEXTES = {
+  fr: { aria: "Version du moteur", concerne: "Vous êtes concerné si" },
+  es: { aria: "Versión del motor", concerne: "Te afecta si" },
+} as const;
 
 /**
  * Sélecteur de version, pour les moteurs dont deux générations coexistent.
@@ -16,11 +22,14 @@ import { cn } from "@/lib/utils";
 export function VersionTabs({
   versions,
   contenus,
+  locale = "fr",
 }: {
   versions: readonly Version[];
   /** Une entrée par version, dans le même ordre, indexée par `Version.id`. */
   contenus: Record<string, ReactNode>;
+  locale?: Locale;
 }) {
+  const t = TEXTES[locale];
   const [actif, setActif] = useState(versions[0]?.id);
   const courant = versions.find((v) => v.id === actif) ?? versions[0];
 
@@ -30,7 +39,7 @@ export function VersionTabs({
         <div className="mx-auto max-w-3xl">
           <div
             role="tablist"
-            aria-label="Version du moteur"
+            aria-label={t.aria}
             className="flex flex-wrap gap-2"
           >
             {versions.map((v) => {
@@ -62,7 +71,7 @@ export function VersionTabs({
               <span className="text-foreground/80">
                 {courant.label} — {courant.statut}.
               </span>{" "}
-              Vous êtes concerné si {courant.reconnaitre}.
+              {t.concerne} {courant.reconnaitre}.
             </span>
           </p>
         </div>

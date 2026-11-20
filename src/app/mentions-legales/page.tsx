@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage, LegalSection } from "@/components/landing/legal-page";
+import { hreflang } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Mentions Légales — Banana Growth Agency",
   description:
     "Mentions légales du site Banana Growth Agency : éditeur, hébergeur et informations légales.",
+  alternates: { languages: hreflang("/mentions-legales") },
 };
 
 export default function MentionsLegalesPage() {

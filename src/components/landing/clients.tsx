@@ -1,12 +1,18 @@
 import Image from "next/image";
 import { CLIENTS } from "@/lib/site";
+import type { Locale } from "@/lib/i18n";
 
-export function Clients() {
+const TEXTES = {
+  fr: { eyebrow: "Ils nous font confiance" },
+  es: { eyebrow: "Confían en nosotros" },
+} as const;
+
+export function Clients({ locale = "fr" }: { locale?: Locale }) {
   const row = [...CLIENTS, ...CLIENTS];
   return (
     <section className="border-y border-white/10 py-10">
       <p className="mb-8 text-center text-sm uppercase tracking-[0.2em] md:text-base text-pink">
-        Ils nous font confiance
+        {TEXTES[locale].eyebrow}
       </p>
       <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
         <div className="flex w-max animate-marquee items-center gap-14 pr-14 hover:[animation-play-state:paused]">

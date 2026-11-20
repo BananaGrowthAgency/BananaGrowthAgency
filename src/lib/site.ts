@@ -1,3 +1,4 @@
+import { autreLangue, lien, localeDe } from "@/lib/i18n";
 /** Prise de rendez-vous maison (src/app/rendez-vous), branchée sur l'agenda Google de Ben. */
 export const RDV_URL = "/rendez-vous";
 export const AUDIT_PARC_URL = "/rendez-vous/audit-offert-parc-de-loisir";
@@ -13,6 +14,10 @@ export const SITE_URL = "https://www.banana-growth.agency";
 
 /** Racine de l'univers parcs de loisirs. */
 export const PARC_HREF = "/accompagnement-marketing-digital-parc-de-loisir";
+
+/** Version espagnole de la landing parcs (parques de ocio). L'ancienne URL Wix,
+ *  /agencia-marketing-digital-parque-de-ocio, y redirige en 301. */
+export const PARC_ES_HREF = "/es/agencia-marketing-digital-parque-de-ocio";
 
 /**
  * Navigation contextuelle.
@@ -69,10 +74,36 @@ const PREFIXES_PARC = [
   "/plan-de-taggage-parc-de-loisirs",
 ];
 
+/** Libellés espagnols des barres, indexés par le libellé français. */
+const LIBELLES_ES: Record<string, string> = {
+  Manifesto: "Manifiesto",
+  "Nos services": "Servicios",
+  Avis: "Opiniones",
+  "Use Case": "Casos de éxito",
+  "Parcs de loisirs": "Parques de ocio",
+  Outils: "Herramientas",
+  Taggage: "Etiquetado",
+  "L'agence": "La agencia",
+  "Outils de gestion": "Software de gestión",
+  "Plans de taggage": "Planes de etiquetado",
+};
+
+/** Version espagnole d'une barre : libellés traduits, liens vers /es. */
+export function navEs(liens: readonly NavLink[]): NavLink[] {
+  return liens.map((l) => ({
+    ...l,
+    label: LIBELLES_ES[l.label] ?? l.label,
+    href: lien("es", l.href),
+  }));
+}
+
 export function navPour(pathname: string): readonly NavLink[] {
-  return PREFIXES_PARC.some((p) => pathname.startsWith(p))
+  const es = localeDe(pathname) === "es";
+  const cheminFr = es ? autreLangue(pathname).href : pathname;
+  const liens = PREFIXES_PARC.some((p) => cheminFr.startsWith(p))
     ? NAV_PARC
     : NAV_AGENCE;
+  return es ? navEs(liens) : liens;
 }
 
 export const CLIENTS = [
@@ -495,5 +526,17 @@ export const PARC = {
     title: "Votre croissance commence ici.",
     subtitle: "Réservez votre audit gratuit et remplissez votre parc.",
     cta: "Réserver mon audit",
+  },
+  ui: {
+    contactCta: "Envoyer un message",
+    servicesEyebrow: "Nos services",
+    servicesTitle: "Un cocktail de services qui",
+    servicesHighlight: "porte ses fruits",
+    testimonialsEyebrow: "Avis",
+    testimonialsTitle: "Ils nous font déjà",
+    testimonialsHighlight: "confiance",
+    faqTitle: "Les questions",
+    faqHighlight: "fréquentes",
+    teamAlt: "L'équipe Banana Growth Agency",
   },
 } as const;

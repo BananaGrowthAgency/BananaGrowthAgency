@@ -1,13 +1,16 @@
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
+import type { Locale } from "@/lib/i18n";
 
 export function LegalPage({
   title,
   children,
+  locale = "fr",
 }: {
   title: string;
   children: ReactNode;
+  locale?: Locale;
 }) {
   return (
     <>
@@ -23,7 +26,7 @@ export function LegalPage({
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }
