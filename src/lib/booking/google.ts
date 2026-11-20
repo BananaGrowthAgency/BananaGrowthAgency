@@ -36,9 +36,17 @@ async function gcal<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-/** Agendas qui rendent Ben indisponible (par défaut : son agenda principal). */
+/** Agendas qui rendent Ben indisponible : son agenda principal, Badabambou et Leisure.
+    Pas les agendas d'événements auxquels il est abonné (Mindvalley, Kite and Connect…),
+    qui bloqueraient des journées entières. GOOGLE_BUSY_CALENDARS remplace cette liste. */
+const AGENDAS_OCCUPES = [
+  "primary",
+  "13rscqjkolbu8fhum1a4et8eng@group.calendar.google.com", // Badabambou
+  "s165b20rmn8jf8agi3k65n32s0@group.calendar.google.com", // Leisure
+];
 function busyCalendars(): string[] {
-  return (process.env.GOOGLE_BUSY_CALENDARS || "primary").split(",").map((s) => s.trim()).filter(Boolean);
+  const env = process.env.GOOGLE_BUSY_CALENDARS;
+  return (env ? env.split(",") : AGENDAS_OCCUPES).map((s) => s.trim()).filter(Boolean);
 }
 
 export type Interval = { start: number; end: number };
