@@ -1693,9 +1693,9 @@ export const SECTEURS: readonly Secteur[] = [
     metaDescription:
       "Agence marketing digital pour love rooms, suites privatives et salles à thème louées à l'heure : SEO local, réservation en ligne, WhatsApp automatisé, tracking.",
     subtitle:
-      "Suites avec jacuzzi, chambres à thème, salles louées à l'heure : nous remplissons vos créneaux de semaine, automatisons la réservation et vendons vos cartes cadeaux, en toute discrétion.",
+      "Suites avec jacuzzi, chambres à thème, salles louées à l'heure : nous remplissons vos week-ends, automatisons la réservation et vendons vos cartes cadeaux, en toute discrétion.",
     probleme: [
-      "Une love room vend du temps : chaque créneau vide du mardi après-midi est perdu pour de bon.",
+      "Une love room fait l'essentiel de son chiffre le week-end : un samedi soir qui n'est pas réservé est un samedi soir perdu pour toujours.",
       "La plupart des réservations passent encore par téléphone ou WhatsApp, avec un acompte à vérifier à la main : des heures de messages pour l'équipe, et des clients qui partent faute de réponse immédiate.",
       "Et la publicité est bridée : Google et Meta encadrent fortement les annonces liées à l'intimité. Le référencement local, la fiche Google et le suivi des réservations deviennent décisifs.",
     ],
@@ -1731,7 +1731,7 @@ export const SECTEURS: readonly Secteur[] = [
       },
     ],
     saison:
-      "Pics à la Saint-Valentin, le week-end et pendant les vacances ; creux en semaine et en journée. Nous remplissons les creux avec des tarifs dédiés et des relances automatiques, et préparons les temps forts à l'avance.",
+      "Le chiffre se fait le vendredi et le samedi soir, avec des pics à la Saint-Valentin et pendant les vacances. Nous faisons en sorte que chaque soirée de week-end soit réservée à l'avance, puis nous remplissons la semaine avec des tarifs dédiés et des relances automatiques.",
     faq: [
       {
         q: "Peut-on faire de la publicité pour une love room ?",

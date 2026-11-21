@@ -10,6 +10,7 @@ import { CtaPair } from "@/components/cta-pair";
 import { Reveal } from "@/components/reveal";
 import { NeonIcon } from "@/components/neon-icon";
 import { CountUp } from "@/components/count-up";
+import { OffrePiliers } from "@/components/landing/offre-piliers";
 
 /**
  * Landing parcs de loisirs, partagée entre la version française
@@ -296,6 +297,7 @@ export function ParcLanding({
         <ParcProblem t={t} />
         <ParcMission t={t} locale={locale} />
         <ParcServices t={t} />
+        <OffrePiliers locale={locale} />
         <Testimonial
           items={t.testimonials}
           eyebrow={t.ui.testimonialsEyebrow}

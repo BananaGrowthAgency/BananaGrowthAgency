@@ -1661,9 +1661,9 @@ export const SECTEURS_ES: readonly Secteur[] = [
     metaDescription:
       "Agencia de marketing digital para love rooms, suites privadas y salas temáticas por horas: SEO local, reserva online, WhatsApp automatizado y tracking.",
     subtitle:
-      "Suites con jacuzzi, habitaciones temáticas, salas por horas: llenamos tus franjas entre semana, automatizamos las reservas y vendemos tus tarjetas regalo, con total discreción.",
+      "Suites con jacuzzi, habitaciones temáticas, salas por horas: llenamos tus fines de semana, automatizamos las reservas y vendemos tus tarjetas regalo, con total discreción.",
     probleme: [
-      "Una love room vende tiempo: cada franja vacía de un martes por la tarde se pierde para siempre.",
+      "Una love room hace la mayor parte de su facturación el fin de semana: un sábado por la noche sin reservar es un sábado perdido para siempre.",
       "La mayoría de las reservas siguen llegando por teléfono o WhatsApp, con una señal que hay que comprobar a mano: horas de mensajes para el equipo, y clientes que se van porque no reciben respuesta al momento.",
       "Y la publicidad está limitada: Google y Meta restringen mucho los anuncios relacionados con la intimidad. El SEO local, la ficha de Google y el seguimiento de las reservas se vuelven decisivos.",
     ],
@@ -1699,7 +1699,7 @@ export const SECTEURS_ES: readonly Secteur[] = [
       },
     ],
     saison:
-      "Picos en San Valentín, los fines de semana y en vacaciones; huecos entre semana y durante el día. Llenamos esos huecos con tarifas específicas y recordatorios automáticos, y preparamos las fechas fuertes con antelación.",
+      "La facturación se hace los viernes y sábados por la noche, con picos en San Valentín y en vacaciones. Nos aseguramos de que cada noche de fin de semana esté reservada con antelación, y después llenamos la semana con tarifas específicas y recordatorios automáticos.",
     faq: [
       {
         q: "¿Se puede hacer publicidad de una love room?",

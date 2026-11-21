@@ -1,3 +1,4 @@
+import { OffrePiliers } from "@/components/landing/offre-piliers";
 import type { Metadata } from "next";
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
@@ -57,6 +58,7 @@ export default function InicioEs() {
         <Manifesto locale="es" />
         <Differentiation locale="es" />
         <Services locale="es" />
+        <OffrePiliers locale="es" />
         <Testimonial locale="es" items={TESTIMONIALS_ES} />
         <Process locale="es" steps={PROCESS_ES} />
         <UseCases locale="es" />

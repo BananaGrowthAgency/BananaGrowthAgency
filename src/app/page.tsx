@@ -1,3 +1,4 @@
+import { OffrePiliers } from "@/components/landing/offre-piliers";
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { Clients } from "@/components/landing/clients";
@@ -52,6 +53,7 @@ export default function Home() {
         <Manifesto />
         <Differentiation />
         <Services />
+        <OffrePiliers />
         <Testimonial />
         <Process />
         <UseCases />
