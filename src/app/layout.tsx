@@ -79,6 +79,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {children}
+        {/* Bandeau « Accéder à nos replays » (webinaire Qweekle × Banana). */}
+        <Script
+          id="bandeau-webinaire"
+          src="https://webinaire.banana-growth.agency/bandeau-webinaire.js"
+          data-source="bga"
+          data-mode="replays"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
