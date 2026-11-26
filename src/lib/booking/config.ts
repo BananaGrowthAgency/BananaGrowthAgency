@@ -35,16 +35,15 @@ export type BookingType = {
 
 export type BookingKey = "audit" | "rdv";
 
-// « Heures de travail » de Calendly : lun–jeu 10 h–20 h, ven 10 h–17 h, sam 10 h–15 h.
+// Heures de travail : lun–jeu 10 h–20 h, ven 10 h–17 h. Samedi et dimanche fermés
+// (le samedi 10 h–15 h hérité de Calendly a été retiré le 26/11/2026).
 const WORK_HOURS: BookingType["hours"] = {
   1: [[10, 20]],
   2: [[10, 20]],
   3: [[10, 20]],
   4: [[10, 20]],
   5: [[10, 17]],
-  6: [[10, 15]],
 };
-const WEEKDAYS_ONLY = Object.fromEntries(Object.entries(WORK_HOURS).filter(([d]) => d !== "6"));
 
 export const BOOKING_TYPES: Record<BookingKey, BookingType> = {
   audit: {
@@ -88,7 +87,7 @@ export const BOOKING_TYPES: Record<BookingKey, BookingType> = {
     bufferAfterMin: 15,
     horizonDays: 15,
     minNoticeMin: 24 * 60,
-    hours: WEEKDAYS_ONLY,
+    hours: WORK_HOURS,
     questions: [
       { name: "firstName", label: "Prénom", type: "text", required: true, autoComplete: "given-name" },
       { name: "lastName", label: "Nom", type: "text", required: true, autoComplete: "family-name" },
